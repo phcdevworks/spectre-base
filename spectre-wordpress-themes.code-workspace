@@ -1,29 +1,141 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
+  "folders": [
+    {
+      "path": "."
+    }
   ],
   "settings": {
     "workbench.colorTheme": "One Dark Pro",
     "workbench.iconTheme": "material-icon-theme",
+    "workbench.startupEditor": "none",
     "workbench.editor.enablePreview": false,
     "breadcrumbs.enabled": true,
+    "editor.fontFamily": "'Fira Code', 'Cascadia Code', 'JetBrains Mono', Consolas, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 14,
+    "editor.lineHeight": 1.6,
+    "editor.cursorBlinking": "smooth",
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.smoothScrolling": true,
+    "editor.minimap.enabled": false,
+    "editor.renderWhitespace": "boundary",
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": "active",
+    "editor.inlineSuggest.enabled": true,
+    "editor.linkedEditing": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": false,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": true,
+    "editor.trimAutoWhitespace": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.eol": "\n",
     "files.associations": {
       "*.css": "css",
-      "*.ts": "typescript",
-      "*.tsx": "typescriptreact"
+      "*.php": "php",
+      "*.ts": "typescript"
     },
-    "explorer.confirmDelete": false,
-    "explorer.confirmDragAndDrop": false,
-    "explorer.compactFolders": false,
-    "explorer.sortOrder": "type",
-    "terminal.integrated.fontSize": 13,
-    "terminal.integrated.fontFamily": "'Fira Code', 'Cascadia Code', monospace",
-    "terminal.integrated.cursorBlinking": true,
-    "terminal.integrated.cursorStyle": "line",
-    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "files.exclude": {
+      "**/.git": true,
+      "**/.DS_Store": true,
+      "**/node_modules": true,
+      "**/spectre-theme/dist": true
+    },
+    "files.watcherExclude": {
+      "**/node_modules/**": true,
+      "**/spectre-theme/dist/**": true
+    },
+    "search.smartCase": true,
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "npm.packageManager": "npm",
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "git.autofetch": true,
     "git.confirmSync": false,
-    "search.smartCase": true
+    "git.enableSmartCommit": true,
+    "scm.defaultViewMode": "tree",
+    "[typescript]": {
+      "editor.defaultFormatter": "vscode.typescript-language-features",
+      "editor.wordWrap": "off"
+    },
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "vscode.typescript-language-features",
+      "editor.wordWrap": "off"
+    },
+    "[php]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.wordWrap": "off"
+    },
+    "[markdown]": {
+      "editor.wordWrap": "on",
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.quickSuggestions": {
+        "comments": "off",
+        "strings": "off",
+        "other": "off"
+      }
+    }
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Dev Server",
+        "type": "node-terminal",
+        "request": "launch",
+        "command": "npm run dev"
+      }
+    ]
+  },
+  "extensions": {
+    "recommendations": [
+      "bradlc.vscode-tailwindcss",
+      "dbaeumer.vscode-eslint",
+      "editorconfig.editorconfig",
+      "esbenp.prettier-vscode",
+      "ms-vscode-remote.remote-wsl",
+      "pkief.material-icon-theme",
+      "yzhang.markdown-all-in-one",
+      "zhuangtongfa.material-theme"
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "dev",
+        "command": "npm run dev",
+        "type": "shell",
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
+      },
+      {
+        "label": "build",
+        "command": "npm run build",
+        "type": "shell"
+      },
+      {
+        "label": "lint",
+        "command": "npm run lint",
+        "type": "shell"
+      },
+      {
+        "label": "lint:php",
+        "command": "npm run lint:php",
+        "type": "shell"
+      },
+      {
+        "label": "check",
+        "command": "npm run check",
+        "type": "shell"
+      }
+    ]
   }
 }

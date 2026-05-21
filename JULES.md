@@ -19,6 +19,19 @@ Jules does not own primary development, architecture decisions, release ownershi
 4. Commit and push only when validation checks pass clean.
 5. If a gate fails and cannot be safely resolved within scope — revert and report the blocker instead of committing a broken state.
 
+## Bounded Task Categories
+
+Jules may handle:
+
+- Small WordPress shell, template, or TypeScript fixes with narrow scope
+- Dependency and lockfile updates that do not change public behavior
+- Generated-output sync via `npm run build`
+- Documentation, metadata, or release-hygiene micro-updates that match existing
+  guidance
+
+Jules must not take on large feature work, client-specific theming, release
+ownership, WordPress architecture changes, or AI governance rewrites.
+
 ## Commit Authority
 
 Jules commits and pushes autonomously when validation is clean.
@@ -31,3 +44,21 @@ Jules must not:
 ### Commit message format:
 - `chore(spectre-wordpress-themes): <description of maintenance or dependency update>`
 - `fix(spectre-wordpress-themes): <description of minor bug fix>`
+
+## Validation Gate
+
+Jules must run and pass the full gate before committing:
+
+```bash
+npm run check
+```
+
+## Hard Limits
+
+- Never change public contract values: theme metadata, public hooks, filters,
+  asset handles, or template contracts unless explicitly scoped.
+- Never modify locked semantic groups by adding hardcoded visual values, local
+  tokens, or client-specific branding.
+- Always regenerate generated output rather than hand-editing
+  `spectre-theme/dist/`.
+- Never commit if `npm run check` fails.

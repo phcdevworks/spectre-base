@@ -1,18 +1,21 @@
-# GitHub Copilot Instructions for @phcdevworks/spectre-wordpress-themes
+# COPILOT.md - Spectre WordPress Themes Support
 
-## Role
+## Role Summary
 
 GitHub Copilot is the general development support assistant for this package.
+Copilot helps with targeted edits, refactors, TypeScript/PHP hints, validation
+suggestions, GitHub workflow support, and documentation synchronization.
 
-- Claude Code owns implementation leadership (`CLAUDE.md`).
+Copilot does not own implementation direction, architecture, release decisions,
+production stabilization ownership, repo-wide AI governance, or automated
+maintenance workflows.
+
+## Authority Boundaries
+
+- Claude Code remains lead implementation owner (`CLAUDE.md`).
 - Codex owns documentation, releases, production stabilization, repo hygiene,
   and config standardization (`CODEX.md`).
-- Jules owns bounded automated maintenance tasks.
-- Copilot supports targeted edits, refactors, TypeScript/PHP lint-safe fixes,
-  test and validation suggestions, API usage hints, and IDE productivity.
-
-Copilot does not own architecture direction, release decisions, or final
-handoff authority.
+- Jules owns bounded automated maintenance (`JULES.md`).
 
 ## Package Conventions
 
@@ -21,21 +24,24 @@ handoff authority.
   `@phcdevworks/spectre-components`; do not recreate their ownership locally.
 - Keep PHP templates structural and WordPress-native.
 - Keep client code TypeScript-first under `src/js/`.
-- Avoid hardcoded visual values in styles and templates.
+- Never hand-edit `spectre-theme/dist/`; regenerate with `npm run build`.
 
 ## Working Style
 
-- Prefer narrow, pattern-aligned changes over broad rewrites.
-- Keep docs and release artifacts in sync when behavior changes.
+- Prefer narrow, pattern-aligned changes.
 - Preserve unrelated local changes.
+- Keep docs, changelog entries, and theme metadata synchronized when public
+  behavior changes.
 - Do not create commits, tags, or releases unless explicitly asked.
 
 ## Validation
 
-- Use focused checks first where useful.
-- For release-scoped changes, use the real gate: `npm run check` (alias for
-  `npm run validate`, which runs build, check:assets, lint, lint:php, and
-  check:drift in sequence).
+Use focused checks where useful, then the full gate for release-scoped or
+contract-impacting changes:
+
+```bash
+npm run check
+```
 
 ## Pull Request Creation
 
@@ -58,4 +64,4 @@ unfilled. CodeRabbit's description check blocks such PRs.
 - Shared boundaries: `AGENTS.md`
 - Lead implementation rules: `CLAUDE.md`
 - Release/readiness rules: `CODEX.md`
-- Scoped task instructions: `.github/instructions/`
+- GitHub-integrated support summary: `.github/copilot-instructions.md`

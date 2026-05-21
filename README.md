@@ -297,7 +297,7 @@ Set `WP_ENVIRONMENT_TYPE` to anything other than `development` in `wp-config.php
 
 ```bash
 # Build and verify before deploying
-npm run validate
+npm run check
 
 # ZIP the deployable directory
 zip -r spectre-theme.zip spectre-theme/
@@ -428,8 +428,10 @@ repository. Codex handles releases and production stabilization. Jules handles
 small automated fixes and dependency updates. GitHub Copilot provides
 development support.
 
-No agent creates git commits. All changes are prepared and validated, then
-handed off to Bradley Potts for human review and commit.
+Claude Code, Codex, and Copilot do not create git commits by default. Jules may
+commit only bounded automated maintenance when the `JULES.md` scope and
+validation gates pass. Final commit, merge, release, tag, and publishing
+authority remains with Bradley Potts.
 
 **Protected from automated change:** the Golden Rule (CMS delivers, design
 system defines — no local token overrides or hardcoded values), PHP template

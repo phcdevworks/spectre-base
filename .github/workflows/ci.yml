@@ -47,4 +47,4 @@ jobs:
         run: npm ci
 
       - name: Run validation suite
-        run: npm run validate
+        run: npm run check

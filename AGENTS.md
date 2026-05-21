@@ -22,12 +22,19 @@ This repository follows the Spectre AI factory model:
 | ----- | ---- | --------- |
 | Claude Code | Lead developer responsible for primary implementation | `CLAUDE.md` |
 | OpenAI Codex | Documentation, releases, production stabilization, repo hygiene, and config standardization | `CODEX.md` and `.codex/` |
-| GitHub Copilot | General development assistance | `.github/copilot-instructions.md` and `.github/instructions/` |
-| Google Jules | Automated maintenance for small fixes, dependency updates, and micro-updates | JULES.md and task prompts |
+| ChatGPT | Strategy, coordination, prompt design, and external review — support layer only, no implementation ownership | — |
+| GitHub Copilot | General development assistance | `COPILOT.md`, `.github/copilot-instructions.md`, and `.github/instructions/` |
+| Google Jules | Automated maintenance for small fixes, dependency updates, and micro-updates | `JULES.md` and task prompts |
 
 Claude Code keeps implementation leadership. Codex keeps release and
-stabilization work clean. Copilot assists without owning decisions. Jules works
-only on bounded automated maintenance and must not take on large feature work.
+stabilization work clean. ChatGPT provides strategy and coordination support
+only. Copilot assists without owning decisions. Jules works only on bounded
+automated maintenance and must not take on large feature work.
+
+**Bradley Potts** holds final authority for all commits, merges, tags,
+publishing, and releases. No AI agent holds commit authority in this repository
+except Jules, which may commit bounded automated maintenance when all validation
+gates pass.
 
 ## Codex Role
 
@@ -191,7 +198,7 @@ Jules reads both `AGENTS.md` and `CLAUDE.md` before touching any file.
 **Validation gate Jules must pass before committing:**
 
 ```bash
-npm run validate
+npm run check
 ```
 
 Jules follows the no-commit policy for human decisions: version bumps, tags,
@@ -208,8 +215,35 @@ as the working checklist. At minimum:
   `spectre-theme/style.css`, and `spectre-theme/readme.txt` when a version bump
   is part of the change.
 - Run the validation commands relevant to the change, with the full release gate
-  preferred before handoff: `npm run validate`.
+  preferred before handoff: `npm run check`.
 - Document any skipped validation, known risk, or production follow-up clearly.
 - Keep release notes and documentation standardized when code changes alter
   user-facing behavior, installation steps, build expectations, or package
   contracts.
+
+## Pull Request Creation
+
+Every agent that opens a PR must populate every section of the repo's PR
+template (`.github/pull_request_template.md`):
+
+- **Linked issue** — issue number (`#N`) or `N/A`.
+- **Summary of changes** — one or two bullets describing what changed.
+- **Theme contract change type** — exactly one of `additive`,
+  `semantic change`, `breaking`, or `N/A`.
+- **Type of Change** — check every box that applies.
+- **Checklist** — check each completed item; leave blocked items unchecked
+  with a brief inline note.
+
+Never submit a PR with an empty body or only the template headings left
+unfilled. CodeRabbit's description check blocks such PRs.
+
+## Claude Code Maintenance Notes
+
+- Run `npm run check` before every handoff touching `src/`, `spectre-theme/`,
+  `scripts/`, package metadata, or docs.
+- Never hand-edit generated output in `spectre-theme/dist/`.
+- Keep CSS and templates token-driven; do not add hardcoded visual values,
+  local token definitions, or client-specific branding.
+- Keep version metadata synchronized across `package.json`,
+  `spectre-theme/style.css`, and `spectre-theme/readme.txt` whenever versions
+  change.

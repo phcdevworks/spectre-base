@@ -83,13 +83,39 @@ The deployable WordPress theme directory in this repository is
 Run the full validation suite locally:
 
 ```bash
-npm run validate
+npm run check
 ```
 
 If your change affects WordPress rendering, verify both:
 
 - Development mode loading from the Vite dev server
 - Production mode loading from `spectre-theme/dist/.vite/manifest.json`
+
+## Contract-Impacting Changes
+
+Any change that touches a public theme surface requires explicit classification
+before review. Public surfaces include WordPress hooks and filters, template
+contracts, asset handles, theme metadata, deployable files in `spectre-theme/`,
+README usage, and generated asset output.
+
+Step-by-step checklist:
+
+1. Identify the change classification: `additive`, `semantic change`,
+   `breaking`, or `N/A`.
+2. Update source, docs, theme metadata, and `CHANGELOG.md [Unreleased]`
+   together.
+3. Confirm no hardcoded visual values, local tokens, client-specific branding,
+   or starter-theme boundary violations were introduced.
+4. Regenerate assets with `npm run build` if output changed.
+5. Run the full validation command:
+
+   ```bash
+   npm run check
+   ```
+
+6. Stop for Bradley Potts approval before changing public hooks, filters,
+   asset handles, theme version metadata, or any reusable theme contract in a
+   breaking way.
 
 ## Notes for contributors
 
