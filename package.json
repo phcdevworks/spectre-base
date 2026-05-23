@@ -36,7 +36,7 @@
   "engines": {
     "node": "^22.12.0 || >=24.0.0"
   },
-  "packageManager": "npm@11.14.1",
+  "packageManager": "npm@11.15.0",
   "scripts": {
     "clean": "rm -rf spectre-theme/dist",
     "dev": "vite",
@@ -44,6 +44,7 @@
     "check:assets": "node --experimental-strip-types scripts/check-theme-asset-contract.ts",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
+    "release:propose": "node --experimental-strip-types scripts/propose-version.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:php": "find spectre-theme -name \"*.php\" -print0 | xargs -0 -n1 php -l",
@@ -53,23 +54,23 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\""
   },
   "devDependencies": {
-    "@types/node": "^25.8.0",
-    "@typescript-eslint/eslint-plugin": "^8.59.3",
-    "@typescript-eslint/parser": "^8.59.3",
+    "@types/node": "^25.9.1",
+    "@typescript-eslint/eslint-plugin": "^8.59.4",
+    "@typescript-eslint/parser": "^8.59.4",
     "autoprefixer": "^10.5.0",
     "eslint": "^10.4.0",
     "globals": "^17.6.0",
     "jiti": "^2.7.0",
-    "postcss": "^8.5.14",
+    "postcss": "^8.5.15",
     "prettier": "^3.8.3",
     "tailwindcss": "^4.3.0",
     "typescript": "~6.0.3",
-    "typescript-eslint": "^8.59.3",
-    "vite": "^8.0.13"
+    "typescript-eslint": "^8.59.4",
+    "vite": "^8.0.14"
   },
   "dependencies": {
-    "@phcdevworks/spectre-components": "^1.1.0",
-    "@phcdevworks/spectre-tokens": "^2.5.0",
-    "@phcdevworks/spectre-ui": "^1.5.0"
+    "@phcdevworks/spectre-components": "^1.2.0",
+    "@phcdevworks/spectre-tokens": "^2.6.0",
+    "@phcdevworks/spectre-ui": "^1.6.0"
   }
 }

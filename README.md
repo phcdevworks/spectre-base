@@ -1,9 +1,8 @@
 # @phcdevworks/spectre-wordpress-themes
 
-[![CI](https://github.com/phcdevworks/spectre-wordpress-themes/actions/workflows/ci.yml/badge.svg)](https://github.com/phcdevworks/spectre-wordpress-themes/actions/workflows/ci.yml)
-[![GitHub issues](https://img.shields.io/github/issues/phcdevworks/spectre-wordpress-themes)](https://github.com/phcdevworks/spectre-wordpress-themes/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/phcdevworks/spectre-wordpress-themes)](https://github.com/phcdevworks/spectre-wordpress-themes/pulls)
-[![License](https://img.shields.io/github/license/phcdevworks/spectre-wordpress-themes)](LICENSE)
+[![CI](https://github.com/phcdevworks/spectre-wordpress-themes/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/phcdevworks/spectre-wordpress-themes/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fphcdevworks%2Fspectre-wordpress-themes%2Fmain%2Fpackage.json&query=%24.license&label=license)](LICENSE)
+[![Node](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fphcdevworks%2Fspectre-wordpress-themes%2Fmain%2Fpackage.json&query=%24.engines.node&label=node)](https://nodejs.org)
 
 `@phcdevworks/spectre-wordpress-themes` is the WordPress theme delivery layer
 of the Spectre system for WordPress sites that consume Spectre tokens, Spectre
@@ -14,7 +13,8 @@ with a Vite build pipeline, a TypeScript client entrypoint, and Tailwind CSS 4.
 It is for teams building custom WordPress themes that need modern frontend
 assets without moving design-system ownership into PHP templates.
 
-[Contributing](CONTRIBUTING.md) | [Changelog](CHANGELOG.md) |
+[Contributing](CONTRIBUTING.md) | [Code of Conduct](CODE_OF_CONDUCT.md) |
+[Changelog](CHANGELOG.md) | [Roadmap](ROADMAP.md) |
 [Security Policy](SECURITY.md)
 
 ## Key capabilities
