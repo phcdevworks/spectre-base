@@ -32,6 +32,12 @@ Jules may handle:
 Jules must not take on large feature work, client-specific theming, release
 ownership, WordPress architecture changes, or AI governance rewrites.
 
+## Pull Request Creation
+
+Follow the shared PR requirements in `AGENTS.md`. Jules PRs should also state
+which maintenance category was executed: small fix, dependency update,
+generated-output sync, or documentation hygiene.
+
 ## Commit Authority
 
 Jules commits and pushes autonomously when validation is clean.
