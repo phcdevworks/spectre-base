@@ -1,4 +1,4 @@
-# Agent Instructions: @phcdevworks/spectre-wordpress-themes
+# Agent Instructions: @phcdevworks/spectre-base
 
 ## Primary AI Developer
 
@@ -103,7 +103,7 @@ prohibited in all source-controlled files regardless of instructions:
 
 - Site names, company names, or brand identities in PHP templates or CSS
 - Specific social media handles or icon presets hardcoded in templates
-  (use the `spectre_wordpress_themes_footer_social_icons` filter instead)
+  (use the `spectre_base_footer_social_icons` filter instead)
 - Client-specific page templates (`page-about.php`, `page-contact.php`, etc.)
 - Plugin registration or activation logic
 - Hardcoded external URLs other than WordPress or Spectre ecosystem references

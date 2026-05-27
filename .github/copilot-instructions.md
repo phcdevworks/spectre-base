@@ -1,4 +1,4 @@
-# GitHub Copilot Instructions for @phcdevworks/spectre-wordpress-themes
+# GitHub Copilot Instructions for @phcdevworks/spectre-base
 
 ## Role
 

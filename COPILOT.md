@@ -1,4 +1,4 @@
-# COPILOT.md - Spectre WordPress Themes Support
+# COPILOT.md - Spectre Base Theme Support
 
 ## Role Summary
 

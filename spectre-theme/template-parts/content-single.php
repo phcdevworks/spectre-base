@@ -19,7 +19,7 @@
         <?php the_content(); ?>
         <?php
         wp_link_pages(array(
-            'before' => '<nav class="spectre-pagination">' . esc_html__('Pages:', 'spectre-wordpress-themes') . ' ',
+            'before' => '<nav class="spectre-pagination">' . esc_html__('Pages:', 'spectre-base') . ' ',
             'after' => '</nav>',
         ));
         ?>

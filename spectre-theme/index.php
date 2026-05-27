@@ -10,8 +10,8 @@
 
         <?php the_posts_pagination(array(
             'mid_size'  => 2,
-            'prev_text' => __('Previous', 'spectre-wordpress-themes'),
-            'next_text' => __('Next', 'spectre-wordpress-themes'),
+            'prev_text' => __('Previous', 'spectre-base'),
+            'next_text' => __('Next', 'spectre-base'),
         )); ?>
     <?php else : ?>
         <?php get_template_part('template-parts/content', 'none'); ?>

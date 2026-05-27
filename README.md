@@ -1,10 +1,10 @@
-# @phcdevworks/spectre-wordpress-themes
+# @phcdevworks/spectre-base
 
 [![CI](https://github.com/phcdevworks/spectre-wordpress-themes/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/phcdevworks/spectre-wordpress-themes/actions/workflows/ci.yml)
-[![License](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fphcdevworks%2Fspectre-wordpress-themes%2Fmain%2Fpackage.json&query=%24.license&label=license)](LICENSE)
-[![Node](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fphcdevworks%2Fspectre-wordpress-themes%2Fmain%2Fpackage.json&query=%24.engines.node&label=node)](https://nodejs.org)
+[![License](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fphcdevworks%2Fspectre-base%2Fmain%2Fpackage.json&query=%24.license&label=license)](LICENSE)
+[![Node](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fphcdevworks%2Fspectre-base%2Fmain%2Fpackage.json&query=%24.engines.node&label=node)](https://nodejs.org)
 
-`@phcdevworks/spectre-wordpress-themes` is the WordPress theme delivery layer
+`@phcdevworks/spectre-base` is the WordPress theme delivery layer
 of the Spectre system for WordPress sites that consume Spectre tokens, Spectre
 UI, and Spectre web components.
 
@@ -122,7 +122,7 @@ npm install
    `spectre-theme/` into your local WordPress install.
 
    ```bash
-   ln -s /path/to/spectre-wordpress-themes/spectre-theme /path/to/wordpress/wp-content/themes/spectre-theme
+   ln -s /path/to/spectre-base/spectre-theme /path/to/wordpress/wp-content/themes/spectre-theme
    ```
 
 3. Set your WordPress environment to development mode so the theme loads assets
@@ -235,11 +235,11 @@ Minimum changes for a new site:
    Quick start above).
 6. Customize shell styles in `src/styles/main.css` using `var(--sp-*)` tokens
    only.
-7. Register social icons via the `spectre_wordpress_themes_footer_social_icons`
+7. Register social icons via the `spectre_base_footer_social_icons`
    filter (see Extension points below).
 8. Build for production: `npm run build && npm run check:assets`.
 
-Do not rename PHP functions (`spectre_wordpress_themes_*`) without also updating
+Do not rename PHP functions (`spectre_base_*`) without also updating
 template calls and the text domain throughout. A project-wide search-and-replace
 is the safest approach.
 
@@ -253,7 +253,7 @@ Add site-specific social icon links without modifying the theme directly:
 
 ```php
 // In your child theme's functions.php or a site plugin:
-add_filter('spectre_wordpress_themes_footer_social_icons', function () {
+add_filter('spectre_base_footer_social_icons', function () {
     return [
         ['name' => 'github',   'size' => '20', 'url' => 'https://github.com/yourorg'],
         ['name' => 'linkedin', 'size' => '20', 'url' => 'https://linkedin.com/company/yourco'],
@@ -377,7 +377,7 @@ The theme footer automatically renders icon links when the plugin is active:
 To check availability before rendering icons in a custom template:
 
 ```php
-<?php if (spectre_wordpress_themes_has_icons()) : ?>
+<?php if (spectre_base_has_icons()) : ?>
     <?php echo do_shortcode('[spectre-icon name="arrow-right" size="16"]'); ?>
 <?php endif; ?>
 ```

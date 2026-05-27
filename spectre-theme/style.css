@@ -1,5 +1,5 @@
 /*
-Theme Name: Spectre WordPress Themes
+Theme Name: Spectre Base Theme
 Theme URI: https://github.com/phcdevworks/spectre-wordpress-themes
 Author: PHCDevworks
 Author URI: https://phcdevworks.com
@@ -7,9 +7,9 @@ Description: WordPress theme foundation for Spectre-based sites with Vite, TypeS
 Version: 1.0.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: spectre-wordpress-themes
+Text Domain: spectre-base
 
-Tags: vite, tailwind, typescript, wordpress-theme, spectre
+Tags: blog, custom-logo, custom-menu, featured-images, full-width-template, theme-options, translation-ready, block-styles, wide-blocks
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 8.2

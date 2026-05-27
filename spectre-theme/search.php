@@ -2,9 +2,9 @@
 
 <main class='spectre-site-container spectre-main'>
     <header class='spectre-archive-header'>
-        <p class='spectre-eyebrow'><?php esc_html_e('Search', 'spectre-wordpress-themes'); ?></p>
+        <p class='spectre-eyebrow'><?php esc_html_e('Search', 'spectre-base'); ?></p>
         <h1 class='spectre-title-xl'>
-            <?php printf(esc_html__('Results for: %s', 'spectre-wordpress-themes'), esc_html(get_search_query())); ?>
+            <?php printf(esc_html__('Results for: %s', 'spectre-base'), esc_html(get_search_query())); ?>
         </h1>
     </header>
 
@@ -17,8 +17,8 @@
 
         <?php the_posts_pagination(array(
             'mid_size' => 2,
-            'prev_text' => __('Previous', 'spectre-wordpress-themes'),
-            'next_text' => __('Next', 'spectre-wordpress-themes'),
+            'prev_text' => __('Previous', 'spectre-base'),
+            'next_text' => __('Next', 'spectre-base'),
         )); ?>
     <?php else : ?>
         <?php get_template_part('template-parts/content', 'none'); ?>

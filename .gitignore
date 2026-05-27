@@ -13,6 +13,9 @@ dist-ssr
 *.local
 spectre-theme/dist
 
+# Generated child themes
+spectre-child-*/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -1,10 +1,10 @@
-# CODEX.md - Spectre WordPress Themes
+# CODEX.md - Spectre Base Theme
 
 ## Role
 
 Codex acts as the documentation, release-readiness, production-stabilization,
 repo-hygiene, changelog/release note support, and config-standardization agent
-for `@phcdevworks/spectre-wordpress-themes`.
+for `@phcdevworks/spectre-base`.
 
 Claude Code remains the lead developer and `CLAUDE.md` remains the
 authoritative implementation guide. Codex supports that lead by checking

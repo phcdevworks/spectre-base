@@ -1,7 +1,7 @@
 # Codex Workspace Files
 
 This directory contains OpenAI Codex support files for
-`@phcdevworks/spectre-wordpress-themes`.
+`@phcdevworks/spectre-base`.
 
 Claude Code remains the lead developer and `CLAUDE.md` remains the
 authoritative implementation guide. Codex uses these files for documentation,

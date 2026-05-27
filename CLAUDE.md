@@ -1,16 +1,16 @@
-# CLAUDE.md - Spectre WordPress Themes
+# CLAUDE.md - Spectre Base Theme
 
 ## Project Identity
 
-**Package:** `@phcdevworks/spectre-wordpress-themes`
+**Package:** `@phcdevworks/spectre-base`
 **Layer:** WordPress Shell -- delivers the Spectre design system through WordPress
 **Human owner:** Bradley Potts (brad.potts@coastdigitalgroup.com)
 **Primary AI developer:** Claude Code (claude-sonnet-4-6)
 
-**Repository:** `spectre-wordpress-themes`
+**Repository:** `spectre-base`
 **Deployable theme directory:** `spectre-theme/`
 
-`@phcdevworks/spectre-wordpress-themes` is the WordPress theme delivery layer
+`@phcdevworks/spectre-base` is the WordPress theme delivery layer
 of the Spectre system. It provides a Vite-powered build pipeline, TypeScript
 entry point, Tailwind CSS 4 integration, and a standard `spectre-theme`
 WordPress directory that consumes `@phcdevworks/spectre-tokens` and
@@ -83,7 +83,7 @@ regenerate it with `npm run build`.
 ## Architecture
 
 ```
-spectre-wordpress-themes/
+spectre-base/
 ├── src/
 │   ├── js/main.ts          # Theme JS entrypoint -- registers Spectre web components
 │   └── styles/main.css     # Theme CSS entrypoint -- imports tokens, UI, shell styles
@@ -139,7 +139,7 @@ must be removed or justified before merging.
 1. Build or start dev server: `npm run dev`
 2. Symlink the theme into WordPress:
    ```bash
-   ln -s /path/to/spectre-wordpress-themes/spectre-theme /path/to/wordpress/wp-content/themes/spectre-theme
+   ln -s /path/to/spectre-base/spectre-theme /path/to/wordpress/wp-content/themes/spectre-theme
    ```
 3. Set environment in `wp-config.php`:
    ```php

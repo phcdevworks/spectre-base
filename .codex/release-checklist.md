@@ -1,7 +1,7 @@
 # Codex Release Checklist
 
 Use this checklist when Codex is asked to review, prepare, or validate a release
-for `@phcdevworks/spectre-wordpress-themes`.
+for `@phcdevworks/spectre-base`.
 
 ## 1. Orient
 

@@ -1,11 +1,11 @@
 <?php
 /**
- * Theme functions for Spectre WordPress Themes.
+ * Theme functions for Spectre Base Theme.
  */
 
 if (!defined("ABSPATH")) exit;
 
-function spectre_wordpress_themes_setup() {
+function spectre_base_setup() {
     add_theme_support("title-tag");
     add_theme_support("post-thumbnails");
     add_theme_support("html5", array("search-form", "comment-form", "comment-list", "gallery", "caption"));
@@ -17,26 +17,26 @@ function spectre_wordpress_themes_setup() {
     add_theme_support("responsive-embeds");
 
     register_nav_menus(array(
-        "primary" => __("Primary Menu", "spectre-wordpress-themes"),
-        "footer"  => __("Footer Menu", "spectre-wordpress-themes"),
+        "primary" => __("Primary Menu", "spectre-base"),
+        "footer"  => __("Footer Menu", "spectre-base"),
     ));
 }
-add_action("after_setup_theme", "spectre_wordpress_themes_setup");
+add_action("after_setup_theme", "spectre_base_setup");
 
-function spectre_wordpress_themes_widgets_init() {
+function spectre_base_widgets_init() {
     register_sidebar(array(
-        "name"          => __("Main Sidebar", "spectre-wordpress-themes"),
+        "name"          => __("Main Sidebar", "spectre-base"),
         "id"            => "sidebar-main",
-        "description"   => __("Widgets in this area appear in the sidebar.", "spectre-wordpress-themes"),
+        "description"   => __("Widgets in this area appear in the sidebar.", "spectre-base"),
         "before_widget" => '<section id="%1$s" class="widget %2$s spectre-widget">',
         "after_widget"  => "</section>",
         "before_title"  => '<h3 class="spectre-widget-title">',
         "after_title"   => "</h3>",
     ));
 }
-add_action("widgets_init", "spectre_wordpress_themes_widgets_init");
+add_action("widgets_init", "spectre_base_widgets_init");
 
-function spectre_wordpress_themes_primary_menu_fallback($args) {
+function spectre_base_primary_menu_fallback($args) {
     if (empty($args["theme_location"]) || "primary" !== $args["theme_location"]) {
         return;
     }
@@ -50,7 +50,7 @@ function spectre_wordpress_themes_primary_menu_fallback($args) {
     echo "</div>";
 }
 
-function spectre_wordpress_themes_enqueue_assets() {
+function spectre_base_enqueue_assets() {
     $is_dev = function_exists("wp_get_environment_type")
         ? wp_get_environment_type() === "development"
         : (defined("WP_ENV") && WP_ENV === "development");
@@ -68,13 +68,13 @@ function spectre_wordpress_themes_enqueue_assets() {
         wp_script_add_data("vite-client", "type", "module");
 
         wp_enqueue_script(
-            "spectre-wordpress-themes-main",
+            "spectre-base-main",
             $vite_server . "/src/js/main.ts",
             array("vite-client"),
             null,
             true
         );
-        wp_script_add_data("spectre-wordpress-themes-main", "type", "module");
+        wp_script_add_data("spectre-base-main", "type", "module");
 
         return;
     }
@@ -106,7 +106,7 @@ function spectre_wordpress_themes_enqueue_assets() {
 
     if (!empty($main_entry["css"]) && is_array($main_entry["css"])) {
         wp_enqueue_style(
-            "spectre-wordpress-themes-style",
+            "spectre-base-style",
             get_template_directory_uri() . "/dist/" . $main_entry["css"][0],
             array(),
             null
@@ -114,17 +114,17 @@ function spectre_wordpress_themes_enqueue_assets() {
     }
 
     wp_enqueue_script(
-        "spectre-wordpress-themes-main",
+        "spectre-base-main",
         get_template_directory_uri() . "/dist/" . $main_entry["file"],
         array(),
         null,
         true
     );
-    wp_script_add_data("spectre-wordpress-themes-main", "type", "module");
+    wp_script_add_data("spectre-base-main", "type", "module");
 }
-add_action("wp_enqueue_scripts", "spectre_wordpress_themes_enqueue_assets");
+add_action("wp_enqueue_scripts", "spectre_base_enqueue_assets");
 
-function spectre_wordpress_themes_enqueue_block_editor_assets() {
+function spectre_base_enqueue_block_editor_assets() {
     $manifest_path = get_template_directory() . "/dist/.vite/manifest.json";
     if (!file_exists($manifest_path)) {
         return;
@@ -141,14 +141,14 @@ function spectre_wordpress_themes_enqueue_block_editor_assets() {
     }
 
     wp_enqueue_style(
-        "spectre-wordpress-themes-editor-style",
+        "spectre-base-editor-style",
         get_template_directory_uri() . "/dist/" . $main_entry["css"][0],
         array(),
         null
     );
 }
-add_action("enqueue_block_editor_assets", "spectre_wordpress_themes_enqueue_block_editor_assets");
+add_action("enqueue_block_editor_assets", "spectre_base_enqueue_block_editor_assets");
 
-function spectre_wordpress_themes_has_icons() {
+function spectre_base_has_icons() {
     return shortcode_exists("spectre-icon");
 }

@@ -1,7 +1,7 @@
-# Codex Instructions — Spectre WordPress Themes
+# Codex Instructions — Spectre Base Theme
 
 This is the GitHub-integrated Codex guide for
-`@phcdevworks/spectre-wordpress-themes`. Read `CODEX.md` for the full Codex
+`@phcdevworks/spectre-base`. Read `CODEX.md` for the full Codex
 playbook, `CLAUDE.md` for implementation authority, and `AGENTS.md` for shared
 agent boundaries.
 

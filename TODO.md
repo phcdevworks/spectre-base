@@ -1,10 +1,8 @@
-# TODO.md
-
-# Spectre WordPress Themes Execution Todo
+# Spectre Base Theme Execution Todo
 
 This todo list is aligned to the current repository and the roadmap in
-`ROADMAP.md`. It is scoped to WordPress.org submission readiness, block editor
-support, Spectre ecosystem integration, CI quality, and developer experience.
+`ROADMAP.md`. It is scoped to base theme / agency DX, WordPress.org submission
+readiness, block editor support, Spectre ecosystem integration, and CI quality.
 
 ## Phase 1 - Foundation: Completed
 
@@ -36,7 +34,7 @@ completed before the stable baseline.
 - [x] Gutenberg block editor support
       (`add_theme_support('block-editor-styles')`, `enqueue_block_editor_assets`,
       `theme.json`)
-- [x] Spectre Icons plugin integration (`spectre_wordpress_themes_has_icons()`
+- [x] Spectre Icons plugin integration (`spectre_base_has_icons()`
       helper, footer social icons, documented in README)
 
 ### P2: CI, Docs, and Governance
@@ -50,61 +48,103 @@ completed before the stable baseline.
 
 ---
 
-## Phase 2 - Mature Operations
+## Phase 2 - Base Theme and Agency DX: In Progress
 
-All items below are forward-looking. This phase starts from the stable
-foundation and focuses on WordPress.org submission, ecosystem integration, and
-controlled improvement.
+This phase reframes the project as `@phcdevworks/spectre-base` — a parent theme
+agencies use as a foundation for client child themes. The child theme generator
+and rename shipped in this phase. Remaining work focuses on hardening the parent
+theme API, WordPress.org submission, and page builder compatibility.
 
-### P0: WordPress.org Submission Readiness
+### P0: Project Rename and Reframe: Completed
 
-- [ ] Verify `readme.txt` passes WordPress.org theme review requirements
-  - File targets: `spectre-theme/readme.txt`
-  - Acceptance: All required sections present, no TGM Plugin Activation,
-    license consistent with GPL throughout
+- [x] Renamed package to `@phcdevworks/spectre-base`
+- [x] Renamed theme to `Spectre Base Theme` across all code, PHP, and docs
+      - `package.json`, `style.css`, `readme.txt`, all PHP text domains and
+        function prefixes (`spectre_base_*`), all WP handle names, all agent
+        and governance docs
+      - GitHub repo rename and URL updates deferred until repo is renamed on
+        GitHub
+- [x] ESLint clean — zero warnings (added `scripts/` override for `no-console`)
+- [x] `style.css` Tags updated to WordPress.org standardized tag list
+- [x] `readme.txt` `== Screenshots ==` section added
+
+### P1: Child Theme Generator: Completed
+
+- [x] `npm run create:child -- <client-name>` scaffolds a child theme directory
+      - `style.css` — WordPress child theme header, `Template: spectre-theme`,
+        GPL license, WP.org standard tags
+      - `functions.php` — enqueues child stylesheet with `spectre-base-style`
+        dependency
+      - `theme.json` — minimal, inherits full parent token set, ready for
+        client brand overrides
+- [x] `spectre-child-*/` added to `.gitignore`
+
+### P2: WordPress.org Submission Readiness
 
 - [ ] Replace `screenshot.png` with a 1200x900px render of the theme's default
       appearance
   - File targets: `spectre-theme/screenshot.png`
   - Acceptance: Correct dimensions, reflects current default layout
+  - Status: Requires a live WordPress environment to capture
 
 - [ ] Run a full WordPress.org theme review compliance pass
   - Use the Theme Check plugin against a live WordPress install
   - Check for: no obfuscated code, correct license throughout, no calls to
     external resources without user consent, no TGM Plugin Activation
 
-### P1: Developer Experience and Ecosystem Integration
+- [ ] Update GitHub URLs throughout after repo is renamed on GitHub
+  - Files: `package.json`, `spectre-theme/style.css`, all docs
+
+### P3: Parent Theme API
+
+The base theme needs documented, stable extension points before agencies rely
+on it in production. These make it a proper parent theme rather than just a
+starter.
+
+- [ ] Define and document the PHP hook API
+  - Audit all `add_action` / `add_filter` calls in `functions.php` and
+    templates; expose the ones agencies need to override
+  - Document override points in `README.md` and inline in `functions.php`
+  - Acceptance: agency can swap header, footer, and sidebar via hooks without
+    touching parent files
+
+- [ ] Lock the CSS custom property namespace
+  - Document which `--sp-*` variables are safe for child themes to override
+    and which are internal
+  - Acceptance: documented in `README.md` under a Child Theme section
+
+- [ ] Add a `Child Themes` section to `README.md`
+  - Cover: `create:child` usage, `Template:` header, token override via
+    `theme.json`, PHP hook points
+
+### P4: Page Builder Compatibility
 
 - [ ] Document Elementor integration
-  - File targets: `spectre-theme/functions.php`, `README.md`
   - Acceptance: Spectre UI CSS confirmed working in Elementor widget contexts;
     `spectre-icons` icon picker confirmed working; documented in README
   - Status: Depends on Elementor environment for testing
 
 - [ ] Add Elementor support hooks if needed (CSS scope compatibility)
 
-### P2: Later / Controlled Improvement
-
-- [ ] Evaluate Spectre Shell router (hash mode) for WordPress SPA pages
-  - Document whether hash-based routing from `spectre-shell-router` is viable
-    inside a WordPress page or custom template
-  - Implement only if a concrete use case is proven
-
-- [ ] Add child theme starter template
-  - `spectre-init` can scaffold a child theme of this base
-
 - [ ] Evaluate Beaver Builder support
   - Align with `spectre-icons` Beaver Builder roadmap timeline
 
+### P5: Later / Controlled Improvement
+
+- [ ] Evaluate Spectre Shell router (hash mode) for WordPress SPA pages
+  - Implement only if a concrete use case is proven
+
 ## Recommended Execution Order
 
-1. WordPress.org `readme.txt` compliance verification
-2. `screenshot.png` replacement (1200x900px)
-3. WordPress.org full review pass
-4. Elementor integration
-5. Spectre Shell router evaluation
-6. Child theme starter
-7. Beaver Builder support (aligned to spectre-icons roadmap)
+1. `screenshot.png` replacement (1200x900px, requires live WP)
+2. WordPress.org full review pass (Theme Check plugin)
+3. GitHub URLs updated after repo rename
+4. Parent theme hook API documented and locked
+5. CSS custom property namespace documented
+6. `README.md` Child Themes section
+7. Elementor integration
+8. Beaver Builder (aligned to spectre-icons roadmap)
+9. Spectre Shell router evaluation
 
 ## Explicitly Out of Scope
 

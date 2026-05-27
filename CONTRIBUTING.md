@@ -1,6 +1,6 @@
-# Contributing to Spectre WordPress Themes
+# Contributing to Spectre Base Theme
 
-Spectre WordPress Themes is a WordPress theme foundation with a Vite build
+Spectre Base Theme is a WordPress theme foundation with a Vite build
 pipeline, a single theme JavaScript entry, and a single emitted theme CSS
 bundle.
 
@@ -55,7 +55,7 @@ bundle.
 
 The deployable WordPress theme directory in this repository is
 `spectre-theme/`. The package and repository name remain
-`spectre-wordpress-themes`.
+`spectre-base`.
 
 ## File safety
 

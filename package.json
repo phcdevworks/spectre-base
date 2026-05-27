@@ -1,5 +1,5 @@
 {
-  "name": "@phcdevworks/spectre-wordpress-themes",
+  "name": "@phcdevworks/spectre-base",
   "version": "1.0.0",
   "description": "Spectre-backed WordPress theme foundation with Vite, TypeScript, and Tailwind CSS 4",
   "type": "module",
@@ -51,6 +51,7 @@
     "check:drift": "rg -n \"#[0-9a-fA-F]{3,8}|rgb\\(|rgba\\(|hsl\\(|hsla\\(|oklch\\(|linear-gradient|\\btext-white\\b|rounded-|shadow-|tracking-|\\bprose\\b|\\btext-[0-9]|\\bp-[0-9]|\\bpx-[0-9]|\\bpy-[0-9]|\\bgap-[0-9]|\\bspace-y-|\\bmax-w-|\\bw-[0-9]|\\bh-[0-9]|min-width: [0-9]|[0-9]+px|[0-9]+rem|[0-9]+em\" src spectre-theme package.json || true",
     "validate": "npm run build && npm run check:assets && npm run lint && npm run lint:php && npm run check:drift",
     "check": "npm run validate",
+    "create:child": "node --experimental-strip-types scripts/create-child-theme.ts",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\""
   },
   "devDependencies": {

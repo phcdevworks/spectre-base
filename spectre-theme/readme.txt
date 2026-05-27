@@ -1,4 +1,4 @@
-=== Spectre WordPress Themes ===
+=== Spectre Base Theme ===
 Contributors: phcdevworks
 Tags: blog, custom-logo, custom-menu, featured-images, full-width-template, theme-options, translation-ready, block-styles, wide-blocks
 Requires at least: 6.0
@@ -12,7 +12,7 @@ WordPress theme foundation for Spectre-based sites with Vite, TypeScript, and Ta
 
 == Description ==
 
-Spectre WordPress Themes is a high-performance theme foundation for WordPress-based sites. It combines a standard WordPress theme directory with a Vite build pipeline, a TypeScript client entrypoint, and Tailwind CSS so teams can build theme-owned assets with a modern frontend workflow and deliver them through WordPress.
+Spectre Base Theme is a high-performance theme foundation for WordPress-based sites. It combines a standard WordPress theme directory with a Vite build pipeline, a TypeScript client entrypoint, and Tailwind CSS so teams can build theme-owned assets with a modern frontend workflow and deliver them through WordPress.
 
 This theme consumes design tokens and UI primitives from the Spectre ecosystem without redefining them locally, keeping the theme layer focused on WordPress integration. In development it serves assets from the Vite dev server with hot module replacement. In production it reads a hashed Vite manifest and enqueues the compiled bundles.
 
@@ -53,6 +53,10 @@ Yes. The theme registers block editor styles and ships a `theme.json` with typog
 = Does this theme work with the Spectre Icons plugin? =
 
 Yes. Install the `spectre-icons` plugin from WordPress.org. Once active, you can use the `[spectre-icon]` shortcode in any template or content area.
+
+== Screenshots ==
+
+1. Default theme appearance showing the header, post grid, and footer on the front page.
 
 == Changelog ==
 

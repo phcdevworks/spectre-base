@@ -16,7 +16,7 @@ All notable changes to this project will be documented here. The format follows 
 - Template parts: `content-card.php`, `content-single.php`, `content-page.php`, `content-none.php`
 - Gutenberg block editor support via `add_theme_support('block-editor-styles')` and `enqueue_block_editor_assets`
 - `theme.json` with typography, colors, spacing, and shadows derived from `@phcdevworks/spectre-tokens`
-- Spectre Icons plugin integration (`spectre_wordpress_themes_has_icons()` helper, footer social links, search form shortcode pattern)
+- Spectre Icons plugin integration (`spectre_base_has_icons()` helper, footer social links, search form shortcode pattern)
 - Shell CSS layer in `src/styles/main.css` — all values backed by `var(--sp-*)` tokens
 - `check-theme-asset-contract.ts` script for Vite manifest validation
 - GitHub Actions CI pipeline (`ci.yml`) with Node matrix (22.x, 24.x), PHP 8.2, build, asset check, lint, PHP lint, drift check
@@ -24,7 +24,7 @@ All notable changes to this project will be documented here. The format follows 
 - Sidebar widget area registration
 - Primary menu fallback registration
 - Primary and footer nav menu locations
-- `spectre_wordpress_themes_primary_menu_fallback` function
+- `spectre_base_primary_menu_fallback` function
 - `.editorconfig`, `.prettierrc`, `.gitattributes`, `.npmignore`
 - VSCode workspace config and extensions recommendation
 - `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `ROADMAP.md`, `TODO.md`
@@ -42,7 +42,7 @@ All notable changes to this project will be documented here. The format follows 
 ### Added
 
 - Initial commit: Vite WordPress theme template
-- Rename project to spectre-wordpress-themes
+- Rename project to spectre-base
 
 [unreleased]: https://github.com/phcdevworks/spectre-wordpress-themes/compare/v1.0.0...HEAD
 [1.0.0]: https://github.com/phcdevworks/spectre-wordpress-themes/compare/v0.0.1...v1.0.0

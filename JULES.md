@@ -1,4 +1,4 @@
-# Jules Instructions for @phcdevworks/spectre-wordpress-themes
+# Jules Instructions for @phcdevworks/spectre-base
 
 ## Role
 
@@ -48,8 +48,8 @@ Jules must not:
 - absorb unrelated working-tree changes into its commit
 
 ### Commit message format:
-- `chore(spectre-wordpress-themes): <description of maintenance or dependency update>`
-- `fix(spectre-wordpress-themes): <description of minor bug fix>`
+- `chore(spectre-base): <description of maintenance or dependency update>`
+- `fix(spectre-base): <description of minor bug fix>`
 
 ## Validation Gate
 

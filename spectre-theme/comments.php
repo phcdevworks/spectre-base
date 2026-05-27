@@ -9,7 +9,7 @@
                 <?php
                 printf(
                     esc_html(
-                        _n('%s comment', '%s comments', get_comments_number(), 'spectre-wordpress-themes')
+                        _n('%s comment', '%s comments', get_comments_number(), 'spectre-base')
                     ),
                     esc_html(number_format_i18n(get_comments_number()))
                 );
@@ -28,13 +28,13 @@
         </ol>
 
         <?php the_comments_pagination(array(
-            'prev_text' => esc_html__('Previous comments', 'spectre-wordpress-themes'),
-            'next_text' => esc_html__('Next comments', 'spectre-wordpress-themes'),
+            'prev_text' => esc_html__('Previous comments', 'spectre-base'),
+            'next_text' => esc_html__('Next comments', 'spectre-base'),
         )); ?>
     <?php endif; ?>
 
     <?php if (!comments_open() && get_comments_number()) : ?>
-        <p class="spectre-muted"><?php esc_html_e('Comments are closed.', 'spectre-wordpress-themes'); ?></p>
+        <p class="spectre-muted"><?php esc_html_e('Comments are closed.', 'spectre-base'); ?></p>
     <?php endif; ?>
 
     <div class="spectre-comments__form">

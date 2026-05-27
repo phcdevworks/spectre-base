@@ -28,7 +28,7 @@
                 'theme_location' => 'primary',
                 'menu_class' => 'spectre-navigation-menu',
                 'container' => false,
-                'fallback_cb' => 'spectre_wordpress_themes_primary_menu_fallback',
+                'fallback_cb' => 'spectre_base_primary_menu_fallback',
             ));
             ?>
         </nav>

@@ -24,8 +24,8 @@
 
         <a href="<?php echo esc_url(get_permalink()); ?>"
            class="spectre-card__readmore"
-           aria-label="<?php echo esc_attr(sprintf(__('Read more about %s', 'spectre-wordpress-themes'), get_the_title())); ?>">
-            <?php esc_html_e('Read more', 'spectre-wordpress-themes'); ?>
+           aria-label="<?php echo esc_attr(sprintf(__('Read more about %s', 'spectre-base'), get_the_title())); ?>">
+            <?php esc_html_e('Read more', 'spectre-base'); ?>
         </a>
     </div>
 </article>

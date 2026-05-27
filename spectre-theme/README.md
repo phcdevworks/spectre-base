@@ -1,6 +1,6 @@
-# Spectre WordPress Themes Theme Directory
+# Spectre Base Theme Theme Directory
 
-This directory contains the default WordPress theme files for Spectre WordPress Themes.
+This directory contains the default WordPress theme files for Spectre Base Theme.
 
 ## Development notes
 

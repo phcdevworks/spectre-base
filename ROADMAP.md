@@ -1,9 +1,9 @@
-# Spectre WordPress Themes Roadmap
+# Spectre Base Theme Roadmap
 
 This roadmap is grounded in the current repository shape and public context of
-`@phcdevworks/spectre-wordpress-themes` as it exists today.
+`@phcdevworks/spectre-base` as it exists today.
 
-`@phcdevworks/spectre-wordpress-themes` is the WordPress theme foundation for
+`@phcdevworks/spectre-base` is the WordPress theme foundation for
 the Spectre suite. It provides a Vite-powered build pipeline, TypeScript entry
 point, Tailwind CSS 4 integration, and a standard `spectre-theme` WordPress
 directory that consumes `@phcdevworks/spectre-tokens` and `@phcdevworks/spectre-ui`
@@ -67,7 +67,7 @@ correct GPL license throughout, no external resource calls without consent.
 
 ### P0.4 Spectre Icons Plugin Integration ✓ Done
 
-- `spectre_wordpress_themes_has_icons()` helper checks for plugin presence
+- `spectre_base_has_icons()` helper checks for plugin presence
 - Footer renders social icon links when plugin is active
 - README documents the integration and conditional usage pattern
 
