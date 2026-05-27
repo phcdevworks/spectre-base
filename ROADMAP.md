@@ -38,7 +38,6 @@ that ecosystem push.
 - No Elementor integration beyond what the `spectre-icons` plugin provides.
 - No Spectre Shell integration — there is no mechanism for SPA-style navigation
   within the theme.
-- No child theme scaffold.
 - WordPress.org full compliance review has not been run.
 
 ## 2. Roadmap
@@ -116,10 +115,11 @@ Implement only if a proven use case emerges.
 
 ## P2: Later / Controlled Improvement
 
-### P2.1 Child Theme Framework
+### P2.1 Child Theme Framework -- Done
 
-Document and scaffold child theme creation from this base theme. Candidate for
-the `spectre-init` toolchain.
+`npm run create:child -- <client-name>` scaffolds a child theme with a
+`style.css` header, `functions.php` parent enqueue, and a minimal `theme.json`
+ready for brand overrides. `spectre-child-*/` is gitignored.
 
 ### P2.2 Beaver Builder Support
 
@@ -139,5 +139,4 @@ Implement when `spectre-icons` ships Beaver Builder support.
 2. WordPress.org full compliance review pass
 3. Elementor integration
 4. Evaluate Spectre Shell routing for WordPress
-5. Child theme framework
-6. Beaver Builder support (aligned to spectre-icons roadmap)
+5. Beaver Builder support (aligned to spectre-icons roadmap)
