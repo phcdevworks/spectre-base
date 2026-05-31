@@ -14,21 +14,7 @@
         <?php endif; ?>
 
         <?php
-        /**
-         * Filter: spectre_base_footer_social_icons
-         *
-         * Add social icon links to the footer. Requires the spectre-icons plugin.
-         * Each entry: ['name' => 'github', 'size' => '20', 'url' => 'https://...']
-         * 'url' is optional. 'size' defaults to '20'.
-         *
-         * Example (child theme or plugin):
-         *   add_filter('spectre_base_footer_social_icons', function() {
-         *       return [
-         *           ['name' => 'github',   'url' => 'https://github.com/yourorg'],
-         *           ['name' => 'linkedin', 'url' => 'https://linkedin.com/company/yourco'],
-         *       ];
-         *   });
-         */
+        // Filter: spectre_base_footer_social_icons — each entry: ['name', 'size' (default '20'), 'url' (optional)]
         $social_icons = apply_filters('spectre_base_footer_social_icons', array());
         ?>
         <?php if (spectre_base_has_icons() && !empty($social_icons)) : ?>

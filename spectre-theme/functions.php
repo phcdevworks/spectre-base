@@ -1,8 +1,4 @@
 <?php
-/**
- * Theme functions for Spectre Base Theme.
- */
-
 if (!defined("ABSPATH")) exit;
 
 function spectre_base_setup() {

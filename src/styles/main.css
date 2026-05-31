@@ -65,18 +65,16 @@
     list-style: none;
   }
 
-  .spectre-footer-menu {
-    justify-content: center;
-    gap: var(--sp-space-24);
+  .spectre-footer-menu,
+  .spectre-menu-fallback {
     color: var(--sp-color-neutral-300);
     font-size: var(--sp-font-sm-size);
     line-height: var(--sp-font-sm-line-height);
   }
 
-  .spectre-menu-fallback {
-    color: var(--sp-color-neutral-300);
-    font-size: var(--sp-font-sm-size);
-    line-height: var(--sp-font-sm-line-height);
+  .spectre-footer-menu {
+    justify-content: center;
+    gap: var(--sp-space-24);
   }
 
   .spectre-site-footer {
@@ -207,14 +205,18 @@
     margin-inline: var(--sp-space-8);
   }
 
-  .spectre-eyebrow {
-    margin: 0;
-    color: var(--sp-text-on-page-brand);
+  .spectre-eyebrow,
+  .spectre-widget-title {
     font-size: var(--sp-font-sm-size);
     line-height: var(--sp-font-sm-line-height);
     font-weight: var(--sp-font-sm-weight);
     text-transform: uppercase;
     letter-spacing: var(--sp-font-xs-letter-spacing);
+  }
+
+  .spectre-eyebrow {
+    margin: 0;
+    color: var(--sp-text-on-page-brand);
   }
 
   .spectre-title-lg,
@@ -354,11 +356,6 @@
   .spectre-widget-title {
     margin-block: 0 var(--sp-space-16);
     color: var(--sp-text-on-page-subtle);
-    font-size: var(--sp-font-sm-size);
-    line-height: var(--sp-font-sm-line-height);
-    font-weight: var(--sp-font-sm-weight);
-    text-transform: uppercase;
-    letter-spacing: var(--sp-font-xs-letter-spacing);
   }
 
 }
