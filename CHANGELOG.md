@@ -44,6 +44,6 @@ All notable changes to this project will be documented here. The format follows 
 - Initial commit: Vite WordPress theme template
 - Rename project to spectre-base
 
-[unreleased]: https://github.com/phcdevworks/spectre-wordpress-themes/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/phcdevworks/spectre-wordpress-themes/compare/v0.0.1...v1.0.0
-[0.0.1]: https://github.com/phcdevworks/spectre-wordpress-themes/tree/v0.0.1
+[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/phcdevworks/spectre-base/compare/v0.0.1...v1.0.0
+[0.0.1]: https://github.com/phcdevworks/spectre-base/tree/v0.0.1

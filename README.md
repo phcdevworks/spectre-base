@@ -1,6 +1,6 @@
 # @phcdevworks/spectre-base
 
-[![CI](https://github.com/phcdevworks/spectre-wordpress-themes/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/phcdevworks/spectre-wordpress-themes/actions/workflows/ci.yml)
+[![CI](https://github.com/phcdevworks/spectre-base/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/phcdevworks/spectre-base/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fphcdevworks%2Fspectre-base%2Fmain%2Fpackage.json&query=%24.license&label=license)](LICENSE)
 [![Node](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fphcdevworks%2Fspectre-base%2Fmain%2Fpackage.json&query=%24.engines.node&label=node)](https://nodejs.org)
 

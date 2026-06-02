@@ -81,19 +81,20 @@ theme API, WordPress.org submission, and page builder compatibility.
 
 ### P2: WordPress.org Submission Readiness
 
-- [ ] Replace `screenshot.png` with a 1200x900px render of the theme's default
+- [x] Replace `screenshot.png` with a 1200x900px render of the theme's default
       appearance
-  - File targets: `spectre-theme/screenshot.png`
-  - Acceptance: Correct dimensions, reflects current default layout
-  - Status: Requires a live WordPress environment to capture
+  - `spectre-theme/screenshot.png` — 1200x900 PNG, captured via Playwright
+    against a live WordPress install running Spectre Base Theme
+  - Tooling: `.wp-env.json`, `scripts/capture-screenshot.ts`, `npm run screenshot`
 
 - [ ] Run a full WordPress.org theme review compliance pass
   - Use the Theme Check plugin against a live WordPress install
   - Check for: no obfuscated code, correct license throughout, no calls to
     external resources without user consent, no TGM Plugin Activation
 
-- [ ] Update GitHub URLs throughout after repo is renamed on GitHub
-  - Files: `package.json`, `spectre-theme/style.css`, all docs
+- [x] Update GitHub URLs throughout after repo is renamed on GitHub
+  - Updated `package.json`, `spectre-theme/style.css`, `README.md`, `CHANGELOG.md`
+    from `spectre-wordpress-themes` → `spectre-base` (matches git remote)
 
 ### P3: Parent Theme API
 

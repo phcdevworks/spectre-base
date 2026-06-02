@@ -27,12 +27,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/phcdevworks/spectre-wordpress-themes.git"
+    "url": "https://github.com/phcdevworks/spectre-base.git"
   },
   "bugs": {
-    "url": "https://github.com/phcdevworks/spectre-wordpress-themes/issues"
+    "url": "https://github.com/phcdevworks/spectre-base/issues"
   },
-  "homepage": "https://github.com/phcdevworks/spectre-wordpress-themes#readme",
+  "homepage": "https://github.com/phcdevworks/spectre-base#readme",
   "engines": {
     "node": "^22.12.0 || >=24.0.0"
   },
@@ -52,12 +52,20 @@
     "validate": "npm run build && npm run check:assets && npm run lint && npm run lint:php && npm run check:drift",
     "check": "npm run validate",
     "create:child": "node --experimental-strip-types scripts/create-child-theme.ts",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "wp-env:start": "NODE_OPTIONS=--dns-result-order=ipv4first wp-env start",
+    "wp-env:stop": "wp-env stop",
+    "wp-env:setup": "wp-env run cli -- wp theme activate spectre-theme",
+    "screenshot:install": "playwright install chromium",
+    "screenshot:setup": "npm run wp-env:start && npm run wp-env:setup",
+    "screenshot": "node --experimental-strip-types scripts/capture-screenshot.ts"
   },
   "devDependencies": {
     "@types/node": "^25.9.1",
-    "@typescript-eslint/eslint-plugin": "^8.60.0",
-    "@typescript-eslint/parser": "^8.60.0",
+    "@wordpress/env": "^11.7.0",
+    "playwright": "^1.49.0",
+    "@typescript-eslint/eslint-plugin": "^8.60.1",
+    "@typescript-eslint/parser": "^8.60.1",
     "autoprefixer": "^10.5.0",
     "eslint": "^10.4.1",
     "globals": "^17.6.0",
@@ -66,7 +74,7 @@
     "prettier": "^3.8.3",
     "tailwindcss": "^4.3.0",
     "typescript": "~6.0.3",
-    "typescript-eslint": "^8.60.0",
+    "typescript-eslint": "^8.60.1",
     "vite": "^8.0.16"
   },
   "dependencies": {
