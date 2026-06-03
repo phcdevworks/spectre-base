@@ -2,6 +2,8 @@
 if (!defined("ABSPATH")) exit;
 
 function spectre_base_setup() {
+    load_theme_textdomain("spectre-base", get_template_directory() . "/languages");
+
     add_theme_support("title-tag");
     add_theme_support("post-thumbnails");
     add_theme_support("html5", array("search-form", "comment-form", "comment-list", "gallery", "caption"));
