@@ -1,3 +1,4 @@
+<?php if (!defined("ABSPATH")) exit; ?>
 <article id='post-<?php the_ID(); ?>' <?php post_class('spectre-panel'); ?>>
     <header class='spectre-entry-header'>
         <div class='spectre-entry-meta'>

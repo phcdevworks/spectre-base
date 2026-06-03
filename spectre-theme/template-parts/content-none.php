@@ -1,3 +1,4 @@
+<?php if (!defined("ABSPATH")) exit; ?>
 <section class='spectre-panel spectre-panel--roomy spectre-panel--centered spectre-panel--dashed'>
     <?php if (is_search()) : ?>
         <h2 class='spectre-title-lg'><?php esc_html_e('No search results', 'spectre-base'); ?></h2>

@@ -1,3 +1,4 @@
+<?php if (!defined("ABSPATH")) exit; ?>
 <article id='post-<?php the_ID(); ?>' <?php post_class('spectre-card'); ?>>
     <?php if (has_post_thumbnail()) : ?>
         <a href='<?php echo esc_url(get_permalink()); ?>' class='spectre-card__media'>

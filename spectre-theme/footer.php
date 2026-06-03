@@ -1,3 +1,4 @@
+<?php if (!defined("ABSPATH")) exit; ?>
 <footer class="site-footer spectre-site-footer">
     <div class="spectre-site-container spectre-site-footer__inner">
         <?php if (has_nav_menu('footer')) : ?>

@@ -1,3 +1,4 @@
+<?php if (!defined("ABSPATH")) exit; ?>
 <form role="search" method="get" class="spectre-search-form" action="<?php echo esc_url(home_url('/')); ?>">
     <label class="sr-only" for="spectre-search-field"><?php esc_html_e('Search for:', 'spectre-base'); ?></label>
     <sp-input

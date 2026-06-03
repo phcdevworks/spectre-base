@@ -1,3 +1,4 @@
+<?php if (!defined("ABSPATH")) exit; ?>
 <?php if (post_password_required()) : ?>
     <?php return; ?>
 <?php endif; ?>
