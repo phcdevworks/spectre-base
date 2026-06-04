@@ -4,7 +4,7 @@
 
 **Package:** `@phcdevworks/spectre-base`
 **Layer:** WordPress Shell -- delivers the Spectre design system through WordPress
-**Human owner:** Bradley Potts (brad.potts@coastdigitalgroup.com)
+**Human owner:** Bradley Potts
 **Primary AI developer:** Claude Code (claude-sonnet-4-6)
 
 **Repository:** `spectre-base`

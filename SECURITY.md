@@ -17,7 +17,7 @@ If you discover a security vulnerability, please **DO NOT** open a public issue.
 **Alternative methods**:
 
 - Direct message maintainers through GitHub
-- Email: brad.potts@coastdigitalgroup.com
+- Direct message Bradley Potts through GitHub
 
 ### What to Include
 
