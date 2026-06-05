@@ -140,15 +140,14 @@ starter.
 
 ## Recommended Execution Order
 
-1. `screenshot.png` replacement (1200x900px, requires live WP)
-2. WordPress.org full review pass (Theme Check plugin)
-3. GitHub URLs updated after repo rename
-4. Parent theme hook API documented and locked
-5. CSS custom property namespace documented
-6. `README.md` Child Themes section
-7. Elementor integration
-8. Beaver Builder (aligned to spectre-icons roadmap)
-9. Spectre Shell router evaluation
+1. Phase 1 — done.
+2. Phase 2 — done.
+3. Phase 3 P0 — PHP hook API; unblocks safe child theme development.
+4. Phase 3 P1 — CSS custom property namespace documentation.
+5. Phase 3 P2 — Child Themes README section.
+6. Phase 4 P0 — Elementor integration; depends on Elementor environment.
+7. Phase 4 P1 — Beaver Builder support; aligned to spectre-icons roadmap.
+8. Phase 4 P2 — Spectre Shell router evaluation; lowest urgency.
 
 ## Explicitly Out of Scope
 
