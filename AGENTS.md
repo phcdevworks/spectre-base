@@ -1,4 +1,4 @@
-# Agent Instructions: @phcdevworks/spectre-base
+# Spectre Base Agent Guide
 
 ## Primary AI Developer
 
@@ -7,8 +7,10 @@ this repository, maintained on behalf of Bradley Potts at PHCDevworks. All devel
 through Claude Code operating from `CLAUDE.md` as the authoritative working
 guide. Human final review and commit authority rests with Bradley Potts.
 
-Claude Code does not create git commits. Changes are prepared and validated,
-then handed off for human review and commit.
+Protected theme contract surfaces and breaking public hook or template changes
+require explicit human approval before merge. Claude Code does not create git
+commits; changes are prepared and validated, then handed off for human review
+and commit.
 
 ## AI Operating Model
 
