@@ -50,7 +50,8 @@
     "lint:php": "find spectre-theme -name \"*.php\" -print0 | xargs -0 -n1 php -l",
     "check:drift": "grep -rEn \"#[0-9a-fA-F]{3,8}|rgb\\(|rgba\\(|hsl\\(|hsla\\(|oklch\\(|linear-gradient|\\btext-white\\b|rounded-|shadow-|tracking-|\\bprose\\b|\\btext-[0-9]|\\bp-[0-9]|\\bpx-[0-9]|\\bpy-[0-9]|\\bgap-[0-9]|\\bspace-y-|\\bmax-w-|\\bw-[0-9]|\\bh-[0-9]|min-width: [0-9]|[0-9]+px|[0-9]+rem|[0-9]+em\" src spectre-theme package.json || true",
     "validate": "npm run build && npm run check:assets && npm run lint && npm run lint:php && npm run check:drift",
-    "check": "npm run validate",
+    "check:ecosystem": "spectre-manifest-validate spectre.manifest.json && spectre-manifest-check spectre.manifest.json .",
+    "check": "npm run validate && npm run check:ecosystem",
     "create:child": "node --experimental-strip-types scripts/create-child-theme.ts",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "wp-env:start": "NODE_OPTIONS=--dns-result-order=ipv4first wp-env start",
@@ -61,6 +62,7 @@
     "screenshot": "node --experimental-strip-types scripts/capture-screenshot.ts"
   },
   "devDependencies": {
+    "@phcdevworks/spectre-manifest": "^1.0.0",
     "@types/node": "^25.9.1",
     "@wordpress/env": "^11.8.0",
     "playwright": "^1.60.0",
