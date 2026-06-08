@@ -243,9 +243,58 @@ Do not rename PHP functions (`spectre_base_*`) without also updating
 template calls and the text domain throughout. A project-wide search-and-replace
 is the safest approach.
 
-## Extension points
+## PHP hook API
 
-The theme exposes WordPress hooks for common customization needs.
+The theme exposes a documented set of action and filter hooks so an agency can
+customize header, footer, navigation, and sidebar behavior from a child theme
+or site plugin -- without copying or overriding the parent template files.
+Each hook below is declared in the listed parent file; place your `add_action`
+/ `add_filter` calls in your child theme's `functions.php`.
+
+### Action hooks
+
+| Hook | Fires in | When |
+|---|---|---|
+| `spectre_base_before_header` | `header.php` | Immediately before the `<header>` element |
+| `spectre_base_before_site_branding` | `header.php` | Inside `.spectre-site-branding`, before the logo/site title |
+| `spectre_base_after_site_branding` | `header.php` | Inside `.spectre-site-branding`, after the logo/site title |
+| `spectre_base_after_header` | `header.php` | Immediately after the `</header>` element |
+| `spectre_base_before_footer` | `footer.php` | Immediately before the `<footer>` element |
+| `spectre_base_after_footer` | `footer.php` | Immediately after the `</footer>` element |
+| `spectre_base_before_sidebar($sidebar_id)` | `sidebar.php` | Before the `<aside>` wrapper, only when the sidebar is active |
+| `spectre_base_after_sidebar($sidebar_id)` | `sidebar.php` | After the `<aside>` wrapper, only when the sidebar is active |
+
+```php
+// Inject a promo banner just inside the header, in your child theme's functions.php:
+add_action('spectre_base_before_site_branding', function () {
+    echo '<p class="spectre-eyebrow">' . esc_html__('Now booking 2026 projects', 'your-child-theme') . '</p>';
+});
+```
+
+These complement the core WordPress template-loading hooks that already fire
+around these files: `get_header`, `get_footer`, and `get_sidebar` (fired by
+`get_header()`/`get_footer()`/`get_sidebar()` before the file loads), plus
+`wp_head`, `wp_body_open`, and `wp_footer` inside `header.php`/`footer.php`.
+
+### Filter hooks
+
+| Hook | Declared in | Purpose |
+|---|---|---|
+| `spectre_base_primary_nav_args` | `header.php` | Filters the `wp_nav_menu()` args array for the primary navigation |
+| `spectre_base_footer_nav_args` | `footer.php` | Filters the `wp_nav_menu()` args array for the footer navigation |
+| `spectre_base_footer_social_icons` | `footer.php` | Filters the array of social icon entries rendered in the footer |
+| `spectre_base_sidebar_id` | `sidebar.php` | Filters which registered sidebar ID `sidebar.php` renders (default `sidebar-main`) |
+
+```php
+// Swap the registered sidebar that sidebar.php renders:
+add_filter('spectre_base_sidebar_id', fn () => 'sidebar-shop');
+
+// Add a custom menu class to the primary navigation:
+add_filter('spectre_base_primary_nav_args', function (array $args) {
+    $args['menu_class'] .= ' my-client-nav';
+    return $args;
+});
+```
 
 ### Footer social icons
 
@@ -265,6 +314,40 @@ This requires the [spectre-icons](https://wordpress.org/plugins/spectre-icons/)
 plugin to be active. If the plugin is not active the social row is not rendered
 regardless of the filter output.
 
+### Swapping templates entirely
+
+For changes too large for a hook -- a fundamentally different header layout, for
+example -- WordPress's standard child theme lookup already covers you: any file
+a child theme provides under the same name (`header.php`, `footer.php`,
+`sidebar.php`, template parts in `template-parts/`, etc.) takes priority over
+the parent theme's copy. No filter is required to do this; it is core
+`get_header()` / `get_footer()` / `get_sidebar()` / `get_template_part()`
+behavior. Prefer the hooks above when possible -- they keep you on the parent
+theme's update path.
+
+## CSS custom property namespace
+
+Every `--sp-*` custom property consumed by this theme is owned and defined by
+`@phcdevworks/spectre-tokens` (via `@phcdevworks/spectre-ui`). The theme itself
+never declares a `--sp-*` custom property -- it only reads them with `var()` in
+`src/styles/main.css` and `theme.json`.
+
+**Safe to consume (read-only):** any `--sp-*` variable, in any child theme
+stylesheet or `theme.json`, via `var(--sp-...)`. See
+[Adding custom shell styles](#adding-custom-shell-styles) below.
+
+**Not safe to declare:** do not define or redeclare a `--sp-*` custom property
+in a child theme, site plugin, or `theme.json`. The `--sp-*` namespace is
+reserved for the upstream Spectre token contract; locally redefining one of
+these variables creates drift between this theme and the design system and
+will be flagged by `npm run check:drift`.
+
+To change a token's *value* for a client brand, do it through the upstream
+contract -- override the relevant entries in `theme.json`'s `settings.color`,
+`settings.typography`, and `settings.spacing` palettes/presets (which already
+reference `var(--sp-*)`), or configure `@phcdevworks/spectre-tokens` upstream.
+Never hardcode a hex, rem, or px value in place of a token reference.
+
 ### Adding custom shell styles
 
 Add site-specific structural styles in a child theme or an additional CSS file.
@@ -279,6 +362,47 @@ Always use `var(--sp-*)` tokens:
   }
 }
 ```
+
+## Child Themes
+
+Agencies build client sites as WordPress child themes of `spectre-base`,
+inheriting the build pipeline, templates, and token contract while keeping
+client-specific branding isolated.
+
+### Generating a child theme
+
+```bash
+npm run create:child -- <client-name>
+```
+
+This scaffolds `spectre-child-<client-name>/` (git-ignored) with:
+
+- `style.css` -- WordPress child theme header declaring `Template: spectre-theme`,
+  GPL license, and WP.org standard tags
+- `functions.php` -- enqueues the child stylesheet with `spectre-base-style` as
+  its dependency, so it loads after the parent bundle
+- `theme.json` -- minimal, inherits the full parent token set and is ready for
+  brand-specific overrides
+
+The `Template: spectre-theme` header is what tells WordPress this is a child of
+`spectre-base` -- it must match the parent theme's directory name exactly.
+
+### Overriding tokens via `theme.json`
+
+Override color, typography, and spacing presets in the child theme's
+`theme.json`. Keep every value as a `var(--sp-*)` reference -- see
+[CSS custom property namespace](#css-custom-property-namespace) above. Do not
+introduce hex codes, raw px/rem values, or new custom properties.
+
+### Overriding templates and behavior
+
+- **Full template/template-part overrides** -- provide a same-named file
+  (`header.php`, `footer.php`, `template-parts/content-card.php`, etc.) in the
+  child theme directory; WordPress loads it instead of the parent's copy.
+- **Targeted hook overrides** -- prefer the [PHP hook API](#php-hook-api) for
+  smaller customizations (injecting markup, filtering nav menu args, swapping
+  the sidebar, registering social icons). Hooks keep the child theme on the
+  parent theme's update path without forking template files.
 
 ## Deployment
 

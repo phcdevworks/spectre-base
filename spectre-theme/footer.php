@@ -1,15 +1,16 @@
 <?php if (!defined("ABSPATH")) exit; ?>
+<?php do_action('spectre_base_before_footer'); ?>
 <footer class="site-footer spectre-site-footer">
     <div class="spectre-site-container spectre-site-footer__inner">
         <?php if (has_nav_menu('footer')) : ?>
             <nav aria-label="<?php esc_attr_e('Footer Navigation', 'spectre-base'); ?>">
                 <?php
-                wp_nav_menu(array(
+                wp_nav_menu(apply_filters('spectre_base_footer_nav_args', array(
                     'theme_location' => 'footer',
                     'menu_class'     => 'spectre-footer-menu',
                     'container'      => false,
                     'depth'          => 1,
-                ));
+                )));
                 ?>
             </nav>
         <?php endif; ?>
@@ -41,6 +42,7 @@
         <p class="spectre-site-footer__meta">&copy; <?php echo esc_html(wp_date('Y')); ?> <?php echo esc_html(get_bloginfo('name')); ?>. <?php esc_html_e('All rights reserved.', 'spectre-base'); ?></p>
     </div>
 </footer>
+<?php do_action('spectre_base_after_footer'); ?>
 
 <?php wp_footer(); ?>
 </body>

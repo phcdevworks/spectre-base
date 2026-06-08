@@ -105,21 +105,31 @@ The base theme needs documented, stable extension points before agencies rely
 on it in production. These make it a proper parent theme rather than just a
 starter.
 
-- [ ] Define and document the PHP hook API
-  - Audit all `add_action` / `add_filter` calls in `functions.php` and
-    templates; expose the ones agencies need to override
-  - Document override points in `README.md` and inline in `functions.php`
-  - Acceptance: agency can swap header, footer, and sidebar via hooks without
-    touching parent files
+- [x] Define and document the PHP hook API
+  - Added action hooks (`spectre_base_before_header`,
+    `spectre_base_before_site_branding`, `spectre_base_after_site_branding`,
+    `spectre_base_after_header`, `spectre_base_before_footer`,
+    `spectre_base_after_footer`, `spectre_base_before_sidebar`,
+    `spectre_base_after_sidebar`) and filter hooks
+    (`spectre_base_primary_nav_args`, `spectre_base_footer_nav_args`,
+    `spectre_base_sidebar_id`) to `header.php`, `footer.php`, `sidebar.php`
+  - Documented all hooks, plus the existing `spectre_base_footer_social_icons`
+    filter and core WP template-loading hooks, in `README.md` under
+    "PHP hook API"
+  - Acceptance met: agency can swap header, footer, and sidebar content via
+    hooks, or override the files entirely via standard child theme lookup,
+    without touching parent files
 
-- [ ] Lock the CSS custom property namespace
-  - Document which `--sp-*` variables are safe for child themes to override
-    and which are internal
-  - Acceptance: documented in `README.md` under a Child Theme section
+- [x] Lock the CSS custom property namespace
+  - Documented in `README.md` under "CSS custom property namespace": the
+    entire `--sp-*` namespace is owned by `@phcdevworks/spectre-tokens` /
+    `@phcdevworks/spectre-ui`; the theme only consumes via `var()` and never
+    declares `--sp-*` properties; child themes must not redeclare them and
+    should override token values through `theme.json` presets instead
 
-- [ ] Add a `Child Themes` section to `README.md`
-  - Cover: `create:child` usage, `Template:` header, token override via
-    `theme.json`, PHP hook points
+- [x] Add a `Child Themes` section to `README.md`
+  - Covers `create:child` usage, the `Template: spectre-theme` header,
+    token overrides via `theme.json`, and PHP hook / template override points
 
 ### P4: Page Builder Compatibility
 
