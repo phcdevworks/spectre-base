@@ -94,46 +94,33 @@ compliance, and a real screenshot is in place.
 
 ---
 
-## 3. Phase 3 — Parent Theme API
+## 3. Phase 3 — Parent Theme API — Delivered
 
-The child theme generator is in place but the parent theme API is not yet
-documented or locked. Agencies cannot safely build child themes without knowing
-which hooks and CSS properties are stable and intended for override.
+### P0: PHP Hook API — Delivered
 
-### P0: PHP Hook API
+Action hooks (`spectre_base_before_header`, `spectre_base_after_header`,
+`spectre_base_before_footer`, `spectre_base_after_footer`,
+`spectre_base_before_sidebar`, `spectre_base_after_sidebar`,
+`spectre_base_before_site_branding`, `spectre_base_after_site_branding`) and
+filter hooks (`spectre_base_primary_nav_args`, `spectre_base_footer_nav_args`,
+`spectre_base_sidebar_id`, `spectre_base_footer_social_icons`) are in place
+and documented in `README.md` under "PHP Hook API".
 
-**Objective** Expose and document the hook surface agencies need to override
-header, footer, and sidebar without touching parent files.
+### P1: CSS Custom Property Namespace — Delivered
 
-#### Deliverables
+`--sp-*` namespace ownership documented in `README.md`. The entire `--sp-*`
+namespace is owned by `@phcdevworks/spectre-tokens` / `@phcdevworks/spectre-ui`.
+The theme only consumes via `var()` and never declares `--sp-*` properties.
 
-- Audit all `add_action` / `add_filter` calls in `functions.php` and templates.
-- Expose and document the override points agencies need.
-- Document in `README.md` and inline in `functions.php`.
+### P2: Child Themes Documentation — Delivered
 
-**Acceptance** An agency can swap header, footer, and sidebar behavior via
-hooks without modifying parent theme files.
-
----
-
-### P1: CSS Custom Property Namespace
-
-**Objective** Document which `--sp-*` variables are safe for child themes to
-override and which are internal shell references. Documented in `README.md`
-under a dedicated Child Theme section.
+`README.md` has a complete `Child Themes` section covering `create:child`
+usage, `Template: spectre-theme` header, token override via `theme.json`,
+PHP hook override points, and CSS custom property override guidance.
 
 ---
 
-### P2: Child Themes Documentation
-
-**Objective** Give agencies a complete reference for extending the base theme.
-Add a `Child Themes` section to `README.md` covering: `create:child` usage,
-`Template:` header requirement, token override via `theme.json`, PHP hook
-override points, and CSS custom property override guidance.
-
----
-
-## 4. Phase 4 — Page Builder and Shell Compatibility
+## 4. Phase 4 — Page Builder and Shell Compatibility — Active
 
 ### P0: Elementor Integration
 
@@ -141,24 +128,21 @@ Confirm Spectre UI CSS works in Elementor widget contexts. Confirm
 `spectre-icons` icon picker works within Elementor. Add CSS scope
 compatibility hooks if needed. Document in README.
 
-**Status:** Not started. Depends on Elementor environment for testing.
-
----
+Status: Not started. Depends on Elementor environment for testing.
 
 ### P1: Beaver Builder Support
 
 Implement when `spectre-icons` ships Beaver Builder support. Align with the
 `spectre-icons` roadmap timeline.
 
----
+Status: Gated on spectre-icons Beaver Builder roadmap.
 
 ### P2: Spectre Shell Router (Optional)
 
-Evaluate whether the Spectre shell router can be used for SPA-style navigation
-within the WordPress theme via hash-based routing. Implement only if a proven
-use case emerges.
+Evaluate hash-based routing for SPA-style navigation within WordPress. Implement
+only if a proven use case emerges.
 
-**Status:** Deferred. No concrete use case yet.
+Status: Deferred. No concrete use case yet.
 
 ---
 
@@ -178,9 +162,7 @@ use case emerges.
 
 1. **Phase 1** — done.
 2. **Phase 2** — done.
-3. **Phase 3 P0** — PHP hook API; unblocks safe child theme development.
-4. **Phase 3 P1** — CSS custom property namespace documentation.
-5. **Phase 3 P2** — Child Themes README section.
-6. **Phase 4 P0** — Elementor integration; depends on Elementor environment.
-7. **Phase 4 P1** — Beaver Builder support; aligned to spectre-icons roadmap.
-8. **Phase 4 P2** — Spectre Shell router evaluation; lowest urgency.
+3. **Phase 3** — done (PHP hook API, CSS namespace, child theme docs).
+4. **Phase 4 P0** — Elementor integration; depends on Elementor environment.
+5. **Phase 4 P1** — Beaver Builder support; gated on spectre-icons roadmap.
+6. **Phase 4 P2** — Spectre Shell router; deferred, lowest urgency.
