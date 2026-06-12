@@ -1,5 +1,37 @@
 # @phcdevworks/spectre-base
 
+## Repository Snapshot
+
+| Field | Value |
+|-------|-------|
+| Project team | `project-design` |
+| Repository role | Spectre WordPress theme shell |
+| Package/artifact | `@phcdevworks/spectre-base` |
+| Current version/status | 1.0.0 |
+
+## Standard Workflow
+
+1. Read [AGENTS.md](AGENTS.md), then the agent-specific guide for the task.
+2. Check [TODO.md](TODO.md) and [ROADMAP.md](ROADMAP.md) for current scope.
+3. Make the smallest repo-local change that satisfies the task.
+4. Run `npm run check` when validation is required or practical.
+5. Update docs and [CHANGELOG.md](CHANGELOG.md) only when behavior, public
+   contracts, or release-relevant metadata changed.
+
+## Documentation Map
+
+| Guide | Path |
+|-------|------|
+| Agent rules | [AGENTS.md](AGENTS.md) |
+| Claude Code | [CLAUDE.md](CLAUDE.md) |
+| Codex | [CODEX.md](CODEX.md) |
+| Copilot | [COPILOT.md](COPILOT.md) |
+| Jules | [JULES.md](JULES.md) |
+| Roadmap | [ROADMAP.md](ROADMAP.md) |
+| Todo | [TODO.md](TODO.md) |
+| Changelog | [CHANGELOG.md](CHANGELOG.md) |
+| Security | [SECURITY.md](SECURITY.md) |
+
 [![CI](https://github.com/phcdevworks/spectre-base/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/phcdevworks/spectre-base/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fphcdevworks%2Fspectre-base%2Fmain%2Fpackage.json&query=%24.license&label=license)](LICENSE)
 [![Node](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fphcdevworks%2Fspectre-base%2Fmain%2Fpackage.json&query=%24.engines.node&label=node)](https://nodejs.org)
