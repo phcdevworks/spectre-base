@@ -29,49 +29,11 @@ public behavior or contract impact, and unresolved risks. Do not edit generated
 outputs directly. Do not update [CHANGELOG.md](CHANGELOG.md) unless the change
 is release-relevant.
 
-## Primary AI Developer
+## Human Approval Boundaries
 
-**Claude Code** (`claude-sonnet-4-6`) is the designated primary AI developer for
-this repository, maintained on behalf of Bradley Potts at PHCDevworks. All development is driven
-through Claude Code operating from `CLAUDE.md` as the authoritative working
-guide. Human final review and commit authority rests with Bradley Potts.
+Protected theme contract surfaces and breaking public hook or template changes require explicit human approval before merge.
 
-Protected theme contract surfaces and breaking public hook or template changes
-require explicit human approval before merge. Claude Code does not create git
-commits; changes are prepared and validated, then handed off for human review
-and commit.
-
-## AI Operating Model
-
-This repository follows the Spectre AI factory model:
-
-| Agent | Role | Authority |
-| ----- | ---- | --------- |
-| Claude Code | Lead developer responsible for primary implementation | `CLAUDE.md` |
-| OpenAI Codex | Documentation, releases, production stabilization, repo hygiene, and config standardization | `CODEX.md` and `.codex/` |
-| ChatGPT | Strategy, coordination, prompt design, and external review -- support layer only, no implementation ownership | -- |
-| GitHub Copilot | General development assistance | `COPILOT.md`, `.github/copilot-instructions.md`, and `.github/instructions/` |
-| Google Jules | Automated maintenance for small fixes, dependency updates, and micro-updates | `JULES.md` and task prompts |
-
-Claude Code keeps implementation leadership. Codex keeps release and
-stabilization work clean. ChatGPT provides strategy and coordination support
-only. Copilot assists without owning decisions. Jules works only on bounded
-automated maintenance and must not take on large feature work.
-
-**Bradley Potts** holds final authority for all commits, merges, tags,
-publishing, and releases. No AI agent holds commit authority in this repository
-except Jules, which may commit bounded automated maintenance when all validation
-gates pass.
-
-## Agent-Specific Guides
-
-- `CLAUDE.md` - primary development authority and implementation workflow.
-- `CODEX.md` - documentation, release, stabilization, and repo hygiene workflow.
-- `JULES.md` - bounded automated maintenance workflow.
-- `COPILOT.md` and `.github/copilot-instructions.md` - support-assistant
-  workflow.
-
-## Shared Edit Boundaries
+## Shared Source Rules
 
 These rules apply to every agent without exception.
 
