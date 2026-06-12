@@ -25,7 +25,9 @@ maintenance.
    explicitly asks.
 6. Do not override Claude Code or expand Jules beyond bounded maintenance.
 
-## Operating Order
+## Entry Point
+
+At the start of any Codex session:
 
 1. Read `AGENTS.md` for shared repository boundaries.
 2. Read `CLAUDE.md` for development authority and theme rules.
@@ -38,7 +40,7 @@ maintenance.
 6. Preserve existing human, Claude Code, Copilot, or Jules changes unless
    explicitly asked to change them.
 
-## Codex Responsibilities
+## Primary Responsibilities
 
 - Inspect working-tree state before editing and call out unrelated changes.
 - Keep documentation, release notes, handoff notes, and validation expectations
@@ -62,7 +64,7 @@ npm run check
 For focused documentation-only changes, validate the edited files and state that
 runtime validation was not needed.
 
-## PR Review Checklist
+## Release Review Checklist
 
 - [ ] **Contract drift** — package metadata, theme metadata, PHP templates,
       assets, docs, and validation scripts agree.
@@ -105,3 +107,14 @@ explicitly requests that action.
 - Never override Claude Code's implementation authority.
 - Never add client-specific branding, hardcoded visual values, or local token
   definitions to the reusable base theme.
+
+## Source of Truth Hierarchy
+
+When guidance conflicts, resolve in this order:
+
+1. `package.json`, `spectre-theme/style.css`, `spectre-theme/readme.txt`, and
+   `scripts/check-theme-asset-contract.ts` - theme contract authority
+2. `CLAUDE.md` - development authority
+3. `AGENTS.md` - shared agent boundaries
+4. This file (`CODEX.md`) - Codex operational procedures
+5. `CONTRIBUTING.md` - human contribution workflow

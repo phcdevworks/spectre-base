@@ -2,13 +2,16 @@
 
 ## Supported Versions
 
-PHCDevworks applies security fixes to the current major release of this package. Please use the latest published version of the relevant Spectre package whenever possible.
+PHCDevworks applies security fixes to the current major release of this package.
+Please use the latest published version of the relevant Spectre package whenever
+possible.
 
 ## Reporting a Vulnerability
 
 Do not open a public issue for security problems.
 
-Please use GitHub Security Advisories for the affected repository whenever possible. If that is not available, contact the maintainers through GitHub.
+Please use GitHub Security Advisories for the affected repository whenever
+possible. If that is not available, contact the maintainers through GitHub.
 
 Include:
 
@@ -32,4 +35,5 @@ Include:
 
 ## Contact
 
-For non-sensitive security questions, open an issue or discussion in this repository.
+For non-sensitive security questions, open an issue or discussion in this
+repository.

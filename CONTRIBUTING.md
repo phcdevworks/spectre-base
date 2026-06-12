@@ -124,3 +124,18 @@ Step-by-step checklist:
 - Update README or contributor docs when the developer workflow changes.
 - Move reusable visual patterns to `@phcdevworks/spectre-ui` rather than
   expanding the WordPress shell.
+
+## Questions
+
+Open an issue or discussion in this repository if you need direction before
+making a larger change.
+
+## Code of Conduct
+
+By participating in this project, you agree to follow the
+[Code of Conduct](CODE_OF_CONDUCT.md).
+
+## License
+
+By contributing, you agree that your contributions will be licensed under the
+MIT License.
