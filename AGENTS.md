@@ -33,6 +33,30 @@ is release-relevant.
 
 Protected theme contract surfaces and breaking public hook or template changes require explicit human approval before merge.
 
+## Upstream Requests and Roadmap Self-Expansion
+
+Full directive: project-team [AGENTS.md](../AGENTS.md) "Upstream Requests and
+Roadmap Self-Expansion." Applied to this repo:
+
+- This repo is the Shell layer — its upstream is `spectre-ui`/`spectre-tokens`
+  for design, and `project-plugins/spectre-icons` for the Beaver Builder /
+  Elementor integration gate. If a needed token, recipe, or icon-library
+  capability doesn't exist upstream, append the request to the owning repo's
+  `TODO.md` under `## Requested by Downstream`, dated, with the reason and a
+  link back to this repo's own TODO.md/ROADMAP.md.
+- There is no known downstream consumer of this repo within the workspace yet.
+  If one appears, it should append requests to this repo's own `TODO.md` under
+  `## Requested by Downstream`, kept visible and separate from self-planned
+  theme work.
+- This repo's own [ROADMAP.md](ROADMAP.md) may be proactively expanded with new
+  or reordered phases by the agent's own analysis — but never mark a phase
+  delivered without `npm run check` passing, and never open a Beaver Builder
+  phase against `spectre-icons` Beaver Builder support that hasn't actually
+  shipped yet.
+- Surface any new TODO request or roadmap expansion in the handoff for Bradley
+  Potts in the same change it was made, and reflect cross-repo-relevant
+  changes in the project-team's own ROADMAP.md/TODO.md.
+
 ## Shared Source Rules
 
 These rules apply to every agent without exception.
@@ -84,6 +108,8 @@ and web components from upstream Spectre packages. It never redefines them.
 3. **Environment awareness.** Development loads from the Vite dev server.
    Production reads the hashed manifest in `spectre-theme/dist/`.
 4. **TypeScript only.** All client-side logic in `src/js/` uses `.ts` files.
+   This also applies to `scripts/` tooling — never add a new `.js`/`.mjs`
+   script; run via `node --experimental-strip-types scripts/<name>.ts`.
 5. **PHP templates are structural.** PHP files handle WordPress integration,
    template hierarchy, and data access. They do not own visual decisions.
 6. **Theme metadata integrity.** Keep `style.css` version-synced with
