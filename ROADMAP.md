@@ -120,29 +120,21 @@ PHP hook override points, and CSS custom property override guidance.
 
 ---
 
-## 4. Phase 4 — Page Builder and Shell Compatibility — Active
+## 4. Phase 4 — Shell Compatibility — Closed, Not Adopted
 
-### P0: Elementor Integration
+### P0: Spectre Shell Router — Evaluated, Declined
 
-Confirm Spectre UI CSS works in Elementor widget contexts. Confirm
-`spectre-icons` icon picker works within Elementor. Add CSS scope
-compatibility hooks if needed. Document in README.
+Evaluated hash-based routing for SPA-style navigation within WordPress.
+Declined: spectre-base is a server-rendered WordPress theme with no SPA
+pages, multi-step flows, or other client-side-routable views. No concrete
+use case exists.
 
-Status: Not started. Depends on Elementor environment for testing.
+Future richer interactivity in this theme takes the form of Gutenberg blocks
+backed by Spectre Lit components (static block markup, progressively
+enhanced via `defineSpectreComponents()`) — not a client-side router or SPA
+shell.
 
-### P1: Beaver Builder Support
-
-Implement when `spectre-icons` ships Beaver Builder support. Align with the
-`spectre-icons` roadmap timeline.
-
-Status: Gated on spectre-icons Beaver Builder roadmap.
-
-### P2: Spectre Shell Router (Optional)
-
-Evaluate hash-based routing for SPA-style navigation within WordPress. Implement
-only if a proven use case emerges.
-
-Status: Deferred. No concrete use case yet.
+Status: Closed. Not adopted.
 
 ---
 
@@ -155,6 +147,7 @@ Status: Deferred. No concrete use case yet.
 - WooCommerce templates unless a proven product need emerges.
 - Component structure or composition — belongs in `@phcdevworks/spectre-ui`.
 - Client-specific identities, overrides, or branding in the base theme.
+- A client-side router or SPA shell — this theme is server-rendered WordPress.
 
 ---
 
@@ -163,6 +156,4 @@ Status: Deferred. No concrete use case yet.
 1. **Phase 1** — done.
 2. **Phase 2** — done.
 3. **Phase 3** — done (PHP hook API, CSS namespace, child theme docs).
-4. **Phase 4 P0** — Elementor integration; depends on Elementor environment.
-5. **Phase 4 P1** — Beaver Builder support; gated on spectre-icons roadmap.
-6. **Phase 4 P2** — Spectre Shell router; deferred, lowest urgency.
+4. **Phase 4** — closed, not adopted (Spectre Shell router evaluation).

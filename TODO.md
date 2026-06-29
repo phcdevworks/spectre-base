@@ -53,7 +53,7 @@ completed before the stable baseline.
 This phase reframes the project as `@phcdevworks/spectre-base` — a parent theme
 agencies use as a foundation for client child themes. The child theme generator
 and rename shipped in this phase. Remaining work focuses on hardening the parent
-theme API, WordPress.org submission, and page builder compatibility.
+theme API and WordPress.org submission.
 
 ### P0: Project Rename and Reframe: Completed
 
@@ -131,22 +131,16 @@ starter.
   - Covers `create:child` usage, the `Template: spectre-theme` header,
     token overrides via `theme.json`, and PHP hook / template override points
 
-### P4: Page Builder Compatibility
+### P4: Spectre Shell Router Evaluation: Closed, Not Adopted
 
-- [ ] Document Elementor integration
-  - Acceptance: Spectre UI CSS confirmed working in Elementor widget contexts;
-    `spectre-icons` icon picker confirmed working; documented in README
-  - Status: Depends on Elementor environment for testing
-
-- [ ] Add Elementor support hooks if needed (CSS scope compatibility)
-
-- [ ] Evaluate Beaver Builder support
-  - Align with `spectre-icons` Beaver Builder roadmap timeline
-
-### P5: Later / Controlled Improvement
-
-- [ ] Evaluate Spectre Shell router (hash mode) for WordPress SPA pages
-  - Implement only if a concrete use case is proven
+- [x] Evaluated Spectre Shell router (hash mode) for WordPress SPA pages
+  - Declined: spectre-base is a server-rendered WordPress theme with no SPA
+    pages, multi-step flows, or other client-side-routable views. No concrete
+    use case exists, so the router is not adopted.
+  - Future richer interactivity in this theme should take the form of
+    Gutenberg blocks backed by Spectre Lit components (static block markup,
+    progressively enhanced via `defineSpectreComponents()`), not a
+    client-side router or SPA shell.
 
 ## Recommended Execution Order
 
@@ -155,9 +149,7 @@ starter.
 3. Phase 3 P0 — PHP hook API; unblocks safe child theme development.
 4. Phase 3 P1 — CSS custom property namespace documentation.
 5. Phase 3 P2 — Child Themes README section.
-6. Phase 4 P0 — Elementor integration; depends on Elementor environment.
-7. Phase 4 P1 — Beaver Builder support; aligned to spectre-icons roadmap.
-8. Phase 4 P2 — Spectre Shell router evaluation; lowest urgency.
+6. Phase 4 P0 — Spectre Shell router evaluation; closed, not adopted.
 
 ## Explicitly Out of Scope
 
@@ -165,5 +157,10 @@ starter.
   `@phcdevworks/spectre-tokens` and `@phcdevworks/spectre-ui`
 - Do not add PHP plugin logic (belongs in plugin repos like `spectre-icons`)
 - Do not add WooCommerce templates without proven product need
+- Do not add page builder (Elementor, Beaver Builder, etc.) integration or
+  compatibility work
+- Do not add a client-side router or SPA shell -- this theme is server-rendered
+  WordPress; richer interactivity belongs in Gutenberg blocks backed by
+  Spectre Lit components, not client-side routing
 - Do not add client-specific branding, hardcoded visual values, or local token
   definitions

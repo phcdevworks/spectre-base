@@ -39,20 +39,17 @@ Full directive: project-team [AGENTS.md](../AGENTS.md) "Upstream Requests and
 Roadmap Self-Expansion." Applied to this repo:
 
 - This repo is the Shell layer — its upstream is `spectre-ui`/`spectre-tokens`
-  for design, and `project-plugins/spectre-icons` for the Beaver Builder /
-  Elementor integration gate. If a needed token, recipe, or icon-library
-  capability doesn't exist upstream, append the request to the owning repo's
-  `TODO.md` under `## Requested by Downstream`, dated, with the reason and a
-  link back to this repo's own TODO.md/ROADMAP.md.
+  for design. If a needed token or recipe capability doesn't exist upstream,
+  append the request to the owning repo's `TODO.md` under
+  `## Requested by Downstream`, dated, with the reason and a link back to this
+  repo's own TODO.md/ROADMAP.md.
 - There is no known downstream consumer of this repo within the workspace yet.
   If one appears, it should append requests to this repo's own `TODO.md` under
   `## Requested by Downstream`, kept visible and separate from self-planned
   theme work.
 - This repo's own [ROADMAP.md](ROADMAP.md) may be proactively expanded with new
   or reordered phases by the agent's own analysis — but never mark a phase
-  delivered without `npm run check` passing, and never open a Beaver Builder
-  phase against `spectre-icons` Beaver Builder support that hasn't actually
-  shipped yet.
+  delivered without `npm run check` passing.
 - Surface any new TODO request or roadmap expansion in the handoff for Bradley
   Potts in the same change it was made, and reflect cross-repo-relevant
   changes in the project-team's own ROADMAP.md/TODO.md.
