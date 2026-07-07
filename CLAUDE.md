@@ -59,13 +59,16 @@ boundary, drift prevention, and dependency contracts -- live in `AGENTS.md`.
 npm install          # Install dependencies
 npm run dev          # Start Vite dev server (http://localhost:5173)
 npm run build        # TypeScript check + Vite production build
-npm run check:assets # Validate Vite manifest and asset contract
-npm run check:drift  # Scan for design-system drift (hardcoded values)
-npm run lint         # ESLint (TypeScript)
-npm run lint:fix     # ESLint with auto-fix
-npm run lint:php     # PHP syntax validation (all .php in spectre-theme/)
-npm run check        # Full validation gate (alias for npm run validate)
-npm run format       # Prettier formatting
+npm run check:assets       # Validate Vite manifest and asset contract
+npm run check:version-sync # Confirm README version matches package.json
+npm run check:drift        # Scan for design-system drift (hardcoded values)
+npm run check:ecosystem    # Validate spectre.manifest.json against the ecosystem contract
+npm run lint               # ESLint (TypeScript)
+npm run lint:fix           # ESLint with auto-fix
+npm run lint:php           # PHP syntax validation (all .php in spectre-theme/)
+npm run validate           # Build, asset contract, version sync, lint, PHP lint, drift scan
+npm run check              # Full gate: validate + check:ecosystem
+npm run format             # Prettier formatting
 ```
 
 Run this sequence before any PR or handoff:
@@ -106,13 +109,15 @@ spectre-base/
 
 | Script | Purpose |
 |---|---|
-| `npm run check` | Full gate, alias for `npm run validate` |
-| `npm run validate` | Build, asset contract, lint, PHP lint, drift scan |
+| `npm run check` | Full gate: `validate` + `check:ecosystem` |
+| `npm run validate` | Build, asset contract, version sync, lint, PHP lint, drift scan |
 | `npm run build` | TypeScript check and Vite production build |
 | `npm run check:assets` | Validate Vite manifest and theme asset contract |
+| `npm run check:version-sync` | Confirm README version reference matches `package.json` |
 | `npm run lint` | ESLint for TypeScript |
 | `npm run lint:php` | PHP syntax validation |
 | `npm run check:drift` | Scan for hardcoded visual values and drift |
+| `npm run check:ecosystem` | Validate `spectre.manifest.json` against the Spectre ecosystem contract |
 
 ## Drift Check
 

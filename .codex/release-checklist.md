@@ -43,9 +43,11 @@ Prefer the full gate before handoff:
 ```bash
 npm run build
 npm run check:assets
+npm run check:version-sync
 npm run lint
 npm run lint:php
 npm run check:drift
+npm run check:ecosystem
 ```
 
 For dependency updates, run `npm install` first, then rebuild and rerun the

@@ -16,9 +16,11 @@
 
 - [ ] `npm run build`
 - [ ] `npm run check:assets`
+- [ ] `npm run check:version-sync`
 - [ ] `npm run lint`
 - [ ] `npm run lint:php`
 - [ ] `npm run check:drift`
+- [ ] `npm run check:ecosystem`
 
 ## Release Readiness
 

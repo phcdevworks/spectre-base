@@ -134,7 +134,7 @@ prevention rules that apply to all contributors and AI agents.
 
 ## Installation
 
-**Prerequisites:** Node.js `^22.12.0 || >=24.0.0`, npm `11.14.1`, PHP 8.2, and
+**Prerequisites:** Node.js `^22.12.0 || >=24.0.0`, npm `11.18.0`, PHP 8.2, and
 [ripgrep](https://github.com/BurntSushi/ripgrep#installation) (required for
 `check:drift`).
 
@@ -467,7 +467,7 @@ npm install
 npm run check
 ```
 
-This project expects Node.js `^22.12.0 || >=24.0.0`, npm `11.14.1`, and
+This project expects Node.js `^22.12.0 || >=24.0.0`, npm `11.18.0`, and
 PHP 8.2.
 
 CSS and JavaScript changes in `src/` are reflected instantly in the browser via
@@ -485,7 +485,9 @@ define('VITE_DEV_SERVER', 'http://localhost:5174');
 | `npm run build` | TypeScript check + Vite production build |
 | `npm run check` | Full validation gate -- must pass before any handoff |
 | `npm run check:assets` | Validate Vite manifest and asset contract |
+| `npm run check:version-sync` | Confirm README version reference matches `package.json` |
 | `npm run check:drift` | Scan for hardcoded visual values and design-system drift |
+| `npm run check:ecosystem` | Validate `spectre.manifest.json` against the Spectre ecosystem contract |
 | `npm run lint` | ESLint for TypeScript |
 | `npm run lint:php` | PHP syntax validation |
 | `npm run format` | Apply Prettier formatting |
@@ -507,9 +509,9 @@ Run the full validation suite before handing off changes:
 npm run check
 ```
 
-`npm run check` is an alias for `npm run validate`. Both run in order:
-TypeScript check, Vite build, asset contract, ESLint, PHP lint, and drift scan.
-CI runs the same command.
+`npm run check` runs `npm run validate` followed by `npm run check:ecosystem`.
+`validate` runs in order: TypeScript check, Vite build, asset contract,
+README version sync, ESLint, PHP lint, and drift scan. CI runs `npm run check`.
 
 `check:drift` expected output is empty or only token-backed references such as
 `var(--sp-shadow-*)` and `theme.json` token presets. Any local visual value

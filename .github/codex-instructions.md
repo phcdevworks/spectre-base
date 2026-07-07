@@ -51,13 +51,15 @@ delivery decisions go to Claude Code.
 ## Validation Commands
 
 ```bash
-npm run check        # full gate, alias for validate
-npm run validate     # build, asset contract, lint, PHP lint, drift scan
-npm run build        # TypeScript check and Vite production build
-npm run check:assets # Vite manifest and asset contract validation
-npm run lint         # ESLint
-npm run lint:php     # PHP syntax validation
-npm run check:drift  # design-system drift scan
+npm run check              # full gate: validate + check:ecosystem
+npm run validate           # build, asset contract, version sync, lint, PHP lint, drift scan
+npm run build               # TypeScript check and Vite production build
+npm run check:assets        # Vite manifest and asset contract validation
+npm run check:version-sync  # README version matches package.json
+npm run lint                # ESLint
+npm run lint:php            # PHP syntax validation
+npm run check:drift         # design-system drift scan
+npm run check:ecosystem     # spectre.manifest.json ecosystem contract validation
 ```
 
 ## Source of Truth Hierarchy

@@ -10,8 +10,10 @@ name: 'Release Readiness'
 - Prefer the full release gate for release-scoped, dependency, build, asset, or workflow changes:
   - `npm run build`
   - `npm run check:assets`
+  - `npm run check:version-sync`
   - `npm run lint`
   - `npm run lint:php`
   - `npm run check:drift`
+  - `npm run check:ecosystem`
 - If the task changes version metadata, keep `package.json`, `spectre-theme/style.css`, and `spectre-theme/readme.txt` synchronized.
 - Document every skipped validation step, known risk, and any WordPress smoke-testing still needed in the final handoff.

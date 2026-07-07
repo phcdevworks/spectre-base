@@ -6,12 +6,10 @@ All notable changes to this project will be documented here. The format follows 
 
 ### Changed
 
-- Bumped `@phcdevworks/spectre-tokens` to `^3.2.0` and `@phcdevworks/spectre-ui`
-  to `^2.5.0` in `package.json`, closing dependency drift against the current
-  published `project-design` packages. Both upstream releases were additive
-  only. `npm install` / `npm run check` not yet re-run for this bump — this
-  repo had a pre-existing, unrelated `@typescript-eslint` peer-dependency
-  conflict in `node_modules` that needs a clean reinstall first.
+- Bumped `@phcdevworks/spectre-tokens` to `^3.3.1`, `@phcdevworks/spectre-ui`
+  to `^2.7.1`, and `@phcdevworks/spectre-components` to `^1.8.0` in
+  `package.json`, closing dependency drift against the current published
+  `project-design` packages.
 
 ### Added
 

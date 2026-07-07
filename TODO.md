@@ -48,12 +48,12 @@ completed before the stable baseline.
 
 ---
 
-## Phase 2 - Base Theme and Agency DX: In Progress
+## Phase 2 - Base Theme and Agency DX: Completed
 
-This phase reframes the project as `@phcdevworks/spectre-base` — a parent theme
-agencies use as a foundation for client child themes. The child theme generator
-and rename shipped in this phase. Remaining work focuses on hardening the parent
-theme API and WordPress.org submission.
+This phase reframed the project as `@phcdevworks/spectre-base` — a parent theme
+agencies use as a foundation for client child themes. The child theme generator,
+rename, WordPress.org submission readiness, and parent theme API all shipped
+in this phase.
 
 ### P0: Project Rename and Reframe: Completed
 
@@ -142,14 +142,18 @@ starter.
     progressively enhanced via `defineSpectreComponents()`), not a
     client-side router or SPA shell.
 
-## Recommended Execution Order
+## Recommended Execution Order (Historical)
 
 1. Phase 1 — done.
 2. Phase 2 — done.
-3. Phase 3 P0 — PHP hook API; unblocks safe child theme development.
+3. Phase 3 P0 — PHP hook API; unblocked safe child theme development.
 4. Phase 3 P1 — CSS custom property namespace documentation.
 5. Phase 3 P2 — Child Themes README section.
 6. Phase 4 P0 — Spectre Shell router evaluation; closed, not adopted.
+
+All phases above are complete or closed. The project is in maintenance mode:
+dependency upkeep, drift/regression prevention, and CI health. See
+[ROADMAP.md](ROADMAP.md) for current status and any future scope.
 
 ## Explicitly Out of Scope
 
