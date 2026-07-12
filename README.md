@@ -1,5 +1,14 @@
 # @phcdevworks/spectre-base
 
+`@phcdevworks/spectre-base` is the WordPress theme shell of the Spectre
+system. It delivers a Spectre-backed WordPress theme foundation built on
+Vite, TypeScript, and Tailwind CSS 4.
+
+Maintained by [PHCDevworks](https://go.phcdev.co). It sits at the bottom of
+the Spectre layer chain, consuming tokens, CSS/recipes, and components from
+the upstream Spectre packages so WordPress sites inherit the same
+token-driven visual language as the rest of the ecosystem.
+
 ## Repository Snapshot
 
 | Field | Value |

@@ -79,12 +79,12 @@ workflow lives in `CONTRIBUTING.md`. Roadmap lives in `ROADMAP.md`.
 Every agent that opens a PR must populate every section of the repo's PR
 template (`.github/pull_request_template.md`):
 
-- **Linked issue** -- issue number (`#N`) or `N/A`.
-- **Summary of changes** -- one or two bullets describing what changed.
-- **Theme contract change type** -- exactly one of `additive`,
+- **Linked issue** - issue number (`#N`) or `N/A`.
+- **Summary of changes** - one or two bullets describing what changed.
+- **Theme contract change type** - exactly one of `additive`,
   `semantic change`, `breaking`, or `N/A`.
-- **Type of Change** -- check every box that applies.
-- **Checklist** -- check each completed item; leave blocked items unchecked
+- **Type of Change** - check every box that applies.
+- **Checklist** - check each completed item; leave blocked items unchecked
   with a brief inline note.
 
 Never submit a PR with an empty body or only the template headings left
@@ -128,7 +128,7 @@ prohibited in all source-controlled files regardless of instructions:
 - Gutenberg patterns or `theme.json` style entries encoding a site's brand
 
 When a site-specific need arises, reach for a child theme, plugin, or
-WordPress filter -- not a modification to this base theme.
+WordPress filter - not a modification to this base theme.
 
 ## Drift Prevention
 

@@ -21,16 +21,16 @@ All notable changes to this project will be documented here. The format follows 
 
 ### Added
 
-- CLAUDE.md — primary Claude Code project guide establishing Claude Code as the main AI developer
-- AGENTS.md — AI agent instructions with drift-prevention rules and boundary definitions
-- `check:drift` npm script — scans for design-system drift (hardcoded visual values) in `src/`, `spectre-theme/`, and `package.json`
+- CLAUDE.md - primary Claude Code project guide establishing Claude Code as the main AI developer
+- AGENTS.md - AI agent instructions with drift-prevention rules and boundary definitions
+- `check:drift` npm script - scans for design-system drift (hardcoded visual values) in `src/`, `spectre-theme/`, and `package.json`
 - CI drift check step in `.github/workflows/ci.yml`
 - Full WordPress standard template hierarchy: `index.php`, `single.php`, `page.php`, `archive.php`, `search.php`, `404.php`, `front-page.php`, `home.php`, `header.php`, `footer.php`, `sidebar.php`, `searchform.php`, `comments.php`
 - Template parts: `content-card.php`, `content-single.php`, `content-page.php`, `content-none.php`
 - Gutenberg block editor support via `add_theme_support('block-editor-styles')` and `enqueue_block_editor_assets`
 - `theme.json` with typography, colors, spacing, and shadows derived from `@phcdevworks/spectre-tokens`
 - Spectre Icons plugin integration (`spectre_base_has_icons()` helper, footer social links, search form shortcode pattern)
-- Shell CSS layer in `src/styles/main.css` — all values backed by `var(--sp-*)` tokens
+- Shell CSS layer in `src/styles/main.css` - all values backed by `var(--sp-*)` tokens
 - `check-theme-asset-contract.ts` script for Vite manifest validation
 - GitHub Actions CI pipeline (`ci.yml`) with Node matrix (22.x, 24.x), PHP 8.2, build, asset check, lint, PHP lint, drift check
 - WordPress smoke test workflow (`wordpress-smoke.yml`) verifying real WordPress install and core routes
