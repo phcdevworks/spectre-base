@@ -10,6 +10,12 @@ All notable changes to this project will be documented here. The format follows 
   to `^2.7.1`, and `@phcdevworks/spectre-components` to `^1.8.0` in
   `package.json`, closing dependency drift against the current published
   `project-design` packages.
+- Added TypeScript 7 support alongside TypeScript 6: internal tooling
+  (ESLint/typescript-eslint) runs against TypeScript 6 via an
+  `npm:@typescript/typescript6` alias since `typescript-eslint` does not yet
+  support TypeScript 7's programmatic API; TypeScript 7's native compiler is
+  available via the `@typescript/native` devDependency alias and is now used
+  by the `build`/`typecheck` scripts' `tsc` invocations.
 
 ### Added
 
