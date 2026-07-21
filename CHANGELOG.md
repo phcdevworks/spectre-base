@@ -4,6 +4,8 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-07-21
+
 ### Changed
 
 - Bumped `@phcdevworks/spectre-tokens` to `^3.3.1`, `@phcdevworks/spectre-ui`
@@ -63,6 +65,7 @@ All notable changes to this project will be documented here. The format follows 
 - Initial commit: Vite WordPress theme template
 - Rename project to spectre-base
 
-[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v1.0.0...HEAD
+[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/phcdevworks/spectre-base/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/phcdevworks/spectre-base/compare/v0.0.1...v1.0.0
 [0.0.1]: https://github.com/phcdevworks/spectre-base/tree/v0.0.1
