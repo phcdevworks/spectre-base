@@ -8,7 +8,7 @@ function spectre_base_setup() {
     add_theme_support("post-thumbnails");
     add_theme_support("html5", array("search-form", "comment-form", "comment-list", "gallery", "caption"));
     add_theme_support("custom-logo");
-    add_theme_support("block-editor-styles");
+    add_theme_support("editor-styles");
     add_theme_support("align-wide");
     add_theme_support("editor-color-palette");
     add_theme_support("editor-font-sizes");
@@ -119,7 +119,7 @@ function spectre_base_enqueue_assets() {
 }
 add_action("wp_enqueue_scripts", "spectre_base_enqueue_assets");
 
-function spectre_base_enqueue_block_editor_assets() {
+function spectre_base_add_editor_styles() {
     $manifest_path = get_template_directory() . "/dist/.vite/manifest.json";
     if (!file_exists($manifest_path)) {
         return;
@@ -135,14 +135,9 @@ function spectre_base_enqueue_block_editor_assets() {
         return;
     }
 
-    wp_enqueue_style(
-        "spectre-base-editor-style",
-        get_template_directory_uri() . "/dist/" . $main_entry["css"][0],
-        array(),
-        null
-    );
+    add_editor_style(get_template_directory_uri() . "/dist/" . $main_entry["css"][0]);
 }
-add_action("enqueue_block_editor_assets", "spectre_base_enqueue_block_editor_assets");
+add_action("admin_init", "spectre_base_add_editor_styles");
 
 function spectre_base_has_icons() {
     return shortcode_exists("spectre-icon");

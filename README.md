@@ -284,6 +284,38 @@ Do not rename PHP functions (`spectre_base_*`) without also updating
 template calls and the text domain throughout. A project-wide search-and-replace
 is the safest approach.
 
+### Pulling in upstream updates
+
+GitHub's "Use this template" flow creates a repository with no git history
+link back to `spectre-base`, so there is no "sync fork" button. Add
+`spectre-base` as a second remote once, then pull specific changes on your own
+schedule:
+
+```bash
+# One-time setup in your generated repo
+git remote add spectre-base https://github.com/phcdevworks/spectre-base.git
+git fetch spectre-base
+```
+
+Check [CHANGELOG.md](CHANGELOG.md) on `spectre-base` for what changed since the
+version you started from, then bring it in one of two ways:
+
+```bash
+# Merge everything since a given tag (expect conflicts wherever you customized
+# templates or theme.json -- resolve in favor of your branding)
+git merge spectre-base/main --allow-unrelated-histories
+
+# Or pull a single fix/feature commit instead of a full merge
+git cherry-pick <commit-sha>
+```
+
+Files you overrode in a child theme (per [Child Themes](#child-themes) below)
+are never touched by this, since WordPress loads your copy instead of the
+parent's. Files you edited directly in a forked `spectre-theme/` (rather than
+through a child theme or the [PHP hook API](#php-hook-api)) are the ones most
+likely to conflict on merge -- another reason to prefer child themes and hooks
+over editing the parent template files in place.
+
 ## PHP hook API
 
 The theme exposes a documented set of action and filter hooks so an agency can
