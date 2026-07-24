@@ -10,32 +10,35 @@
 <?php wp_body_open(); ?>
 
 <?php do_action('spectre_base_before_header'); ?>
-<header class="site-header spectre-site-header">
-    <div class="spectre-site-container spectre-site-header__inner">
-        <div class="site-branding spectre-site-branding">
-            <?php do_action('spectre_base_before_site_branding'); ?>
-            <?php if (has_custom_logo()) : ?>
-                <?php the_custom_logo(); ?>
-            <?php else : ?>
-                <h1 class="spectre-site-title">
-                    <a href="<?php echo esc_url(home_url('/')); ?>" class="spectre-inverse-link">
-                        <?php echo esc_html(get_bloginfo('name')); ?>
-                    </a>
-                </h1>
-            <?php endif; ?>
-            <?php do_action('spectre_base_after_site_branding'); ?>
-        </div>
+<sp-nav bordered full-width sticky aria-label="<?php echo esc_attr__('Site header', 'spectre-base'); ?>">
+    <sp-container>
+        <sp-stack direction="horizontal" align="center">
+            <div class="site-branding">
+                <?php do_action('spectre_base_before_site_branding'); ?>
+                <?php if (has_custom_logo()) : ?>
+                    <?php the_custom_logo(); ?>
+                <?php else : ?>
+                    <h1>
+                        <a href="<?php echo esc_url(home_url('/')); ?>">
+                            <?php echo esc_html(get_bloginfo('name')); ?>
+                        </a>
+                    </h1>
+                <?php endif; ?>
+                <?php do_action('spectre_base_after_site_branding'); ?>
+            </div>
 
-        <nav class="main-navigation">
-            <?php
-            wp_nav_menu(apply_filters('spectre_base_primary_nav_args', array(
-                'theme_location' => 'primary',
-                'menu_class' => 'spectre-navigation-menu',
-                'container' => false,
-                'fallback_cb' => 'spectre_base_primary_menu_fallback',
-            )));
-            ?>
-        </nav>
-    </div>
-</header>
+            <nav class="main-navigation" aria-label="<?php echo esc_attr__('Primary', 'spectre-base'); ?>">
+                <sp-stack direction="horizontal">
+                    <?php
+                    wp_nav_menu(apply_filters('spectre_base_primary_nav_args', array(
+                        'theme_location' => 'primary',
+                        'container' => false,
+                        'fallback_cb' => 'spectre_base_primary_menu_fallback',
+                    )));
+                    ?>
+                </sp-stack>
+            </nav>
+        </sp-stack>
+    </sp-container>
+</sp-nav>
 <?php do_action('spectre_base_after_header'); ?>

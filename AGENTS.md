@@ -144,8 +144,15 @@ and web components from upstream Spectre packages. It never redefines them.
 
 1. **Token consumption only.** CSS in `src/styles/` references Spectre tokens
    exclusively via `var(--sp-*)`. No hardcoded hex, RGB, rem, px, or em values.
-2. **Use the component system.** Use `<sp-button>`, `<sp-input>`, and other
-   Spectre web components instead of hand-rolling styled elements.
+2. **Use the component system.** Use `<sp-card>`, `<sp-nav>`, `<sp-footer>`,
+   `<sp-section>`, `<sp-button>`, `<sp-input>`, and every other matching
+   Spectre web component instead of hand-rolling a styled element — even if
+   every value in the hand-rolled CSS is token-backed. Token-backed CSS that
+   duplicates a component's chrome is still drift: it forks a second,
+   unmaintained copy of a contract `spectre-components` already owns, and it
+   silently diverges the next time that component changes upstream. Before
+   writing new CSS for a structural element, check whether
+   `@phcdevworks/spectre-components` already has an `<sp-*>` element for it.
 3. **Environment awareness.** Development loads from the Vite dev server.
    Production reads the hashed manifest in `spectre-theme/dist/`.
 4. **TypeScript only.** All client-side logic in `src/js/` uses `.ts` files.
@@ -187,14 +194,26 @@ Shared ownership of visual responsibility:
 
 Allowed in PHP templates:
 - WordPress template hierarchy, loops, conditionals, nav, metadata, and escaping
-- Semantic shell classes: `spectre-site-container`, `spectre-main`,
-  `spectre-panel`, `spectre-card`
-- Spectre web components: `<sp-button>`, `<sp-input>`
+- Layout-only shell classes with no visual chrome of their own:
+  `spectre-site-container`, `spectre-main`, `spectre-post-grid`
+- Spectre web components for anything with visual chrome (background, border,
+  radius, shadow, padding, hover/focus state): `<sp-card>`, `<sp-nav>`,
+  `<sp-footer>`, `<sp-section>`, `<sp-button>`, `<sp-input>`, `<sp-badge>`,
+  and any other `<sp-*>` element that already covers the need
+- `sp-btn`/`sp-*` static class names from `@phcdevworks/spectre-ui` recipes
+  (e.g. `getButtonClasses()`) only where a real `<sp-*>` element cannot be
+  used structurally (e.g. an anchor styled as a button — `sp-button` only
+  renders a `<button>`)
 
 Avoid in PHP templates:
 - Tailwind utilities for color, type, spacing, radius, shadow, or layout
 - Hardcoded CSS values or arbitrary utilities (`text-white`, `rounded-*`,
   `shadow-*`, `p-*`, `px-*`, `py-*`, `gap-*`, `max-w-*`, `w-*`, `h-*`)
+- A bare `<div>`/`<article>`/`<section>`/`<nav>`/`<footer>` styled via a
+  custom `spectre-*` class when an `<sp-*>` component already provides that
+  chrome — this is drift even when every value traces back to a token,
+  because it duplicates a contract `spectre-components` already owns and
+  will silently diverge the next time that component changes upstream
 - Hand-built controls when an `<sp-*>` component exists
 
 Allowed in `src/styles/main.css`:

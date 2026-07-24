@@ -26,9 +26,9 @@ function spectre_base_widgets_init() {
         "name"          => __("Main Sidebar", "spectre-base"),
         "id"            => "sidebar-main",
         "description"   => __("Widgets in this area appear in the sidebar.", "spectre-base"),
-        "before_widget" => '<section id="%1$s" class="widget %2$s spectre-widget">',
-        "after_widget"  => "</section>",
-        "before_title"  => '<h3 class="spectre-widget-title">',
+        "before_widget" => '<sp-card id="%1$s" class="widget %2$s" padded>',
+        "after_widget"  => "</sp-card>",
+        "before_title"  => '<h3>',
         "after_title"   => "</h3>",
     ));
 }
@@ -39,13 +39,10 @@ function spectre_base_primary_menu_fallback($args) {
         return;
     }
 
-    echo "<div class='spectre-menu-fallback'>";
     wp_page_menu(array(
         "container" => false,
-        "menu_class" => "spectre-navigation-menu",
         "show_home" => true,
     ));
-    echo "</div>";
 }
 
 function spectre_base_enqueue_assets() {

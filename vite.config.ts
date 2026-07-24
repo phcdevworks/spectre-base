@@ -1,10 +1,12 @@
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 export default defineConfig({
+  plugins: [tailwindcss()],
   build: {
     outDir: 'spectre-theme/dist',
     emptyOutDir: true,
