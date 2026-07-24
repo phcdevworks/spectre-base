@@ -1,5 +1,5 @@
 <?php if (!defined("ABSPATH")) exit; ?>
-<sp-card id='post-<?php the_ID(); ?>' <?php post_class(); ?> padded>
+<div id='post-<?php the_ID(); ?>' <?php post_class(); ?>>
     <sp-stack>
         <header>
             <h1><?php the_title(); ?></h1>
@@ -15,4 +15,4 @@
             ?>
         </div>
     </sp-stack>
-</sp-card>
+</div>
