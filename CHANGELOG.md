@@ -4,7 +4,37 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-07-24
+
+Contract change type: breaking
+
+### Changed
+
+- Reworked WordPress templates, header/footer, cards, comments, and sidebar
+  markup to use Spectre web components (`sp-*`) and Spectre UI button classes
+  instead of custom `spectre-*` chrome classes.
+- Removed the local component-style layer from `src/styles/main.css` so
+  styling is consumed from upstream Spectre packages, and updated `AGENTS.md`
+  drift guidance to enforce that pattern.
+- Added `@tailwindcss/vite` and wired the Tailwind CSS 4 Vite plugin into
+  `vite.config.ts`, fixing `@theme`/`@tailwind` at-rules being minified
+  unprocessed by lightningcss.
+
 ## [1.1.0] - 2026-07-21
+
+### Added
+
+- Added `@phcdevworks/spectre-manifest` as a devDependency. `spectre.manifest.json`
+  at the repo root declares this package's ecosystem role, layer, exports, and
+  allowed dependency targets. `check:ecosystem` validates it in the check pipeline.
+- Added the `spectre_base_*` PHP hook API for header, branding, footer,
+  navigation, and sidebar extension points.
+- Added `npm run create:child -- <client-name>` to scaffold token-driven child
+  themes.
+- Added local WordPress environment and Playwright screenshot tooling.
+- Added theme translation loading, a `languages/` directory, and direct-access
+  guards across PHP templates.
+- Added version-sync validation and the unified `npm run check` release gate.
 
 ### Changed
 
@@ -18,54 +48,74 @@ All notable changes to this project will be documented here. The format follows 
   support TypeScript 7's programmatic API; TypeScript 7's native compiler is
   available via the `@typescript/native` devDependency alias and is now used
   by the `build`/`typecheck` scripts' `tsc` invocations.
+- Renamed the package and theme from `spectre-wordpress-themes` to
+  `spectre-base`, including the package name, PHP function prefix, text domain,
+  asset handles, workspace, documentation, and theme metadata.
+- Refactored the theme to consume Spectre tokens, UI recipes, and web
+  components, and added token-backed `theme.json` editor settings.
+- Added footer navigation, footer social-icon filtering, a sidebar widget
+  area, block editor styles, and refreshed WordPress theme templates.
+- Raised the minimum PHP version to 8.2 and aligned CI on Node.js 22/24 and
+  PHP 8.2.
+- Migrated repository scripts to TypeScript and standardized build, asset,
+  lint, PHP, drift, version, and ecosystem checks.
+- Updated Spectre runtime packages and the TypeScript, ESLint, Tailwind CSS,
+  Vite, WordPress, Playwright, PostCSS, Prettier, and npm toolchains.
+- Expanded release, security, contribution, roadmap, cross-repository, and
+  AI-agent governance documentation.
+
+### Removed
+
+- Retired the proposed page-builder compatibility layer to keep the reusable
+  base theme server-rendered and block-based.
+
+## [1.0.0] - 2026-04-26
 
 ### Added
 
-- Added `@phcdevworks/spectre-manifest` as a devDependency. `spectre.manifest.json`
-  at the repo root declares this package's ecosystem role, layer, exports, and
-  allowed dependency targets. `check:ecosystem` validates it in the check pipeline.
-
-## [1.0.0] - 2026-05-14
-
-### Added
-
-- CLAUDE.md - primary Claude Code project guide establishing Claude Code as the main AI developer
-- AGENTS.md - AI agent instructions with drift-prevention rules and boundary definitions
-- `check:drift` npm script - scans for design-system drift (hardcoded visual values) in `src/`, `spectre-theme/`, and `package.json`
-- CI drift check step in `.github/workflows/ci.yml`
-- Full WordPress standard template hierarchy: `index.php`, `single.php`, `page.php`, `archive.php`, `search.php`, `404.php`, `front-page.php`, `home.php`, `header.php`, `footer.php`, `sidebar.php`, `searchform.php`, `comments.php`
-- Template parts: `content-card.php`, `content-single.php`, `content-page.php`, `content-none.php`
-- Gutenberg block editor support via `add_theme_support('block-editor-styles')` and `enqueue_block_editor_assets`
-- `theme.json` with typography, colors, spacing, and shadows derived from `@phcdevworks/spectre-tokens`
-- Spectre Icons plugin integration (`spectre_base_has_icons()` helper, footer social links, search form shortcode pattern)
-- Shell CSS layer in `src/styles/main.css` - all values backed by `var(--sp-*)` tokens
-- `check-theme-asset-contract.ts` script for Vite manifest validation
-- GitHub Actions CI pipeline (`ci.yml`) with Node matrix (22.x, 24.x), PHP 8.2, build, asset check, lint, PHP lint, drift check
-- WordPress smoke test workflow (`wordpress-smoke.yml`) verifying real WordPress install and core routes
-- Sidebar widget area registration
-- Primary menu fallback registration
-- Primary and footer nav menu locations
-- `spectre_base_primary_menu_fallback` function
-- `.editorconfig`, `.prettierrc`, `.gitattributes`, `.npmignore`
-- VSCode workspace config and extensions recommendation
-- `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `ROADMAP.md`, `TODO.md`
-- `dependabot.yml` for automated npm dependency updates
+- Added `ROADMAP.md` and `TODO.md` to define the theme delivery plan and
+  implementation priorities.
 
 ### Changed
 
-- Merged duplicate `.spectre-post-navigation` CSS rule in `src/styles/main.css`
-- Synced version across `package.json`, `spectre-theme/style.css`, and `spectre-theme/readme.txt` (all now `1.0.0`)
-- `README.md` npm version reference corrected to `11.14.1`
-- Design-system boundary documented in README with drift-scan command
+- Migrated ESLint from legacy configuration files to a TypeScript flat config
+  using `typescript-eslint` and `globals`.
+- Simplified the WordPress index template to use template parts and updated
+  pagination, menu fallback, and production asset loading.
+- Removed unused Vite starter files, the standalone Tailwind config, and
+  production source maps.
+- Updated Spectre package ranges and build/lint tooling.
 
-## [0.0.1] - 2026-01-31
+## [0.0.1] - 2026-04-24
 
 ### Added
 
-- Initial commit: Vite WordPress theme template
-- Rename project to spectre-base
+- Added the initial Vite, TypeScript, and Tailwind CSS 4 WordPress theme
+  foundation with development-server HMR and production manifest asset
+  loading.
+- Added the WordPress template hierarchy and reusable content template parts,
+  including archive, search, error, page, post, comments, and search-form
+  support.
+- Added Spectre token and UI package consumption.
+- Added ESLint, Prettier, EditorConfig, PHP linting, and repository formatting
+  configuration.
+- Added GitHub Actions build/lint validation, a production asset-contract
+  check, and a WordPress installation smoke test.
+- Added contributor, security, conduct, repository, and agent guidance.
 
-[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v1.1.0...HEAD
+### Changed
+
+- Renamed the original Vite template to `spectre-shell-wordpress` and then
+  `spectre-wordpress-themes`, updating package, repository, theme, and
+  documentation metadata.
+- Reworked theme enqueue logic around a single TypeScript entry and its emitted
+  CSS, with safer Vite manifest validation.
+- Removed the development-container configuration and refreshed Spectre,
+  TypeScript, Tailwind CSS, Vite, lint, formatting, and transitive
+  dependencies.
+
+[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/phcdevworks/spectre-base/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/phcdevworks/spectre-base/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/phcdevworks/spectre-base/compare/v0.0.1...v1.0.0
 [0.0.1]: https://github.com/phcdevworks/spectre-base/tree/v0.0.1
