@@ -21,11 +21,10 @@ repository. Read it before touching any source file.
 
 ## Multi-Agent Team
 
-`AGENTS.md` is the shared guide for agent roles, edit boundaries, PR
-requirements, core rules, starter boundary, drift prevention, and dependency
-contracts. Claude Code is the lead implementation authority for templates,
-build tooling, CSS, and TypeScript. Resolve conflicts by referencing this file
-and `AGENTS.md`.
+Full roster, authority table, and PR requirements: [AGENTS.md](AGENTS.md).
+Claude Code is the lead implementation authority for templates, build
+tooling, CSS, and TypeScript. Resolve conflicts by referencing this file and
+`AGENTS.md`.
 
 Release workflow artifacts live in `.codex/`:
 - `.codex/release-checklist.md` -- Codex release gate steps
@@ -33,15 +32,9 @@ Release workflow artifacts live in `.codex/`:
 
 ## Commit Policy
 
-Claude Code does not create git commits in this repository. Prepare changes,
-run all validation, and leave staging, committing, tagging, and pushing to
-human review.
-
-## Pull Request Creation
-
-Follow the shared PR requirements in `AGENTS.md`. Claude Code prepares
-validated changes for human review; Bradley Potts handles final commit, merge,
-tag, and release authority.
+See [AGENTS.md](AGENTS.md) for the full grant of authority. Claude Code
+applies it here: run all validation before committing, then stage, commit,
+tag, and push without per-action confirmation.
 
 ## The One Rule That Overrides Everything
 

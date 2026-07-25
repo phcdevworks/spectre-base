@@ -6,24 +6,18 @@ Codex acts as the documentation, release-readiness, production-stabilization,
 repo-hygiene, changelog/release note support, and config-standardization agent
 for `@phcdevworks/spectre-base`.
 
-Claude Code remains the lead developer and `CLAUDE.md` remains the
-authoritative implementation guide. Codex supports that lead by checking
+Full roster and authority table: [AGENTS.md](AGENTS.md). `CLAUDE.md` remains
+the authoritative implementation guide; Codex supports that lead by checking
 design-system drift, validation coverage, metadata consistency, documentation
 quality, and release handoff readiness.
 
-Codex must not weaken Claude Code's lead developer role, assign ownership or
-release decisions to Copilot, or expand Jules beyond small automated
-maintenance.
-
 ## Operating Principles
 
-1. Defer implementation authority to Claude Code and `CLAUDE.md`.
-2. Protect the reusable WordPress theme contract before optimizing internals.
-3. Never hand-edit generated output in `spectre-theme/dist/`.
-4. Keep CSS and PHP templates downstream of Spectre tokens, UI, and components.
-5. Do not create commits, tags, releases, or publishes unless Bradley
-   explicitly asks.
-6. Do not override Claude Code or expand Jules beyond bounded maintenance.
+1. Protect the reusable WordPress theme contract before optimizing internals.
+2. Never hand-edit generated output in `spectre-theme/dist/`.
+3. Keep CSS and PHP templates downstream of Spectre tokens, UI, and components.
+4. Commit and push within Codex's own scope of work; do not cut releases,
+   publish packages, or merge PRs unless Bradley explicitly asks.
 
 ## Entry Point
 
@@ -97,8 +91,9 @@ When work is complete, report:
 - Skipped validation and the reason.
 - Remaining production, release, or WordPress smoke-test risk.
 
-Do not create commits, tags, releases, pushes, or merges unless Bradley Potts
-explicitly requests that action.
+Commit and push within Codex's own scope of work is already covered by the
+companywide grant. Do not cut releases, publish packages, or merge PRs unless
+Bradley Potts explicitly requests that action.
 
 ## Hard Limits
 
