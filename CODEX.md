@@ -16,8 +16,10 @@ quality, and release handoff readiness.
 1. Protect the reusable WordPress theme contract before optimizing internals.
 2. Never hand-edit generated output in `spectre-theme/dist/`.
 3. Keep CSS and PHP templates downstream of Spectre tokens, UI, and components.
-4. Commit and push within Codex's own scope of work; do not cut releases,
-   publish packages, or merge PRs unless Bradley explicitly asks.
+4. Commit, tag (`v<version>`), and publish a GitHub Release for every
+   release-ready `CHANGELOG.md [Unreleased]` section — see "Release
+   Procedure" below. This theme is not npm-published; do not merge PRs
+   unless Bradley explicitly asks.
 
 ## Entry Point
 
@@ -75,12 +77,24 @@ runtime validation was not needed.
 ## Release Procedure
 
 1. Update `package.json`, `spectre-theme/style.css`, and
-   `spectre-theme/readme.txt` together.
-2. Move `[Unreleased]` notes in `CHANGELOG.md` to a new versioned entry with
-   date and release title.
+   `spectre-theme/readme.txt` together to the new version.
+2. Move `[Unreleased]` notes in `CHANGELOG.md` to a new versioned entry:
+   `## [<version>] - <YYYY-MM-DD>`, with a release title line in the format
+   `**Release Title:** Phase <N> - <short title>`, where `Phase <N>` is the
+   active phase name from this repo's own `ROADMAP.md` and `<short title>`
+   is a concise summary of what shipped. If the release spans no single
+   ROADMAP phase, state that explicitly instead of inventing one.
 3. Update compare links at the bottom of `CHANGELOG.md`.
 4. Run `npm run check`.
-5. Hand off to Bradley Potts for review, commit, tag, and release.
+5. Stage and commit the version bump and changelog update.
+6. Create the git tag: `git tag v<version>` (matching `package.json`
+   exactly), then push the commit and tag.
+7. Publish the GitHub Release from that tag: `gh release create v<version>
+   --title "v<version>: Phase <N> - <short title>" --notes-file` (extract the
+   new version's changelog section, or `--notes` inline for a short release).
+   This theme is not npm-published — the GitHub Release is the distribution
+   point.
+8. Handoff summary prepared for Bradley Potts.
 
 ## Handoff
 
@@ -91,14 +105,16 @@ When work is complete, report:
 - Skipped validation and the reason.
 - Remaining production, release, or WordPress smoke-test risk.
 
-Commit and push within Codex's own scope of work is already covered by the
-companywide grant. Do not cut releases, publish packages, or merge PRs unless
-Bradley Potts explicitly requests that action.
+Commit, tag, and GitHub Release authority is already covered by the
+companywide grant and "Release Procedure" above. This theme is not
+npm-published; do not merge PRs unless Bradley Potts explicitly requests
+that action.
 
 ## Hard Limits
 
 - Never hand-edit generated files or build artifacts.
-- Never commit, tag, publish, or release without Bradley's explicit request.
+- Commit, tag, and GitHub Release authority is granted per "Release
+  Procedure" above; do not merge PRs without Bradley's explicit request.
 - Never override Claude Code's implementation authority.
 - Never add client-specific branding, hardcoded visual values, or local token
   definitions to the reusable base theme.
