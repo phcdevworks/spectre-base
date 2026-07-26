@@ -58,7 +58,7 @@ assets without moving design-system ownership into PHP templates.
 [Changelog](CHANGELOG.md) | [Roadmap](ROADMAP.md) |
 [Security Policy](SECURITY.md)
 
-## Source of truth
+## Source Of Truth
 
 `spectre-theme/` is the deployable WordPress theme directory. `src/` is the
 build source. Everything in `spectre-theme/dist/` is generated -- never edit
@@ -76,7 +76,7 @@ it directly.
 After any source change: run `npm run build` to regenerate output, then
 `npm run check` to validate.
 
-## What this package owns
+## What This Package Owns
 
 - The Vite build configuration for theme assets
 - The TypeScript entrypoint in `src/js/main.ts`
@@ -89,7 +89,7 @@ The build compiles one JavaScript entry and one CSS entry. In production, the
 theme resolves those compiled assets from the Vite manifest and serves one JS
 bundle and one CSS bundle for the theme-owned frontend surface.
 
-## What this package does not own
+## What This Package Does Not Own
 
 - Design token definitions. Those belong to `@phcdevworks/spectre-tokens`.
 - Reusable UI component contracts and recipes. Those belong to
@@ -97,7 +97,7 @@ bundle and one CSS bundle for the theme-owned frontend surface.
 - WordPress core installation, plugin management, or hosting concerns.
 - Application state architecture beyond the theme entrypoint.
 
-## Key capabilities
+## Key Capabilities
 
 - Ships a deployable WordPress theme directory in `spectre-theme/`
 - Builds theme-owned CSS and JavaScript through Vite and TypeScript
@@ -107,7 +107,7 @@ bundle and one CSS bundle for the theme-owned frontend surface.
   redefining their contracts
 - Keeps PHP templates focused on WordPress structure and data delivery
 
-## When to use this package
+## When To Use This Package
 
 - You are building a WordPress site and need Spectre tokens, UI, and web
   components delivered through a theme
@@ -116,7 +116,7 @@ bundle and one CSS bundle for the theme-owned frontend surface.
 - You need hot module replacement in development and hashed production assets
   without writing the plumbing yourself
 
-## When not to use this package
+## When Not To Use This Package
 
 - You want to define design tokens, color scales, typography, or component
   contracts -- those belong in `@phcdevworks/spectre-tokens`,
@@ -125,7 +125,7 @@ bundle and one CSS bundle for the theme-owned frontend surface.
   repository such as `spectre-icons`
 - You are building a non-WordPress frontend -- this package is WordPress-specific
 
-## Design system guardrail
+## Design System Guardrail
 
 **The CMS delivers; the design system defines.** This theme is the delivery
 layer, not a second design system. WordPress owns template structure and data
@@ -151,7 +151,7 @@ prevention rules that apply to all contributors and AI agents.
 npm install
 ```
 
-## Quick start
+## Quick Start
 
 1. Start the Vite dev server.
 
@@ -180,7 +180,7 @@ npm install
    npm run check:assets
    ```
 
-## Relationship to the rest of Spectre
+## Relationship To The Rest Of Spectre
 
 - `@phcdevworks/spectre-tokens` provides the design tokens consumed by the
   frontend layer
@@ -196,7 +196,7 @@ By default, the theme stylesheet imports the Spectre UI default bundle, so a
 fresh install starts from Spectre UI instead of a generic Tailwind-only
 baseline.
 
-## Template hierarchy
+## Template Hierarchy
 
 The theme ships a complete WordPress template hierarchy. Each file handles a
 specific route:
@@ -226,7 +226,7 @@ Template parts in `spectre-theme/template-parts/`:
 | `content-page.php` | `page.php`, `front-page.php` |
 | `content-none.php` | All list templates when no posts are found |
 
-## Shell class reference
+## Shell Class Reference
 
 These CSS classes are defined in `src/styles/main.css` and are safe to use in
 any PHP template. All values come from `var(--sp-*)` tokens.
@@ -262,7 +262,7 @@ any PHP template. All values come from `var(--sp-*)` tokens.
 | `spectre-widget` | Sidebar widget wrapper |
 | `spectre-widget-title` | Sidebar widget heading |
 
-## Using this as a starter
+## Using This As A Starter
 
 Fork or clone this repository to start a new Spectre-backed WordPress site.
 Minimum changes for a new site:
@@ -316,7 +316,7 @@ through a child theme or the [PHP hook API](#php-hook-api)) are the ones most
 likely to conflict on merge -- another reason to prefer child themes and hooks
 over editing the parent template files in place.
 
-## PHP hook API
+## PHP Hook API
 
 The theme exposes a documented set of action and filter hooks so an agency can
 customize header, footer, navigation, and sidebar behavior from a child theme
@@ -398,7 +398,7 @@ the parent theme's copy. No filter is required to do this; it is core
 behavior. Prefer the hooks above when possible -- they keep you on the parent
 theme's update path.
 
-## CSS custom property namespace
+## CSS Custom Property Namespace
 
 Every `--sp-*` custom property consumed by this theme is owned and defined by
 `@phcdevworks/spectre-tokens` (via `@phcdevworks/spectre-ui`). The theme itself
@@ -542,7 +542,7 @@ define('VITE_DEV_SERVER', 'http://localhost:5174');
 - `spectre-theme/dist/` -- Vite build output (never edit directly)
 - `vite.config.ts` -- build and dev-server configuration
 
-## Validation and drift checks
+## Validation And Drift Checks
 
 Run the full validation suite before handing off changes:
 
@@ -558,7 +558,7 @@ README version sync, ESLint, PHP lint, and drift scan. CI runs `npm run check`.
 `var(--sp-shadow-*)` and `theme.json` token presets. Any local visual value
 must be removed or justified before merging.
 
-## Spectre Icons integration
+## Spectre Icons Integration
 
 This theme is compatible with the
 [spectre-icons](https://wordpress.org/plugins/spectre-icons/) WordPress plugin.
@@ -593,17 +593,18 @@ This pattern works in both the classic editor and the block editor.
 | PHP lint fails with syntax error | PHP syntax error in a template file | Fix the reported file, then rerun `npm run lint:php` (PHP 8.2 is the CI target) |
 | `rg` not found when running `check:drift` | ripgrep not installed | Install ripgrep (`brew install ripgrep` on macOS, `apt install ripgrep` on Ubuntu) |
 
-## AI and automation boundaries
+## AI And Automation Boundaries
 
 Claude Code (`claude-sonnet-4-6`) is the primary development agent for this
-repository. Codex handles releases and production stabilization. Jules handles
-small automated fixes and dependency updates. GitHub Copilot provides
-development support.
+repository. Codex handles releases, including cutting tagged releases and
+GitHub Releases, and production stabilization. Jules handles small automated
+fixes and dependency updates. GitHub Copilot provides development support.
 
-Claude Code, Codex, and Copilot do not create git commits by default. Jules may
-commit only bounded automated maintenance when the `JULES.md` scope and
-validation gates pass. Final commit, merge, release, tag, and publishing
-authority remains with Bradley Potts.
+All AI agents with repository access (Claude Code, Codex, Copilot, Jules)
+have commit, push, and tag authority in this repository. Publishing to npm
+and WordPress.org submission remain Bradley Potts's sole authority. See
+[AGENTS.md](AGENTS.md) for the full commit-policy and release-authority
+grant.
 
 **Protected from automated change:** the Golden Rule (CMS delivers, design
 system defines -- no local token overrides or hardcoded values), PHP template
