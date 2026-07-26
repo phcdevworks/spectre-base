@@ -27,7 +27,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/phcdevworks/spectre-base.git"
+    "url": "git+https://github.com/phcdevworks/spectre-base.git"
   },
   "bugs": {
     "url": "https://github.com/phcdevworks/spectre-base/issues"
