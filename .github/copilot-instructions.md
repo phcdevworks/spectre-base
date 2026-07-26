@@ -6,7 +6,8 @@ GitHub Copilot is the general development support assistant for this
 package — targeted edits, refactors, TypeScript/PHP lint-safe fixes, test and
 validation suggestions, API usage hints, and IDE productivity. Copilot does
 not own architecture direction, release decisions, or final handoff
-authority. Full roster and authority table: [AGENTS.md](../AGENTS.md).
+authority. Copilot has commit, push, and tag authority per the companywide
+grant — see the Commit Policy section in [AGENTS.md](../AGENTS.md).
 
 ## Package Conventions
 
@@ -22,7 +23,7 @@ authority. Full roster and authority table: [AGENTS.md](../AGENTS.md).
 - Prefer narrow, pattern-aligned changes over broad rewrites.
 - Keep docs and release artifacts in sync when behavior changes.
 - Preserve unrelated local changes.
-- Do not create commits, tags, or releases unless explicitly asked.
+- Commit, push, and tag freely within the working style above; do not merge PRs, publish, or release.
 
 ## Validation
 
