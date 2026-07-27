@@ -71,11 +71,11 @@
     "@typescript/native": "npm:typescript@^7.0.2",
     "@wordpress/env": "^11.11.0",
     "autoprefixer": "^10.5.4",
-    "eslint": "^10.7.0",
-    "globals": "^17.7.0",
+    "eslint": "^10.8.0",
+    "globals": "^17.8.0",
     "jiti": "^2.7.0",
-    "playwright": "^1.61.1",
-    "postcss": "^8.5.22",
+    "playwright": "^1.62.0",
+    "postcss": "^8.5.23",
     "prettier": "^3.9.6",
     "tailwindcss": "^4.3.3",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
@@ -83,9 +83,9 @@
     "vite": "^8.1.5"
   },
   "dependencies": {
-    "@phcdevworks/spectre-components": "^1.9.0",
-    "@phcdevworks/spectre-tokens": "^3.5.0",
-    "@phcdevworks/spectre-ui": "^2.10.0"
+    "@phcdevworks/spectre-components": "^1.10.0",
+    "@phcdevworks/spectre-tokens": "^4.0.0",
+    "@phcdevworks/spectre-ui": "^3.0.0"
   },
   "allowScripts": {
     "fs-ext-extra-prebuilt@2.2.7": true
