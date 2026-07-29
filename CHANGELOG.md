@@ -4,6 +4,30 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-07-29
+
+**Release Title:** No active phase - Spectre text contracts
+
+This release spans no single ROADMAP phase; it is a maintenance release.
+
+Contract change type: breaking
+
+### Changed
+
+- Replaced template headings, metadata, and supporting copy across the
+  WordPress template hierarchy with the upstream `sp-text` component. This
+  changes rendered markup and centralizes text hierarchy, sizing, and variants
+  in the Spectre UI contract.
+- Upgraded `@phcdevworks/spectre-tokens` from v3 to v4 and
+  `@phcdevworks/spectre-ui` from v2 to v3, and raised
+  `@phcdevworks/spectre-components` to `^1.11.0` for the `sp-text` primitive.
+- Corrected block-editor stylesheet registration to use WordPress
+  `editor-styles` support and `add_editor_style()`.
+- Replaced the page template's presentation-oriented `sp-card` wrapper with a
+  structural `div`.
+- Standardized repository configuration, AI-agent governance, maintenance
+  documentation, and upstream-update guidance.
+
 ## [2.0.0] - 2026-07-24
 
 Contract change type: breaking
@@ -114,7 +138,8 @@ Contract change type: breaking
   TypeScript, Tailwind CSS, Vite, lint, formatting, and transitive
   dependencies.
 
-[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v2.0.0...HEAD
+[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/phcdevworks/spectre-base/compare/v2.0.0...v3.0.0
 [2.0.0]: https://github.com/phcdevworks/spectre-base/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/phcdevworks/spectre-base/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/phcdevworks/spectre-base/compare/v0.0.1...v1.0.0
