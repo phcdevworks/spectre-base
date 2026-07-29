@@ -7,7 +7,7 @@
     <sp-stack>
         <?php if (have_comments()) : ?>
             <header>
-                <h2>
+                <sp-text level="h2">
                     <?php
                     printf(
                         esc_html(
@@ -16,7 +16,7 @@
                         esc_html(number_format_i18n(get_comments_number()))
                     );
                     ?>
-                </h2>
+                </sp-text>
             </header>
 
             <ol>
@@ -36,7 +36,7 @@
         <?php endif; ?>
 
         <?php if (!comments_open() && get_comments_number()) : ?>
-            <p><?php esc_html_e('Comments are closed.', 'spectre-base'); ?></p>
+            <sp-text variant="muted"><?php esc_html_e('Comments are closed.', 'spectre-base'); ?></sp-text>
         <?php endif; ?>
 
         <div>

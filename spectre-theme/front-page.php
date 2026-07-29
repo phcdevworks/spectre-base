@@ -6,10 +6,10 @@
         <?php while (have_posts()) : the_post(); ?>
             <sp-section>
                 <header>
-                    <p><?php echo esc_html(get_bloginfo('name')); ?></p>
-                    <h1><?php the_title(); ?></h1>
+                    <sp-text variant="muted"><?php echo esc_html(get_bloginfo('name')); ?></sp-text>
+                    <sp-text level="h1"><?php the_title(); ?></sp-text>
                     <?php if (has_excerpt()) : ?>
-                        <p><?php echo esc_html(get_the_excerpt()); ?></p>
+                        <sp-text variant="subtle"><?php echo esc_html(get_the_excerpt()); ?></sp-text>
                     <?php endif; ?>
                 </header>
 

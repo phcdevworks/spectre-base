@@ -18,11 +18,11 @@
                 <?php if (has_custom_logo()) : ?>
                     <?php the_custom_logo(); ?>
                 <?php else : ?>
-                    <h1>
+                    <sp-text level="h1">
                         <a href="<?php echo esc_url(home_url('/')); ?>">
                             <?php echo esc_html(get_bloginfo('name')); ?>
                         </a>
-                    </h1>
+                    </sp-text>
                 <?php endif; ?>
                 <?php do_action('spectre_base_after_site_branding'); ?>
             </div>

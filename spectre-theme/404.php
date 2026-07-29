@@ -4,9 +4,9 @@
 <sp-container>
     <sp-card padded>
         <sp-stack align="center">
-            <p>404</p>
-            <h1><?php esc_html_e('Page not found', 'spectre-base'); ?></h1>
-            <p><?php esc_html_e('The page you requested could not be found. Try searching or head back to the homepage.', 'spectre-base'); ?></p>
+            <sp-text variant="muted">404</sp-text>
+            <sp-text level="h1"><?php esc_html_e('Page not found', 'spectre-base'); ?></sp-text>
+            <sp-text variant="subtle"><?php esc_html_e('The page you requested could not be found. Try searching or head back to the homepage.', 'spectre-base'); ?></sp-text>
 
             <div>
                 <?php get_search_form(); ?>

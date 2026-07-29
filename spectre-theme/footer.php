@@ -41,7 +41,7 @@
                 </sp-stack>
             <?php endif; ?>
 
-            <p>&copy; <?php echo esc_html(wp_date('Y')); ?> <?php echo esc_html(get_bloginfo('name')); ?>. <?php esc_html_e('All rights reserved.', 'spectre-base'); ?></p>
+            <sp-text variant="muted" size="sm">&copy; <?php echo esc_html(wp_date('Y')); ?> <?php echo esc_html(get_bloginfo('name')); ?>. <?php esc_html_e('All rights reserved.', 'spectre-base'); ?></sp-text>
         </sp-stack>
     </sp-container>
 </sp-footer>

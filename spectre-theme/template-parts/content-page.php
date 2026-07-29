@@ -2,7 +2,7 @@
 <div id='post-<?php the_ID(); ?>' <?php post_class(); ?>>
     <sp-stack>
         <header>
-            <h1><?php the_title(); ?></h1>
+            <sp-text level="h1"><?php the_title(); ?></sp-text>
         </header>
 
         <div>

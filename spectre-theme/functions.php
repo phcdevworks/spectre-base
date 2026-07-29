@@ -28,8 +28,8 @@ function spectre_base_widgets_init() {
         "description"   => __("Widgets in this area appear in the sidebar.", "spectre-base"),
         "before_widget" => '<sp-card id="%1$s" class="widget %2$s" padded>',
         "after_widget"  => "</sp-card>",
-        "before_title"  => '<h3>',
-        "after_title"   => "</h3>",
+        "before_title"  => '<sp-text level="h3">',
+        "after_title"   => "</sp-text>",
     ));
 }
 add_action("widgets_init", "spectre_base_widgets_init");

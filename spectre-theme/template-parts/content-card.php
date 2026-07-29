@@ -7,17 +7,17 @@
             </a>
         <?php endif; ?>
 
-        <div>
+        <sp-text variant="meta" size="sm">
             <time datetime='<?php echo esc_attr(get_the_date('c')); ?>'><?php echo esc_html(get_the_date()); ?></time>
             <span>&bull;</span>
             <span><?php echo esc_html(get_the_author()); ?></span>
-        </div>
+        </sp-text>
 
-        <h2>
+        <sp-text level="h2">
             <a href='<?php echo esc_url(get_permalink()); ?>'>
                 <?php the_title(); ?>
             </a>
-        </h2>
+        </sp-text>
 
         <div>
             <?php the_excerpt(); ?>

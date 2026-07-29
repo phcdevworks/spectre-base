@@ -4,10 +4,10 @@
 <sp-container>
     <sp-stack>
         <header>
-            <p><?php esc_html_e('Search', 'spectre-base'); ?></p>
-            <h1>
+            <sp-text variant="muted"><?php esc_html_e('Search', 'spectre-base'); ?></sp-text>
+            <sp-text level="h1">
                 <?php printf(esc_html__('Results for: %s', 'spectre-base'), esc_html(get_search_query())); ?>
-            </h1>
+            </sp-text>
         </header>
 
         <?php if (have_posts()) : ?>

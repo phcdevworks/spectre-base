@@ -4,9 +4,9 @@
 <sp-container>
     <sp-stack>
         <header>
-            <p><?php esc_html_e('Journal', 'spectre-base'); ?></p>
-            <h1><?php echo esc_html(single_post_title('', false)); ?></h1>
-            <p><?php esc_html_e('The latest posts from this site.', 'spectre-base'); ?></p>
+            <sp-text variant="muted"><?php esc_html_e('Journal', 'spectre-base'); ?></sp-text>
+            <sp-text level="h1"><?php echo esc_html(single_post_title('', false)); ?></sp-text>
+            <sp-text variant="subtle"><?php esc_html_e('The latest posts from this site.', 'spectre-base'); ?></sp-text>
         </header>
 
         <?php if (have_posts()) : ?>
