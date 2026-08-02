@@ -24,6 +24,7 @@ this file does not restate delivered work.
 | 2 | WordPress.org readiness and agency DX — renamed to `spectre-base`, child theme generator, submission compliance pass, screenshot tooling | Delivered |
 | 3 | Parent theme API — PHP hook API, `--sp-*` CSS namespace documentation, Child Themes README section | Delivered |
 | 4 | Shell compatibility — Spectre Shell router evaluated for WordPress SPA-style navigation | Closed, not adopted |
+| 5 | Spectre text contracts — templates converted onto `sp-text`; tokens bumped to `^4.0.0`, `spectre-ui` to `^3.0.0`, `spectre-components` to `^1.11.0` | Delivered (3.0.0) |
 
 ---
 
