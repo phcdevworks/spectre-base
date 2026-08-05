@@ -86,6 +86,9 @@
             "fontSize": "var(--sp-font-md-size)",
             "lineHeight": "var(--sp-font-md-line-height)"
         },
+        "spacing": {
+            "blockGap": "var(--sp-space-16)"
+        },
         "elements": {
             "link": {
                 "color": {
