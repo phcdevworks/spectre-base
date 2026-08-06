@@ -4,13 +4,11 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
-## [3.0.1] - 2026-08-06
+## [v3.0.1] - 2026-08-06
 
-**Release Title:** No active phase - Maintenance dependency alignment
+**Release Title:** Maintenance dependency alignment
 
 This release spans no single ROADMAP phase; it is a maintenance release.
-
-Contract change type: N/A
 
 ### Changed
 
@@ -23,13 +21,9 @@ Contract change type: N/A
 - Corrected the roadmap history for the 3.0.0 text-contract release and
   clarified repository commit-completion and human-authorship policy.
 
-## [3.0.0] - 2026-07-29
+## [v3.0.0] - 2026-07-29
 
-**Release Title:** No active phase - Spectre text contracts
-
-This release spans no single ROADMAP phase; it is a maintenance release.
-
-Contract change type: breaking
+**Release Title:** Spectre text contracts
 
 ### Changed
 
@@ -47,9 +41,9 @@ Contract change type: breaking
 - Standardized repository configuration, AI-agent governance, maintenance
   documentation, and upstream-update guidance.
 
-## [2.0.0] - 2026-07-24
+## [v2.0.0] - 2026-07-24
 
-Contract change type: breaking
+**Release Title:** Spectre component migration
 
 ### Changed
 
@@ -63,7 +57,9 @@ Contract change type: breaking
   `vite.config.ts`, fixing `@theme`/`@tailwind` at-rules being minified
   unprocessed by lightningcss.
 
-## [1.1.0] - 2026-07-21
+## [v1.1.0] - 2026-07-21
+
+**Release Title:** Parent theme API and agency tooling
 
 ### Added
 
@@ -112,7 +108,9 @@ Contract change type: breaking
 - Retired the proposed page-builder compatibility layer to keep the reusable
   base theme server-rendered and block-based.
 
-## [1.0.0] - 2026-04-26
+## [v1.0.0] - 2026-04-26
+
+**Release Title:** WordPress theme stabilization
 
 ### Added
 
@@ -129,7 +127,9 @@ Contract change type: breaking
   production source maps.
 - Updated Spectre package ranges and build/lint tooling.
 
-## [0.0.1] - 2026-04-24
+## [v0.0.1] - 2026-04-24
+
+**Release Title:** Initial theme foundation
 
 ### Added
 
@@ -158,9 +158,9 @@ Contract change type: breaking
   dependencies.
 
 [unreleased]: https://github.com/phcdevworks/spectre-base/compare/v3.0.1...HEAD
-[3.0.1]: https://github.com/phcdevworks/spectre-base/compare/v3.0.0...v3.0.1
-[3.0.0]: https://github.com/phcdevworks/spectre-base/compare/v2.0.0...v3.0.0
-[2.0.0]: https://github.com/phcdevworks/spectre-base/compare/v1.1.0...v2.0.0
-[1.1.0]: https://github.com/phcdevworks/spectre-base/compare/v1.0.0...v1.1.0
-[1.0.0]: https://github.com/phcdevworks/spectre-base/compare/v0.0.1...v1.0.0
-[0.0.1]: https://github.com/phcdevworks/spectre-base/tree/v0.0.1
+[v3.0.1]: https://github.com/phcdevworks/spectre-base/compare/v3.0.0...v3.0.1
+[v3.0.0]: https://github.com/phcdevworks/spectre-base/compare/v2.0.0...v3.0.0
+[v2.0.0]: https://github.com/phcdevworks/spectre-base/compare/v1.1.0...v2.0.0
+[v1.1.0]: https://github.com/phcdevworks/spectre-base/compare/v1.0.0...v1.1.0
+[v1.0.0]: https://github.com/phcdevworks/spectre-base/compare/v0.0.1...v1.0.0
+[v0.0.1]: https://github.com/phcdevworks/spectre-base/tree/v0.0.1
