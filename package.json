@@ -1,6 +1,6 @@
 {
   "name": "@phcdevworks/spectre-base",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "@phcdevworks/spectre-base is the WordPress theme shell of the Spectre system. It delivers a Spectre-backed WordPress theme foundation built on Vite, TypeScript, and Tailwind CSS 4.",
   "type": "module",
   "keywords": [
@@ -66,26 +66,26 @@
     "@phcdevworks/spectre-manifest": "^1.1.0",
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^26.1.2",
-    "@typescript-eslint/eslint-plugin": "^8.65.0",
-    "@typescript-eslint/parser": "^8.65.0",
+    "@typescript-eslint/eslint-plugin": "^8.66.0",
+    "@typescript-eslint/parser": "^8.66.0",
     "@typescript/native": "npm:typescript@^7.0.2",
     "@wordpress/env": "^11.12.0",
     "autoprefixer": "^10.5.4",
     "eslint": "^10.8.0",
-    "globals": "^17.8.0",
+    "globals": "^17.9.0",
     "jiti": "^2.7.0",
     "playwright": "^1.62.1",
     "postcss": "^8.5.25",
     "prettier": "^3.9.6",
     "tailwindcss": "^4.3.3",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
-    "typescript-eslint": "^8.65.0",
+    "typescript-eslint": "^8.66.0",
     "vite": "^8.2.0"
   },
   "dependencies": {
-    "@phcdevworks/spectre-components": "^1.12.0",
-    "@phcdevworks/spectre-tokens": "^4.0.0",
-    "@phcdevworks/spectre-ui": "^3.1.0"
+    "@phcdevworks/spectre-components": "^1.14.0",
+    "@phcdevworks/spectre-tokens": "^4.1.0",
+    "@phcdevworks/spectre-ui": "^3.2.0"
   },
   "allowScripts": {
     "fs-ext-extra-prebuilt@2.2.7": true

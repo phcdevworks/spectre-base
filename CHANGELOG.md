@@ -4,6 +4,25 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [3.0.1] - 2026-08-06
+
+**Release Title:** No active phase - Maintenance dependency alignment
+
+This release spans no single ROADMAP phase; it is a maintenance release.
+
+Contract change type: N/A
+
+### Changed
+
+- Updated the Spectre runtime contract ranges to
+  `@phcdevworks/spectre-components` `^1.14.0`,
+  `@phcdevworks/spectre-tokens` `^4.1.0`, and
+  `@phcdevworks/spectre-ui` `^3.2.0`.
+- Refreshed Vite, Playwright, ESLint, TypeScript ESLint, Globals, WordPress
+  Playground, and related transitive development dependencies.
+- Corrected the roadmap history for the 3.0.0 text-contract release and
+  clarified repository commit-completion and human-authorship policy.
+
 ## [3.0.0] - 2026-07-29
 
 **Release Title:** No active phase - Spectre text contracts
@@ -138,7 +157,8 @@ Contract change type: breaking
   TypeScript, Tailwind CSS, Vite, lint, formatting, and transitive
   dependencies.
 
-[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v3.0.0...HEAD
+[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v3.0.1...HEAD
+[3.0.1]: https://github.com/phcdevworks/spectre-base/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/phcdevworks/spectre-base/compare/v2.0.0...v3.0.0
 [2.0.0]: https://github.com/phcdevworks/spectre-base/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/phcdevworks/spectre-base/compare/v1.0.0...v1.1.0
