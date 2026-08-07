@@ -96,10 +96,10 @@ Roadmap Self-Expansion." Applied to this repo:
   append the request to the owning repo's `TODO.md` under
   `## Requested by Downstream`, dated, with the reason and a link back to this
   repo's own TODO.md/ROADMAP.md.
-- There is no known downstream consumer of this repo within the workspace yet.
-  If one appears, it should append requests to this repo's own `TODO.md` under
-  `## Requested by Downstream`, kept visible and separate from self-planned
-  theme work.
+- downstream integration is a confirmed child-theme consumer, although its source repo is
+  not currently present in this workspace. Its shell-level requests belong in
+  this repo's `TODO.md` under `## Requested by Downstream`, kept visible and
+  separate from self-planned theme work.
 - This repo's own [ROADMAP.md](ROADMAP.md) may be proactively expanded with new
   or reordered phases by the agent's own analysis — but never mark a phase
   delivered without `npm run check` passing.

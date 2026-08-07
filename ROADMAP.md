@@ -30,11 +30,17 @@ this file does not restate delivered work.
 
 ## What's Next
 
-No active phase is currently open. The project is in maintenance mode:
-dependency upkeep, drift/regression prevention, and CI health. New scope
-opens only when a concrete need emerges — e.g. richer interactivity via
-Gutenberg blocks backed by Spectre Lit components. See [TODO.md](TODO.md) for
-the current work queue.
+### Phase 6 — WordPress Content-Flow Contract
+
+Add reusable parent-theme handling for classic `the_content()` flow,
+container measure, block spacing, and wide/full alignment. downstream integration's first
+production child theme supplied the concrete evidence for this shell-level gap.
+
+### Phase 7 — Production Layout Dependency Alignment
+
+After the upstream UI and component layout contracts publish, align package
+dependencies, built assets, child-theme generation guidance, and validation.
+See [TODO.md](TODO.md) for the gated work queue.
 
 ---
 

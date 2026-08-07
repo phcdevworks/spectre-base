@@ -1,18 +1,38 @@
 # Spectre Base Theme Execution Todo
 
-No active work is currently open in this package. Phases 1 through 3 are
-delivered and Phase 4 (Spectre Shell router evaluation) is closed, not
-adopted — see [ROADMAP.md](ROADMAP.md) for the full delivery history and
-[CHANGELOG.md](CHANGELOG.md) for release-by-release detail.
+Phases 1 through 5 are delivered — see [ROADMAP.md](ROADMAP.md) for the full
+delivery history and [CHANGELOG.md](CHANGELOG.md) for release-by-release
+detail.
 
-The project is in maintenance mode: dependency upkeep, drift/regression
-prevention, and CI health. New scope opens only when a concrete need
-emerges — e.g. richer interactivity via Gutenberg blocks backed by Spectre
-Lit components (static block markup, progressively enhanced via
-`defineSpectreComponents()`), not a client-side router or SPA shell.
+## Phase 6: WordPress Content-Flow Contract
 
-When a new phase opens, add it here with the same P0/P1/P2 structure the
-completed phases used in `ROADMAP.md`.
+Requested by the downstream integration child theme on 2026-08-07. Classic
+`the_content()` output currently lacks a reusable top-level flow/alignment
+contract, forcing the child theme to rebuild container width, inline padding,
+block spacing, and `.alignfull` behavior.
+
+- [ ] Add a generic parent-theme content wrapper around page/front-page/single
+      `the_content()` output without introducing client-specific markup.
+- [ ] Provide token-backed default content measure and inline padding, a
+      full-width breakout contract for `.alignfull`, and top-level block flow
+      spacing equivalent to `theme.json` `blockGap` when WordPress does not emit
+      `.is-layout-flow` on the classic wrapper.
+- [ ] Add PHP/template and drift-check coverage for normal, wide, and full
+      alignment behavior; confirm nested Gutenberg layout blocks retain Core's
+      own spacing rules.
+- [ ] Update public child-theme documentation and `CHANGELOG.md`, then run
+      `npm run check`.
+
+## Phase 7: Production Layout Dependency Alignment
+
+Gated on npm publication of `spectre-ui` 3.3.0 and the subsequent
+`spectre-components` layout-forwarding release.
+
+- [ ] Bump and lock the published Spectre dependency ranges, rebuild assets,
+      and run the full drift/WordPress validation gate.
+- [ ] Update the child-theme generator/documentation to demonstrate the new
+      layout utilities and inner-element class contract instead of descendant
+      CSS overrides.
 
 ## Explicitly Out of Scope
 
