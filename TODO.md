@@ -6,7 +6,7 @@ detail.
 
 ## Phase 6: WordPress Content-Flow Contract
 
-Requested by the downstream integration child theme on 2026-08-07. Classic
+Requested by a downstream child-theme integration on 2026-08-07. Classic
 `the_content()` output currently lacks a reusable top-level flow/alignment
 contract, forcing the child theme to rebuild container width, inline padding,
 block spacing, and `.alignfull` behavior.

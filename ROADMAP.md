@@ -33,8 +33,8 @@ this file does not restate delivered work.
 ### Phase 6 — WordPress Content-Flow Contract
 
 Add reusable parent-theme handling for classic `the_content()` flow,
-container measure, block spacing, and wide/full alignment. downstream integration's first
-production child theme supplied the concrete evidence for this shell-level gap.
+container measure, block spacing, and wide/full alignment. A production child
+theme supplied the concrete evidence for this shell-level gap.
 
 ### Phase 7 — Production Layout Dependency Alignment
 
