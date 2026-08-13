@@ -11,6 +11,12 @@ the authoritative implementation guide; Codex supports that lead by checking
 design-system drift, validation coverage, metadata consistency, documentation
 quality, and release handoff readiness.
 
+Codex is also responsible for executing git operations on Claude Code's
+behalf in this repo, now that Claude Code has zero git access: when Claude
+Code hands off validated work, Codex — not Claude Code — stages, commits,
+tags, and pushes it, in addition to Codex's own documentation and hygiene
+commits.
+
 ## Operating Principles
 
 1. Protect the reusable WordPress theme contract before optimizing internals.

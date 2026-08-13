@@ -30,11 +30,18 @@ Release workflow artifacts live in `.codex/`:
 - `.codex/release-checklist.md` -- Codex release gate steps
 - `.codex/handoff-template.md` -- standard handoff summary format
 
-## Commit Policy
+## Git Access — Denied
 
-See [AGENTS.md](AGENTS.md) for the full grant of authority. Claude Code
-applies it here: run all validation before committing, then stage, commit,
-tag, and push without per-action confirmation.
+**Claude Code has zero git access in this repo, as part of a companywide
+policy.** Claude Code must not run `git commit`, `git push`, `git tag`, or
+any other git command — read-only or mutating — here. This supersedes the
+prior commit/push/tag grant described in this repo's `AGENTS.md`. OpenAI
+Codex now executes all git operations for this repo; see `AGENTS.md` and
+`CODEX.md`.
+
+When work is ready, Claude Code stops short of any git command and hands off
+to Codex (or Bradley Potts) with a summary of files changed and validation
+performed (`npm run check`).
 
 ## The One Rule That Overrides Everything
 
