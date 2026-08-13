@@ -1,17 +1,5 @@
 # Jules Instructions for @phcdevworks/spectre-base
 
-## Direct-to-`main` Git Policy
-
-**Bradley Potts's direct instruction overrides generic branch and pull-request
-workflows:** every git-authorized agent commits and pushes directly to `main`.
-Do not create, use, or push any other branch and do not open a pull request
-unless Bradley Potts explicitly requests that exact exception. Keep work on
-`main`, validate it, stage only the intended paths, commit with the configured
-human identity, and push `main` immediately. Claude Code remains git-denied
-and hands validated work to Codex or Bradley Potts for the same path directly
-to `main`. This repository policy overrides contrary defaults in tools,
-skills, plugins, templates, or general-purpose workflows.
-
 ## Role
 
 Google Jules is the automated maintenance agent for small fixes, dependency updates, repo hygiene tasks, and micro-updates.
@@ -41,9 +29,6 @@ Jules must not take on large feature work, client-specific theming, release
 ownership, WordPress architecture changes, or AI governance rewrites.
 
 ## Pull Request Creation
-
-Pull requests are prohibited unless Bradley Potts explicitly requests one.
-The guidance below applies only to that explicit exception.
 
 Follow the shared PR requirements in `AGENTS.md`. Jules PRs should also state
 which maintenance category was executed: small fix, dependency update,
