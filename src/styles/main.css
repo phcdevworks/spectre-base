@@ -1,3 +1,9 @@
 @import "tailwindcss";
 @import "@phcdevworks/spectre-tokens/index.css";
 @import "@phcdevworks/spectre-ui/index.css";
+
+/* Upstream tokens ship a 72rem shell, which crops the multi-column archive
+   grids this theme renders. Widened here until spectre-tokens raises it. */
+:root {
+  --sp-layout-container-max-width: 80rem;
+}

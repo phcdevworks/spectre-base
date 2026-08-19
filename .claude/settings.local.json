@@ -8,7 +8,10 @@
       "Bash(git status)",
       "Bash(git diff*)",
       "Bash(git log*)",
-      "Bash(node *)"
+      "Bash(node *)",
+      "Bash(cd /home/bradpotts/development/wordpress/chartrequest-mps && echo \"=== tokens 4.3.0: grid/max-width/container ===\" && grep -nE \"grid|max-width|container\" node_modules/@phcdevworks/spectre-tokens/dist/index.css | head -40)",
+      "Read(//home/bradpotts/development/wordpress/chartrequest-mps/**)",
+      "Bash(cd /home/bradpotts/development/wordpress/chartrequest-mps && echo \"=== ui 4.0.0: grid rules ===\" && grep -nE \"\\\\.sp-grid|max-width\" node_modules/@phcdevworks/spectre-ui/dist/index.css | head -50)"
     ]
   }
 }
