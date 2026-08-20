@@ -80,12 +80,12 @@
     "tailwindcss": "^4.3.3",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
     "typescript-eslint": "^8.67.0",
-    "vite": "^8.2.1"
+    "vite": "^8.2.2"
   },
   "dependencies": {
-    "@phcdevworks/spectre-components": "^1.16.0",
-    "@phcdevworks/spectre-tokens": "^4.4.0",
-    "@phcdevworks/spectre-ui": "^4.1.1"
+    "@phcdevworks/spectre-components": "^1.17.0",
+    "@phcdevworks/spectre-tokens": "^4.5.0",
+    "@phcdevworks/spectre-ui": "^4.3.0"
   },
   "allowScripts": {
     "fs-ext-extra-prebuilt@2.2.7": true

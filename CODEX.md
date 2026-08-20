@@ -94,9 +94,13 @@ runtime validation was not needed.
 6. Create the git tag: `git tag v<version>` (matching `package.json`
    exactly), then push the commit and tag.
 7. Publish the GitHub Release from that tag: `gh release create v<version>
-   --title "<short title>" --notes-file` (extract the new version's changelog
-   section, or `--notes` inline for a short release). The GitHub Release title
-   must match the changelog release title exactly. This theme is not
+   --title "<short title>" --notes-file`. The notes file must contain the
+   full versioned `CHANGELOG.md` entry verbatim except for the version
+   heading and `Release Title` line, which GitHub already displays. Preserve
+   section headings and every bullet. Never summarize, condense, paraphrase,
+   add to, or omit the remaining changelog content — `--notes` inline
+   freeform text is never used, even for a short release. The GitHub Release
+   title must match the changelog release title exactly. This theme is not
    npm-published — the GitHub Release is the distribution point.
 8. Handoff summary prepared for Bradley Potts.
 
