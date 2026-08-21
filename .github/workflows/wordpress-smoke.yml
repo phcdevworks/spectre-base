@@ -97,8 +97,18 @@ jobs:
             --post_content="Smoke page content." \
             --porcelain \
             --allow-root)
+          CONTENT_FLOW_PAGE_ID=$(php wp-cli.phar post create \
+            --path=wp \
+            --post_type=page \
+            --post_status=publish \
+            --post_title="Content Flow Smoke Page" \
+            --post_name="content-flow-smoke-page" \
+            --post_content='<!-- wp:paragraph --><p>Normal-width paragraph.</p><!-- /wp:paragraph --><!-- wp:group {"align":"wide"} --><div class="wp-block-group alignwide"><!-- wp:paragraph --><p>Wide-aligned group.</p><!-- /wp:paragraph --></div><!-- /wp:group --><!-- wp:group {"align":"full"} --><div class="wp-block-group alignfull"><!-- wp:paragraph --><p>Full-bleed group.</p><!-- /wp:paragraph --></div><!-- /wp:group -->' \
+            --porcelain \
+            --allow-root)
           echo "SMOKE_POST_ID=${SMOKE_POST_ID}" >> "$GITHUB_ENV"
           echo "SMOKE_PAGE_ID=${SMOKE_PAGE_ID}" >> "$GITHUB_ENV"
+          echo "CONTENT_FLOW_PAGE_ID=${CONTENT_FLOW_PAGE_ID}" >> "$GITHUB_ENV"
 
       - name: Start PHP server
         run: |
@@ -119,3 +129,10 @@ jobs:
           curl -fsS "http://127.0.0.1:8080/?page_id=${SMOKE_PAGE_ID}" >/dev/null
           curl -fsS 'http://127.0.0.1:8080/?s=hello' >/dev/null
           test "$(curl -sS -o /dev/null -w '%{http_code}' 'http://127.0.0.1:8080/?p=999999')" = "404"
+
+      - name: Verify content-flow contract (normal/wide/full alignment)
+        run: |
+          BODY=$(curl -fsS "http://127.0.0.1:8080/?page_id=${CONTENT_FLOW_PAGE_ID}")
+          echo "$BODY" | grep -q 'class="sp-prose sp-content-flow"'
+          echo "$BODY" | grep -q 'class="wp-block-group alignwide"'
+          echo "$BODY" | grep -q 'class="wp-block-group alignfull"'

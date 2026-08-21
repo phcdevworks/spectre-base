@@ -423,8 +423,29 @@ Never hardcode a hex, rem, or px value in place of a token reference.
 
 ### Adding custom shell styles
 
-Add site-specific structural styles in a child theme or an additional CSS file.
-Always use `var(--sp-*)` tokens:
+Prefer `@phcdevworks/spectre-ui`'s generated layout utilities and the
+`inner-class` contract on Spectre web components over hand-rolled descendant
+CSS. Applying utility classes directly in markup keeps spacing, color, and
+layout values pinned to the token scale and avoids adding a new selector for
+`npm run check:drift` to track:
+
+```html
+<!-- child theme template part -->
+<sp-container inner-class="sp-bg-blue-100 sp-py-64" class="my-hero">
+  ...
+</sp-container>
+```
+
+`inner-class` applies Spectre utility classes (`sp-*`) to the component's
+native inner element without touching the host's own `class` attribute; host
+`class` remains available for structural/JS hooks. See the generated utility
+class families (spacing, palette, flex, sizing, etc.) in
+[`spectre-ui`'s README](../spectre-ui/README.md#generated-utility-classes) and
+the `inner-class` contract in
+[`spectre-components`'s README](../spectre-components/README.md#layout-components).
+
+Only reach for a plain CSS rule when no `sp-*` utility or component covers the
+need. When you do, still consume tokens only -- never a raw hex/px/rem value:
 
 ```css
 /* child-theme/style.css or an additional import */
@@ -435,6 +456,35 @@ Always use `var(--sp-*)` tokens:
   }
 }
 ```
+
+## Content Flow Contract
+
+`page.php`, `front-page.php`, and `single.php` wrap every `the_content()` call
+in `<div class="sp-prose sp-content-flow">`. This is a generic parent-theme
+contract, not client-specific markup -- child themes get it automatically and
+should not reimplement it.
+
+Block themes get an auto-generated `.is-layout-flow` wrapper (from
+`theme.json` layout support) around block content that sizes top-level blocks
+to the content/wide measure and spaces siblings by `blockGap`. Classic
+`the_content()` output has no such wrapper, so `sp-content-flow`
+(`src/styles/main.css`) reproduces the same contract with Spectre tokens:
+
+- Top-level blocks default to the prose measure
+  (`--sp-layout-container-max-width-prose`), centered.
+- A top-level block with WordPress's own `alignwide` class widens to
+  `--sp-layout-container-max-width`; `alignfull` breaks out to the full
+  viewport width. Both are WordPress core conventions (`add_theme_support('align-wide')`,
+  already declared in `functions.php`) -- no theme-specific markup needed on
+  the block side.
+- Top-level block siblings are spaced by `--sp-space-16`, the same step
+  `theme.json`'s `styles.spacing.blockGap` declares, so classic and block-editor
+  spacing stay visually consistent.
+
+Pair `sp-content-flow` with `spectre-ui`'s `.sp-prose` recipe
+(`getProseClasses`) on the same element for list marker and blockquote
+treatment -- `sp-content-flow` only owns measure, alignment breakout, and
+block-gap spacing.
 
 ## Child Themes
 

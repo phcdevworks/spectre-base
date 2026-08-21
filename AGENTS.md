@@ -138,12 +138,12 @@ Roadmap Self-Expansion." Applied to this repo:
   for design. If a needed token or recipe capability doesn't exist upstream,
   append the request to the owning repo's `TODO.md` under
   `## Requested by Downstream`, dated, with the reason and a link back to this
-  repo's own TODO.md/ROADMAP.md.
-- Requests from external child-theme integrations belong in this repo's
-  `TODO.md` under `## Requested by Downstream`, kept visible and separate from
-  self-planned theme work. Never record the external party's identity,
-  repository name, domain, account, or other identifying details; use
-  anonymous role-based wording in all tracked artifacts and handoffs.
+  repo's own TODO.md/ROADMAP.md. File it there and nowhere else — do not also
+  mirror it as a row in this repo's own `TODO.md`; a request filed upstream is
+  not this repo's own work item, and a duplicate local index just goes stale.
+  Never record the external party's identity, repository name, domain,
+  account, or other identifying details; use anonymous role-based wording in
+  all tracked artifacts and handoffs.
 - This repo's own [ROADMAP.md](ROADMAP.md) may be proactively expanded with new
   or reordered phases by the agent's own analysis — but never mark a phase
   delivered without `npm run check` passing.

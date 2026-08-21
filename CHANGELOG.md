@@ -4,6 +4,35 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+### Added
+
+- Added a generic parent-theme content-flow contract for classic
+  `the_content()` output (`page.php`, `front-page.php`, `single.php` now wrap
+  it in `<div class="sp-prose sp-content-flow">`). New `.sp-content-flow`
+  rules in `src/styles/main.css` give top-level blocks a token-backed prose
+  measure by default, honor WordPress's own `alignwide`/`alignfull` classes
+  for breakout, and space top-level block siblings by `--sp-space-16` --
+  matching `theme.json`'s `styles.spacing.blockGap` -- since classic content
+  has no block-theme `.is-layout-flow` wrapper to provide that automatically.
+  Pairs with `spectre-ui@4.2.0`'s `.sp-prose` recipe for list/blockquote
+  treatment. Extended `wordpress-smoke.yml` with a page carrying
+  `alignwide`/`alignfull` group blocks to verify the wrapper renders and
+  Core's own block markup survives untouched. Requested by a downstream
+  child-theme integration on 2026-08-07; closes Phase 6.
+
+### Changed
+
+- Bumped the Spectre runtime contract ranges to
+  `@phcdevworks/spectre-tokens` `^4.5.0`, `@phcdevworks/spectre-ui`
+  `^4.3.0`, and `@phcdevworks/spectre-components` `^1.17.0`, per Phase 7
+  (production layout dependency alignment). Rebuilt theme assets and
+  confirmed `npm run check` passes clean.
+- Updated `README.md` "Adding custom shell styles" to demonstrate
+  `spectre-ui`'s generated `sp-*` layout utilities and the `inner-class`
+  contract on Spectre web components as the preferred way to style child
+  themes, ahead of hand-rolled descendant CSS. Added a matching hint to
+  `scripts/create-child-theme.ts`'s generator output. Completes Phase 7.
+
 ## [v3.0.1] - 2026-08-06
 
 **Release Title:** Maintenance dependency alignment

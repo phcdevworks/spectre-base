@@ -25,22 +25,15 @@ this file does not restate delivered work.
 | 3 | Parent theme API — PHP hook API, `--sp-*` CSS namespace documentation, Child Themes README section | Delivered |
 | 4 | Shell compatibility — Spectre Shell router evaluated for WordPress SPA-style navigation | Closed, not adopted |
 | 5 | Spectre text contracts — templates converted onto `sp-text`; tokens bumped to `^4.0.0`, `spectre-ui` to `^3.0.0`, `spectre-components` to `^1.11.0` | Delivered (3.0.0) |
+| 6 | WordPress content-flow contract — generic `sp-content-flow` wrapper around classic `the_content()` output; token-backed prose measure, `alignwide`/`alignfull` breakout, and `blockGap`-matching block spacing | Delivered |
+| 7 | Production layout dependency alignment — dependency ranges bumped to `spectre-tokens` `^4.5.0`, `spectre-ui` `^4.3.0`, `spectre-components` `^1.17.0`; child-theme docs updated to demonstrate generated layout utilities and the `inner-class` contract | Delivered |
 
 ---
 
 ## What's Next
 
-### Phase 6 — WordPress Content-Flow Contract
-
-Add reusable parent-theme handling for classic `the_content()` flow,
-container measure, block spacing, and wide/full alignment. A production child
-theme supplied the concrete evidence for this shell-level gap.
-
-### Phase 7 — Production Layout Dependency Alignment
-
-After the upstream UI and component layout contracts publish, align package
-dependencies, built assets, child-theme generation guidance, and validation.
-See [TODO.md](TODO.md) for the gated work queue.
+Nothing planned — the project is in maintenance mode. New scope opens only
+when a concrete need emerges; see [TODO.md](TODO.md).
 
 ---
 

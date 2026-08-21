@@ -17,7 +17,7 @@
             </div>
         <?php endif; ?>
 
-        <div>
+        <div class="sp-prose sp-content-flow">
             <?php the_content(); ?>
             <?php
             wp_link_pages(array(

@@ -14,7 +14,9 @@
                 </header>
 
                 <sp-card padded>
-                    <?php the_content(); ?>
+                    <div class="sp-prose sp-content-flow">
+                        <?php the_content(); ?>
+                    </div>
                 </sp-card>
             </sp-section>
         <?php endwhile; ?>

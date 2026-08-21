@@ -7,3 +7,32 @@
 :root {
   --sp-layout-container-max-width: 80rem;
 }
+
+/* WordPress content-flow contract for classic the_content() output.
+   Block themes get an auto-generated `.is-layout-flow` wrapper (from
+   theme.json layout support) that sizes each top-level block to the
+   content/wide measure and spaces siblings by `blockGap`. Our the_content()
+   callers render inside a plain wrapper WordPress does not add that class
+   to, so this reproduces the same contract with Spectre tokens: default
+   top-level blocks to the prose measure, let `alignwide`/`alignfull` opt
+   out per WordPress's own align-wide convention, and space siblings by the
+   same `--sp-space-16` step theme.json declares as `styles.spacing.blockGap`.
+   Pair with spectre-ui's `.sp-prose` (list/blockquote treatment) on the same
+   element. */
+.sp-content-flow > * {
+  max-width: var(--sp-layout-container-max-width-prose);
+  margin-inline: auto;
+}
+
+.sp-content-flow > .alignwide {
+  max-width: var(--sp-layout-container-max-width);
+}
+
+.sp-content-flow > .alignfull {
+  max-width: none;
+  margin-inline: calc(50% - 50vw);
+}
+
+.sp-content-flow > * + * {
+  margin-block-start: var(--sp-space-16);
+}

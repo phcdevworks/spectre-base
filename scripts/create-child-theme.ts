@@ -112,3 +112,13 @@ console.log(`  functions.php — enqueues parent + child styles`)
 console.log(`  theme.json   — inherits parent tokens, ready for client overrides`)
 console.log(``)
 console.log(`Next: copy spectre-child-${slug}/ to wp-content/themes/ and activate in WordPress.`)
+console.log(``)
+console.log(
+  `Structural styling: prefer spectre-ui's generated sp-* utility classes and`
+)
+console.log(
+  `the inner-class attribute on Spectre web components over hand-rolled`
+)
+console.log(
+  `descendant CSS -- see README.md § "Adding custom shell styles".`
+)
