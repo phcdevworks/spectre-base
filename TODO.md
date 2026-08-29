@@ -12,6 +12,17 @@ web components (static block markup, progressively enhanced via
 
 ## Upstream Requests
 
+### Container — Remove Local Max-Width Token Override
+
+- [ ] Track the request filed with
+      [spectre-tokens/TODO.md](../spectre-tokens/TODO.md#requested-by-downstream)
+      on 2026-08-29. The published `72rem` container maximum crops this reusable
+      theme's multi-column archive, and `src/styles/main.css` temporarily
+      redeclares `--sp-layout-container-max-width` to `80rem`. After the chosen
+      token contract is released, update the dependency, remove the local
+      declaration, run `npm run check`, and verify archive grids plus
+      `alignwide` content at the supported viewport range.
+
 ### Section — Spacing Utility Override Of Section Padding
 
 Move `.sp-section` from `@layer utilities` to `@layer components` in
