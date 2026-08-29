@@ -60,6 +60,35 @@ still falls back to the UA default `inline` — a background or box-shadow set o
 the host paints around line boxes instead of filling the block. Any consumer
 putting a banded header on an `<sp-section>` hits it.
 
+**Action note (2026-08-29).** The overlapping upstream report was already
+added while this TODO update was in progress, so its evidence above remains
+authoritative. The checkable downstream acceptance work is recorded below and
+the owning UI requests are linked rather than duplicating the proposed fix.
+
+## Consumer-Reported Design Contract Corrections
+
+- [ ] **Heading size precedence:** correct the theme's unlayered
+      `theme.json` `styles.elements.h1` through `h6` output so an `<sp-text
+      level="h*" size="*">` recipe controls its requested size, line height,
+      and weight while raw editor-content headings retain the theme's default
+      heading scale. Add regression coverage for both halves of that contract;
+      do not solve it by deleting raw-content heading defaults or by adding
+      per-heading downstream overrides. Evidence confirmed against the current
+      source on 2026-08-29.
+- [ ] **Section spacing and host display:** track the dated upstream requests
+      in [spectre-ui/TODO.md](../spectre-ui/TODO.md#requested-by-downstream).
+      After a containing UI release is published, update this theme's UI
+      dependency and verify that `inner-class="sp-py-64"` overrides the
+      section default, a section with no override is unchanged, and host
+      backgrounds/shadows paint a block-level band without local CSS.
+- [ ] **Inset shadow delivery:** track the dated upstream request in
+      [spectre-ui/TODO.md](../spectre-ui/TODO.md#requested-by-downstream).
+      After a containing UI release is published, update this theme's UI
+      dependency and verify every `sp-shadow-inset-*` scale step is reachable
+      through `inner-class` with no hand-composed `box-shadow`; document that
+      adjacent inset-shadow bands still require consumer-owned adjacency
+      treatment.
+
 ## Explicitly Out of Scope
 
 - Do not redefine token values or local design values — consume from
