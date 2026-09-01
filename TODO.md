@@ -1,6 +1,6 @@
 # Spectre Base Theme Execution Todo
 
-Phases 1 through 7 are delivered — see [ROADMAP.md](ROADMAP.md) for the full
+Phases 1 through 10 are delivered — see [ROADMAP.md](ROADMAP.md) for the full
 delivery history and [CHANGELOG.md](CHANGELOG.md) for release-by-release
 detail.
 
@@ -9,96 +9,6 @@ prevention, and CI health. New scope opens only when a concrete need
 emerges — e.g. richer interactivity via editor blocks backed by Spectre
 web components (static block markup, progressively enhanced via
 `defineSpectreComponents()`), not a client-side router or SPA shell.
-
-## Upstream Requests
-
-### Container — Remove Local Max-Width Token Override
-
-- [ ] Track the request filed with
-      [spectre-tokens/TODO.md](../spectre-tokens/TODO.md#requested-by-downstream)
-      on 2026-08-29. The published `72rem` container maximum crops this reusable
-      theme's multi-column archive, and `src/styles/main.css` temporarily
-      redeclares `--sp-layout-container-max-width` to `80rem`. After the chosen
-      token contract is released, update the dependency, remove the local
-      declaration, run `npm run check`, and verify archive grids plus
-      `alignwide` content at the supported viewport range.
-
-### Section — Spacing Utility Override Of Section Padding
-
-Move `.sp-section` from `@layer utilities` to `@layer components` in
-`@phcdevworks/spectre-ui`, so the standalone `sp-py-*` / `sp-pt-*` / `sp-pb-*`
-utility scale wins by layer precedence and `<sp-section inner-class="sp-py-64">`
-does what it reads as.
-
-This is the same fix `spectre-ui@4.2.0` already applied to `.sp-stack`,
-`.sp-hstack` and `.sp-grid--gap-*` under "Layout — Spacing Utility Override Of
-Layout Primitives". `.sp-section` was not included, and it has the identical
-defect for the identical reason.
-
-**Current behaviour.** In `dist/index.css` both rules land in `@layer
-utilities` at equal specificity, and `.sp-section` is emitted later:
-
-| Selector | Index | Layer |
-|---|---|---|
-| `.sp-py-64` | 158673 | `utilities` |
-| `.sp-stack` | 418283 | `components` (already moved) |
-| `.sp-section` | 421840 | `utilities` |
-
-So source order decides and `.sp-section`'s
-`--sp-layout-section-padding-md` always wins. `inner-class="sp-py-64"` is
-accepted by the element, survives `sanitizeUtilityClasses`, renders onto the
-native `<section>` — and then silently does nothing. The escape hatch is
-unreachable on the one layout primitive whose only styling *is* the padding.
-
-**Why there is no workaround at the consuming end.** `getSectionClasses()`
-takes an empty `SectionRecipeOptions`, `<sp-section>` authors only
-`innerClass`, and a consumer cannot redeclare `--sp-layout-section-padding-md`
-— the token namespace is a read-only upstream contract, and both this repo and
-its child themes fail their validation gate on any `--sp-*` declaration. The
-remaining options are all worse than the bug: abandon the component for a plain
-`<section>` plus utilities, or ship an `!important` override. A downstream child
-theme reached for both before this was diagnosed.
-
-**Acceptance.** `<sp-section inner-class="sp-py-64">` renders 4rem of block
-padding with no `!important` and no local CSS; sections with no `inner-class`
-are unchanged at `--sp-layout-section-padding-md`.
-
-**Secondary, same area.** `sp-section` is also absent from the host
-`display: block` list `spectre-ui@4.2.0` added under "Host — Custom Element
-Display Contract". That list is scoped to elements with a reflected
-`full-width`/`full-height` attribute, and `sp-section` has neither, so its host
-still falls back to the UA default `inline` — a background or box-shadow set on
-the host paints around line boxes instead of filling the block. Any consumer
-putting a banded header on an `<sp-section>` hits it.
-
-**Action note (2026-08-29).** The overlapping upstream report was already
-added while this TODO update was in progress, so its evidence above remains
-authoritative. The checkable downstream acceptance work is recorded below and
-the owning UI requests are linked rather than duplicating the proposed fix.
-
-## Consumer-Reported Design Contract Corrections
-
-- [ ] **Heading size precedence:** correct the theme's unlayered
-      `theme.json` `styles.elements.h1` through `h6` output so an `<sp-text
-      level="h*" size="*">` recipe controls its requested size, line height,
-      and weight while raw editor-content headings retain the theme's default
-      heading scale. Add regression coverage for both halves of that contract;
-      do not solve it by deleting raw-content heading defaults or by adding
-      per-heading downstream overrides. Evidence confirmed against the current
-      source on 2026-08-29.
-- [ ] **Section spacing and host display:** track the dated upstream requests
-      in [spectre-ui/TODO.md](../spectre-ui/TODO.md#requested-by-downstream).
-      After a containing UI release is published, update this theme's UI
-      dependency and verify that `inner-class="sp-py-64"` overrides the
-      section default, a section with no override is unchanged, and host
-      backgrounds/shadows paint a block-level band without local CSS.
-- [ ] **Inset shadow delivery:** track the dated upstream request in
-      [spectre-ui/TODO.md](../spectre-ui/TODO.md#requested-by-downstream).
-      After a containing UI release is published, update this theme's UI
-      dependency and verify every `sp-shadow-inset-*` scale step is reachable
-      through `inner-class` with no hand-composed `box-shadow`; document that
-      adjacent inset-shadow bands still require consumer-owned adjacency
-      treatment.
 
 ## Explicitly Out of Scope
 

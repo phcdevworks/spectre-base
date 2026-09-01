@@ -136,3 +136,9 @@ jobs:
           echo "$BODY" | grep -q 'class="sp-prose sp-content-flow"'
           echo "$BODY" | grep -q 'class="wp-block-group alignwide"'
           echo "$BODY" | grep -q 'class="wp-block-group alignfull"'
+
+      - name: Verify global-styles heading precedence layer wrap
+        run: |
+          BODY=$(curl -fsS "http://127.0.0.1:8080/")
+          echo "$BODY" | grep -q '@layer wp-global-styles, components, utilities;'
+          echo "$BODY" | grep -q '@layer wp-global-styles {'

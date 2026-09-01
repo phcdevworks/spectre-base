@@ -139,6 +139,81 @@ function spectre_base_add_editor_styles() {
 }
 add_action("admin_init", "spectre_base_add_editor_styles");
 
+function spectre_base_layer_global_styles($handle = "global-styles") {
+    // WordPress core's `global-styles-inline-css` output (theme.json's
+    // `styles.elements.h1`-`h6` etc.) compiles to plain, unlayered
+    // selectors. Per the CSS cascade-layers spec, unlayered rules always
+    // beat layered rules regardless of specificity or source order, so raw
+    // theme.json heading defaults permanently override spectre-ui's own
+    // `@layer components`/`@layer utilities` size recipes (e.g. the classes
+    // an `<sp-text level="h1" size="*">` requests). Wrapping this output in
+    // a named layer, and explicitly ordering that layer below
+    // `components`/`utilities`, restores the intended precedence: an
+    // explicit `sp-text` size recipe wins, while raw editor-content
+    // headings with no competing layered rule still fall through to this
+    // layer and keep the theme.json default scale.
+    //
+    // WordPress core has no filter on `wp_get_global_stylesheet()`'s return
+    // value or on the printed inline `<style id='global-styles-inline-css'>`
+    // tag -- verified against wordpress-develop trunk and the bundled 6.7
+    // core: `wp_get_global_stylesheet()` returns unfiltered, and
+    // `WP_Styles::do_item()` echoes the inline style tag for a `src=false`
+    // handle -- like `global-styles` -- without ever calling the
+    // `style_loader_tag` filter, which only fires for the `<link href>`
+    // branch. So this post-processes the already-enqueued inline CSS via
+    // the public `WP_Styles` data API instead of a nonexistent filter.
+    // `wp_enqueue_global_styles()` (core) registers the `global-styles`
+    // handle and calls `wp_add_inline_style()` either on `wp_enqueue_scripts`
+    // directly (classic core, and block themes), or -- as of WP 6.9's
+    // "load block assets on demand" default for classic themes like this one
+    // -- only a placeholder handle on `wp_enqueue_scripts`, with the real
+    // `global-styles` handle registered on `wp_footer` priority 1 instead
+    // (later hoisted into `<head>` by core's own `wp_hoist_late_printed_styles()`,
+    // which reads the same live "after" data this rewrites). Hooking both
+    // points, one priority step after either, and guarding with the
+    // "already wrapped" check above covers every core version/config; the
+    // guard also makes it safe if both hooks happen to find real content.
+    //
+    // Both `add_action()` calls below pass `$accepted_args = 0` on purpose:
+    // WP core's `do_action( 'tag' )` with no extra arguments still calls
+    // every hooked callback with one argument, an empty string (see
+    // `do_action()`'s `if ( empty( $arg ) ) { $arg[] = ''; }`), which would
+    // silently override the `$handle` default above with `''` and break
+    // every `$styles->query( $handle, ... )` lookup. Confirmed by testing
+    // directly against a live WordPress 7.0 install: omitting
+    // `$accepted_args` reproduced exactly that silent failure.
+    $styles = wp_styles();
+    if (!($styles instanceof WP_Styles) || !$styles->query($handle, "registered")) {
+        return;
+    }
+
+    $after = $styles->get_data($handle, "after");
+    if (empty($after)) {
+        return;
+    }
+
+    $css = implode("\n", (array) $after);
+    if (str_starts_with(ltrim($css), "@layer wp-global-styles")) {
+        return;
+    }
+
+    // The leading `@layer wp-global-styles, components, utilities;`
+    // statement is what actually fixes the order, independent of whether
+    // this stylesheet or spectre-ui's compiled CSS is parsed first: per the
+    // Cascade Layers spec, when a multi-name `@layer` statement runs, any
+    // names in it not yet known are inserted as a block immediately before
+    // the first already-known name in that same statement (or appended
+    // together at the end if none are known yet) -- so `wp-global-styles`
+    // always lands below `components`/`utilities` however the two
+    // stylesheets end up ordered on the page.
+    $wrapped = "@layer wp-global-styles, components, utilities;\n"
+        . "@layer wp-global-styles {\n" . $css . "\n}";
+
+    $styles->add_data($handle, "after", array($wrapped));
+}
+add_action("wp_enqueue_scripts", "spectre_base_layer_global_styles", 20, 0);
+add_action("wp_footer", "spectre_base_layer_global_styles", 2, 0);
+
 function spectre_base_has_icons() {
     return shortcode_exists("spectre-icon");
 }

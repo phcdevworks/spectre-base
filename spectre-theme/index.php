@@ -1,7 +1,7 @@
 <?php if (!defined("ABSPATH")) exit; ?>
 <?php get_header(); ?>
 
-<sp-container>
+<sp-container inner-class="sp-container--max-width-wide">
     <sp-stack>
         <?php if (have_posts()) : ?>
             <sp-grid columns="2">

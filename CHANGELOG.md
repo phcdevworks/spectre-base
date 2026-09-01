@@ -4,7 +4,38 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [v3.1.0] - 2026-09-02
+
+**Release Title:** Theme layout and cascade contracts
+
 ### Added
+
+- Added `spectre_base_layer_global_styles()` in `functions.php`, hooked on
+  `wp_enqueue_scripts` (priority 20) and `wp_footer` (priority 2), both with
+  `accepted_args = 0`. It post-processes the already-enqueued `global-styles`
+  inline stylesheet's queued CSS via the public `WP_Styles` data API and
+  wraps it in `@layer wp-global-styles`, with a leading
+  `@layer wp-global-styles, components, utilities;` order statement that
+  slots the new layer immediately below `components`/`utilities` regardless
+  of which stylesheet the browser parses first. Fixes "Heading size
+  precedence": WordPress core's own `global-styles-inline-css` output for
+  `theme.json`'s `styles.elements.h1`-`h6` compiles to plain, unlayered
+  selectors, which the CSS cascade-layers spec always lets win over
+  `spectre-ui`'s layered `@layer components`/`@layer utilities` size
+  recipes — so an `<sp-text level="h1" size="*">` request was permanently
+  overridden by the theme's default heading scale. WordPress core has no
+  filter on `wp_get_global_stylesheet()`'s return value or on the printed
+  inline style tag (verified against wordpress-develop trunk and a live
+  WordPress 7.0 install), so this hooks the registration/print lifecycle
+  instead of a nonexistent filter. Regression coverage added to
+  `.github/workflows/wordpress-smoke.yml` ("Verify global-styles heading
+  precedence layer wrap"), asserting the front page response contains both
+  the order statement and the wrapping `@layer wp-global-styles {` block.
+  Manually verified end-to-end against a live WordPress 7.0.2 instance
+  running this theme (WP's WP 6.9+ "load block assets on demand" default
+  routes classic-theme global styles through `wp_footer` and hoists them
+  into `<head>`; confirmed the wrap survives that path) as well as directly
+  against WordPress core's own `WP_Styles`/`_WP_Dependency` classes.
 
 - Added a generic parent-theme content-flow contract for classic
   `the_content()` output (`page.php`, `front-page.php`, `single.php` now wrap
@@ -32,6 +63,63 @@ All notable changes to this project will be documented here. The format follows 
   contract on Spectre web components as the preferred way to style child
   themes, ahead of hand-rolled descendant CSS. Added a matching hint to
   `scripts/create-child-theme.ts`'s generator output. Completes Phase 7.
+- Removed the local `--sp-layout-container-max-width: 80rem` override from
+  `src/styles/main.css`, now that `@phcdevworks/spectre-tokens@4.7.0` ships
+  the additive `layout.container.maxWidthWide` token and
+  `@phcdevworks/spectre-ui@5.0.0` ships the corresponding
+  `.sp-container--max-width-wide` utility. The four multi-column archive
+  templates that needed the wider measure (`archive.php`, `home.php`,
+  `index.php`, `search.php`) now opt in per-instance via
+  `<sp-container inner-class="sp-container--max-width-wide">` instead of a
+  sitewide token redeclaration; `.sp-content-flow > .alignwide` in
+  `src/styles/main.css` now reads
+  `var(--sp-layout-container-max-width-wide)` directly. Resolves "Container
+  — Remove Local Max-Width Token Override" and its duplicate
+  "Container width scale" entry in `TODO.md`.
+- Confirmed `spectre-ui@5.0.0` moved `.sp-section` into `@layer components`
+  (so a consumer's `sp-py-*`/`sp-pt-*`/`sp-pb-*` utility now wins over the
+  recipe's own padding by layer precedence) and added `sp-section`/`sp-stack`
+  to the base-layer custom-element host `display: block` contract. This
+  theme never carried a local `!important` or plain-`<section>` workaround
+  for the prior defect, and has no `<sp-stack>` usage with a host-level
+  `max-width`, so no template or CSS change was needed here beyond
+  confirming the fix is present in `node_modules/@phcdevworks/spectre-ui/dist`.
+  Resolves "Section — Spacing Utility Override Of Section Padding",
+  "Section spacing and host display", and "`sp-stack` host display contract"
+  in `TODO.md`.
+- Confirmed `spectre-ui@5.0.0`'s `.sp-shadow-inset-sm`/`-md`/`-lg`/`-xl`/`-2xl`
+  utilities are present and generated from the published
+  `--sp-shadow-inset-*` tokens. This theme has no hand-composed `box-shadow`
+  for inset shadows to replace; `theme.json`'s `shadow.presets` already
+  reference outer-shadow tokens (`var(--sp-shadow-sm|md|lg)`) only. No
+  adjacent inset-shadow banding exists in this theme's own templates, so
+  there is no consumer-owned adjacency treatment to document here. Resolves
+  "Inset shadow delivery" in `TODO.md`.
+- Confirmed `spectre-tokens@4.7.0`'s `surface.inverse`/on-inverse role set is
+  published and `spectre-ui@5.0.0`/`spectre-components@1.18.0` consume it
+  (`.sp-text--on-inverse`/`-muted`, `.sp-link--on-inverse`,
+  `.sp-badge--inverse`, `.sp-btn--inverse`, `.sp-surface--inverse`, and the
+  matching `sp-text`/`sp-badge`/`sp-button` `variant` values). Audited this
+  theme's own templates (`header.php`, `footer.php`, `front-page.php`, and
+  every file under `template-parts/`) for hand-painted on-dark treatment
+  (translucent badges/buttons, dark card body text/links, utility-bar or
+  footer link color overrides) and found none present in the current
+  source -- this theme carries no local on-dark styling to migrate. Resolves
+  "On-dark/inverse surface role" in `TODO.md`.
+- Confirmed the `component.card.padding.{sm,md,lg}` token scale
+  (`spectre-tokens@4.7.0`), the corresponding `getCardClasses()` size
+  support (`spectre-ui@5.0.0`), and `sp-card`'s `padded` prop accepting
+  `'sm'`/`'md'`/`'lg'` (`spectre-components@1.18.0`) have all shipped --
+  every `Requested by Downstream` entry for card padding is gone from both
+  packages' `TODO.md`. Every `<sp-card>` in this theme (`front-page.php`,
+  `404.php`, `comments.php`, `single.php`,
+  `template-parts/content-card.php`, `template-parts/content-single.php`,
+  and the widget wrapper in `functions.php`) uses the plain boolean
+  `padded` attribute with no local padding override to simplify. The
+  full-bleed media workaround referenced by this item lives in a separate
+  downstream child theme, not this one, so evaluating it against the new size
+  scale is out of scope here. Resolves "Card padding
+  size scale" in `TODO.md`.
 
 ## [v3.0.1] - 2026-08-06
 
@@ -186,7 +274,8 @@ This release spans no single ROADMAP phase; it is a maintenance release.
   TypeScript, Tailwind CSS, Vite, lint, formatting, and transitive
   dependencies.
 
-[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v3.0.1...HEAD
+[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v3.1.0...HEAD
+[v3.1.0]: https://github.com/phcdevworks/spectre-base/compare/v3.0.1...v3.1.0
 [v3.0.1]: https://github.com/phcdevworks/spectre-base/compare/v3.0.0...v3.0.1
 [v3.0.0]: https://github.com/phcdevworks/spectre-base/compare/v2.0.0...v3.0.0
 [v2.0.0]: https://github.com/phcdevworks/spectre-base/compare/v1.1.0...v2.0.0

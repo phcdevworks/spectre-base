@@ -1,7 +1,7 @@
 <?php if (!defined("ABSPATH")) exit; ?>
 <?php get_header(); ?>
 
-<sp-container>
+<sp-container inner-class="sp-container--max-width-wide">
     <sp-stack>
         <header>
             <sp-text variant="muted"><?php esc_html_e('Archive', 'spectre-base'); ?></sp-text>
