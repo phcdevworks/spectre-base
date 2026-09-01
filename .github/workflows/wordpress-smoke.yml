@@ -133,12 +133,12 @@ jobs:
       - name: Verify content-flow contract (normal/wide/full alignment)
         run: |
           BODY=$(curl -fsS "http://127.0.0.1:8080/?page_id=${CONTENT_FLOW_PAGE_ID}")
-          echo "$BODY" | grep -q 'class="sp-prose sp-content-flow"'
-          echo "$BODY" | grep -q 'class="wp-block-group alignwide"'
-          echo "$BODY" | grep -q 'class="wp-block-group alignfull"'
+          grep -Fq 'class="sp-prose sp-content-flow"' <<< "$BODY"
+          grep -Fq 'class="wp-block-group alignwide"' <<< "$BODY"
+          grep -Fq 'class="wp-block-group alignfull"' <<< "$BODY"
 
       - name: Verify global-styles heading precedence layer wrap
         run: |
           BODY=$(curl -fsS "http://127.0.0.1:8080/")
-          echo "$BODY" | grep -q '@layer wp-global-styles, components, utilities;'
-          echo "$BODY" | grep -q '@layer wp-global-styles {'
+          grep -Fq '@layer wp-global-styles, components, utilities;' <<< "$BODY"
+          grep -Fq '@layer wp-global-styles {' <<< "$BODY"

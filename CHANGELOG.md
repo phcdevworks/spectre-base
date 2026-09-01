@@ -4,6 +4,23 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [v3.1.1] - 2026-09-02
+
+**Release Title:** Release validation hygiene
+
+### Changed
+
+- Updated WordPress smoke-test response assertions to read captured HTML
+  directly, preventing successful early matches from surfacing as pipeline
+  failures when `grep -q` closes its input under `pipefail`.
+
+### Removed
+
+- Removed an obsolete one-off CommonJS screenshot helper that duplicated the
+  supported TypeScript screenshot workflow, violated the repository's
+  TypeScript-only tooling contract, and caused ESLint to fail in clean CI
+  checkouts.
+
 ## [v3.1.0] - 2026-09-02
 
 **Release Title:** Theme layout and cascade contracts
@@ -274,7 +291,8 @@ This release spans no single ROADMAP phase; it is a maintenance release.
   TypeScript, Tailwind CSS, Vite, lint, formatting, and transitive
   dependencies.
 
-[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v3.1.0...HEAD
+[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v3.1.1...HEAD
+[v3.1.1]: https://github.com/phcdevworks/spectre-base/compare/v3.1.0...v3.1.1
 [v3.1.0]: https://github.com/phcdevworks/spectre-base/compare/v3.0.1...v3.1.0
 [v3.0.1]: https://github.com/phcdevworks/spectre-base/compare/v3.0.0...v3.0.1
 [v3.0.0]: https://github.com/phcdevworks/spectre-base/compare/v2.0.0...v3.0.0
