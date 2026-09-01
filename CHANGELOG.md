@@ -4,6 +4,16 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [v3.1.2] - 2026-09-02
+
+**Release Title:** WordPress smoke assertion compatibility
+
+### Changed
+
+- Relaxed content-flow smoke assertions to verify the required
+  `wp-block-group` and alignment class tokens while allowing WordPress to add
+  its own layout-support classes to rendered Group blocks.
+
 ## [v3.1.1] - 2026-09-02
 
 **Release Title:** Release validation hygiene
@@ -291,7 +301,8 @@ This release spans no single ROADMAP phase; it is a maintenance release.
   TypeScript, Tailwind CSS, Vite, lint, formatting, and transitive
   dependencies.
 
-[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v3.1.1...HEAD
+[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v3.1.2...HEAD
+[v3.1.2]: https://github.com/phcdevworks/spectre-base/compare/v3.1.1...v3.1.2
 [v3.1.1]: https://github.com/phcdevworks/spectre-base/compare/v3.1.0...v3.1.1
 [v3.1.0]: https://github.com/phcdevworks/spectre-base/compare/v3.0.1...v3.1.0
 [v3.0.1]: https://github.com/phcdevworks/spectre-base/compare/v3.0.0...v3.0.1
