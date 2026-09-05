@@ -1,6 +1,7 @@
 <?php if (!defined("ABSPATH")) exit; ?>
 <?php get_header(); ?>
 
+<main id="spectre-main-content" tabindex="-1">
 <sp-container>
     <sp-card padded>
         <sp-stack align="center">
@@ -20,5 +21,6 @@
         </sp-stack>
     </sp-card>
 </sp-container>
+</main>
 
 <?php get_footer(); ?>

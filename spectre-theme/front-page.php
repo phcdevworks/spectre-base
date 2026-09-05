@@ -1,6 +1,7 @@
 <?php if (!defined("ABSPATH")) exit; ?>
 <?php get_header(); ?>
 
+<main id="spectre-main-content" tabindex="-1">
 <sp-container>
     <?php if (have_posts()) : ?>
         <?php while (have_posts()) : the_post(); ?>
@@ -24,5 +25,6 @@
         <?php get_template_part('template-parts/content', 'none'); ?>
     <?php endif; ?>
 </sp-container>
+</main>
 
 <?php get_footer(); ?>

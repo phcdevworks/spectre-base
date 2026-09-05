@@ -1,6 +1,6 @@
 # Spectre Base Theme Execution Todo
 
-Phases 1 through 10 are delivered — see [ROADMAP.md](ROADMAP.md) for the full
+Phases 1 through 11 are delivered — see [ROADMAP.md](ROADMAP.md) for the full
 delivery history and [CHANGELOG.md](CHANGELOG.md) for release-by-release
 detail.
 

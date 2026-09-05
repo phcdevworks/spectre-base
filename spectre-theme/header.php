@@ -9,6 +9,10 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<a class="spectre-skip-link sp-btn sp-btn--primary sp-btn--md" href="#spectre-main-content">
+    <?php esc_html_e('Skip to main content', 'spectre-base'); ?>
+</a>
+
 <?php do_action('spectre_base_before_header'); ?>
 <sp-nav bordered full-width sticky aria-label="<?php echo esc_attr__('Site header', 'spectre-base'); ?>">
     <sp-container>

@@ -1,6 +1,7 @@
 <?php if (!defined("ABSPATH")) exit; ?>
 <?php get_header(); ?>
 
+<main id="spectre-main-content" tabindex="-1">
 <sp-container>
     <sp-stack>
         <?php if (have_posts()) : ?>
@@ -25,5 +26,6 @@
         <?php endif; ?>
     </sp-stack>
 </sp-container>
+</main>
 
 <?php get_footer(); ?>

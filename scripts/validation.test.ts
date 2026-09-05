@@ -122,3 +122,30 @@ test('release version gate rejects every mismatched or missing metadata referenc
     }
   })
 })
+
+test('public templates expose one main landmark and the header links to it', () => {
+  const header = readFileSync('spectre-theme/header.php', 'utf8')
+  assert.match(
+    header,
+    /<a class="spectre-skip-link [^"]+" href="#spectre-main-content">[\s\S]*Skip to main content/
+  )
+
+  for (const template of [
+    '404.php',
+    'archive.php',
+    'front-page.php',
+    'home.php',
+    'index.php',
+    'page.php',
+    'search.php',
+    'single.php',
+  ]) {
+    const source = readFileSync(`spectre-theme/${template}`, 'utf8')
+    assert.equal(
+      source.match(/<main id="spectre-main-content" tabindex="-1">/g)?.length,
+      1,
+      template
+    )
+    assert.equal(source.match(/<\/main>/g)?.length, 1, template)
+  }
+})

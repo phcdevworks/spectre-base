@@ -1,6 +1,7 @@
 <?php if (!defined("ABSPATH")) exit; ?>
 <?php get_header(); ?>
 
+<main id="spectre-main-content" tabindex="-1">
 <sp-container inner-class="sp-container--max-width-wide">
     <sp-stack>
         <header>
@@ -27,5 +28,6 @@
         <?php endif; ?>
     </sp-stack>
 </sp-container>
+</main>
 
 <?php get_footer(); ?>

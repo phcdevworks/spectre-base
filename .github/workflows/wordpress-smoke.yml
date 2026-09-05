@@ -130,6 +130,12 @@ jobs:
           curl -fsS 'http://127.0.0.1:8080/?s=hello' >/dev/null
           test "$(curl -sS -o /dev/null -w '%{http_code}' 'http://127.0.0.1:8080/?p=999999')" = "404"
 
+      - name: Verify accessibility landmarks
+        run: |
+          BODY=$(curl -fsS http://127.0.0.1:8080/)
+          grep -Fq 'href="#spectre-main-content"' <<< "$BODY"
+          test "$(grep -Fc '<main id="spectre-main-content" tabindex="-1">' <<< "$BODY")" = "1"
+
       - name: Verify content-flow contract (normal/wide/full alignment)
         run: |
           BODY=$(curl -fsS "http://127.0.0.1:8080/?page_id=${CONTENT_FLOW_PAGE_ID}")
@@ -148,3 +154,6 @@ jobs:
 
       - name: Verify computed heading precedence in both stylesheet orders
         run: npm run check:styles
+
+      - name: Verify keyboard skip-link behavior
+        run: npm run check:accessibility

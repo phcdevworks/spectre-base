@@ -16,7 +16,7 @@ token-driven visual language as the rest of the ecosystem.
 | Project team | `project-design` |
 | Repository role | Spectre WordPress theme shell |
 | Package/artifact | `@phcdevworks/spectre-base` |
-| Current version/status | 3.1.4 |
+| Current version/status | 3.2.0 |
 
 ## Standard Workflow
 
@@ -216,6 +216,12 @@ specific route:
 | `sidebar.php` | Sidebar -- loaded via `get_sidebar()` |
 | `searchform.php` | Search form partial |
 | `comments.php` | Comments section |
+
+Every public template exposes one native `main` landmark with the stable
+`spectre-main-content` target. The header renders a token-backed skip link as
+the first focusable control, allowing keyboard users to bypass repeated site
+navigation. Child templates that replace a public template should preserve
+that landmark ID so the shared header link continues to work.
 
 Template parts in `spectre-theme/template-parts/`:
 
@@ -579,6 +585,7 @@ define('VITE_DEV_SERVER', 'http://localhost:5174');
 | `npm run check:version-sync` | Verify README, lockfile, and WordPress metadata versions match `package.json` |
 | `npm run check:drift` | Scan for hardcoded visual values and design-system drift |
 | `npm run check:ecosystem` | Validate `spectre.manifest.json` against the Spectre ecosystem contract |
+| `npm run check:accessibility` | Verify live skip-link focus behavior (requires WordPress and Chromium) |
 | `npm run lint` | ESLint for TypeScript |
 | `npm run lint:php` | PHP syntax validation |
 | `npm run format` | Apply Prettier formatting |

@@ -4,6 +4,18 @@
 @import "@phcdevworks/spectre-tokens/index.css";
 @import "@phcdevworks/spectre-ui/index.css";
 
+.spectre-skip-link {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: var(--sp-space-4);
+  z-index: var(--sp-z-index-toast);
+  transform: translateY(-100%);
+}
+
+.spectre-skip-link:focus {
+  transform: translateY(0);
+}
+
 /* WordPress content-flow contract for classic the_content() output.
    Block themes get an auto-generated `.is-layout-flow` wrapper (from
    theme.json layout support) that sizes each top-level block to the

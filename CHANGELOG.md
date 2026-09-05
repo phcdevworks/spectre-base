@@ -4,6 +4,21 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [v3.2.0] - 2026-09-05
+
+**Release Title:** Keyboard bypass navigation
+
+Contract change type: additive
+
+### Added
+
+- Added a keyboard-visible, token-backed skip link before the repeated site
+  header and one focusable native main-content landmark to every public theme
+  template.
+- Added static template contract coverage and a live WordPress browser check
+  that verifies the skip link is the first focus target, becomes visible, and
+  moves focus to the main landmark when activated.
+
 ## [v3.1.4] - 2026-09-05
 
 **Release Title:** Tooling checks and dependency maintenance
@@ -349,7 +364,8 @@ This release spans no single ROADMAP phase; it is a maintenance release.
   TypeScript, Tailwind CSS, Vite, lint, formatting, and transitive
   dependencies.
 
-[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v3.1.4...HEAD
+[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v3.2.0...HEAD
+[v3.2.0]: https://github.com/phcdevworks/spectre-base/compare/v3.1.4...v3.2.0
 [v3.1.4]: https://github.com/phcdevworks/spectre-base/compare/v3.1.3...v3.1.4
 [v3.1.3]: https://github.com/phcdevworks/spectre-base/compare/v3.1.2...v3.1.3
 [v3.1.2]: https://github.com/phcdevworks/spectre-base/compare/v3.1.1...v3.1.2
