@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync, symlinkSync } from 'node:fs'
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync, symlinkSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { test } from 'node:test'
@@ -82,5 +82,43 @@ test('drift gate ignores generated output and recipes but rejects source violati
     }
     rmSync(join(root, 'src'), { recursive: true })
     assert.notEqual(check('check-drift.ts', root).status, 0)
+  })
+})
+
+test('release version gate rejects every mismatched or missing metadata reference', () => {
+  fixture((root, write) => {
+    write(
+      'scripts/check-readme-version.ts',
+      readFileSync('scripts/check-readme-version.ts', 'utf8')
+    )
+    const files: Record<string, string> = {
+      'package.json': JSON.stringify({ type: 'module', version: '1.2.3' }),
+      'package-lock.json': JSON.stringify({
+        version: '1.2.3',
+        packages: { '': { version: '1.2.3' } },
+      }),
+      'README.md': '| Current version/status | 1.2.3 |',
+      'spectre-theme/style.css': 'Version: 1.2.3',
+      'spectre-theme/readme.txt': 'Stable tag: 1.2.3',
+    }
+    const run = () => check(join(root, 'scripts/check-readme-version.ts'), root)
+    for (const [path, value] of Object.entries(files)) write(path, value)
+    assert.equal(run().status, 0)
+    for (const [path, value] of Object.entries(files)) {
+      write(path, value.replaceAll('1.2.3', '1.2.4'))
+      assert.notEqual(run().status, 0, path)
+      write(path, value)
+      rmSync(join(root, path))
+      assert.notEqual(run().status, 0, `missing ${path}`)
+      write(path, value)
+    }
+    for (const lock of [
+      { version: '1.2.4', packages: { '': { version: '1.2.3' } } },
+      { version: '1.2.3', packages: { '': { version: '1.2.4' } } },
+      { version: '1.2.3' },
+    ]) {
+      write('package-lock.json', JSON.stringify(lock))
+      assert.notEqual(run().status, 0, JSON.stringify(lock))
+    }
   })
 })

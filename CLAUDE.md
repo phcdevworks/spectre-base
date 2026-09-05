@@ -71,7 +71,7 @@ npm install          # Install dependencies
 npm run dev          # Start Vite dev server (http://localhost:5173)
 npm run build        # TypeScript check + Vite production build
 npm run check:assets       # Validate Vite manifest and asset contract
-npm run check:version-sync # Confirm README version matches package.json
+npm run check:version-sync # Verify all release metadata versions match package.json
 npm run check:drift        # Scan for design-system drift (hardcoded values)
 npm run check:ecosystem    # Validate spectre.manifest.json against the ecosystem contract
 npm run lint               # ESLint (TypeScript)
@@ -124,7 +124,7 @@ spectre-base/
 | `npm run validate` | Build, asset contract, version sync, lint, PHP lint, drift scan |
 | `npm run build` | TypeScript check and Vite production build |
 | `npm run check:assets` | Validate Vite manifest and theme asset contract |
-| `npm run check:version-sync` | Confirm README version reference matches `package.json` |
+| `npm run check:version-sync` | Verify README, lockfile, and WordPress metadata versions match `package.json` |
 | `npm run lint` | ESLint for TypeScript |
 | `npm run lint:php` | PHP syntax validation |
 | `npm run check:drift` | Scan for hardcoded visual values and drift |

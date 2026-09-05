@@ -1,0 +1,28 @@
+name: Dependency Maintenance Report
+
+on:
+  schedule:
+    - cron: '23 3 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+          cache: npm
+      - name: Install dependencies for inspection
+        run: npm ci --ignore-scripts
+      - name: Report npm and workflow dependency updates
+        run: npm run check:dependencies
+        env:
+          GH_TOKEN: ${{ github.token }}

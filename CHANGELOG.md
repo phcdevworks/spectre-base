@@ -4,6 +4,33 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [v3.1.4] - 2026-09-05
+
+**Release Title:** Tooling checks and dependency maintenance
+
+Contract change type: semantic change
+
+### Fixed
+
+- Updated the locked `fast-uri` dependency to remove known security findings.
+- Required patched `qs` versions in the WordPress development environment
+  dependency tree without downgrading the surrounding tooling.
+- Extended release version validation to the README, both lockfile version
+  fields, the theme header, and the WordPress stable tag, with regression
+  checks for missing and mismatched metadata.
+
+### Added
+
+- Added strict TypeScript checking for scripts and root configuration files
+  to the build and full validation gate.
+- Added a weekly, manually runnable dependency report for npm updates, audit
+  counts, and workflow action releases. The workflow uses read-only
+  permissions and creates no branches or pull requests.
+
+### Removed
+
+- Removed the obsolete development-container dependency update configuration.
+
 ## [v3.1.3] - 2026-09-05
 
 **Release Title:** Reliable style precedence and validation
@@ -322,7 +349,8 @@ This release spans no single ROADMAP phase; it is a maintenance release.
   TypeScript, Tailwind CSS, Vite, lint, formatting, and transitive
   dependencies.
 
-[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v3.1.3...HEAD
+[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v3.1.4...HEAD
+[v3.1.4]: https://github.com/phcdevworks/spectre-base/compare/v3.1.3...v3.1.4
 [v3.1.3]: https://github.com/phcdevworks/spectre-base/compare/v3.1.2...v3.1.3
 [v3.1.2]: https://github.com/phcdevworks/spectre-base/compare/v3.1.1...v3.1.2
 [v3.1.1]: https://github.com/phcdevworks/spectre-base/compare/v3.1.0...v3.1.1

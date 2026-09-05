@@ -16,7 +16,7 @@ token-driven visual language as the rest of the ecosystem.
 | Project team | `project-design` |
 | Repository role | Spectre WordPress theme shell |
 | Package/artifact | `@phcdevworks/spectre-base` |
-| Current version/status | 3.1.3 |
+| Current version/status | 3.1.4 |
 
 ## Standard Workflow
 
@@ -576,7 +576,7 @@ define('VITE_DEV_SERVER', 'http://localhost:5174');
 | `npm run build` | TypeScript check + Vite production build |
 | `npm run check` | Full validation gate -- must pass before any handoff |
 | `npm run check:assets` | Validate Vite manifest and asset contract |
-| `npm run check:version-sync` | Confirm README version reference matches `package.json` |
+| `npm run check:version-sync` | Verify README, lockfile, and WordPress metadata versions match `package.json` |
 | `npm run check:drift` | Scan for hardcoded visual values and design-system drift |
 | `npm run check:ecosystem` | Validate `spectre.manifest.json` against the Spectre ecosystem contract |
 | `npm run lint` | ESLint for TypeScript |
@@ -602,7 +602,7 @@ npm run check
 
 `npm run check` runs `npm run validate` followed by `npm run check:ecosystem`.
 `validate` runs in order: TypeScript check, Vite build, asset contract,
-README version sync, ESLint, PHP lint, drift scan, and validator regression tests. CI runs `npm run check`.
+release metadata version sync, ESLint, PHP lint, drift scan, and validator regression tests. CI runs `npm run check`.
 
 `check:drift` scans maintained TypeScript, CSS, PHP, and JSON under `src/`
 and `spectre-theme/`, excluding generated output and binary files. Spectre
@@ -685,3 +685,20 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full workflow.
 ## License
 
 MIT © PHCDevworks. See [LICENSE](LICENSE).
+
+## Dependency Maintenance
+
+`npm run typecheck` checks both client source and the TypeScript tooling in
+`scripts/` and root configuration files. The build runs both checks.
+
+The weekly Dependency Maintenance Report workflow reports npm updates,
+audit counts, and the latest stable releases of actions used in the
+workflows. Reports appear in the workflow run summary; the job has read-only
+permissions and creates no branches or pull requests. It can also be run
+manually. Locally, run `npm run check:dependencies` with authenticated `gh`.
+Report collection errors fail the job; available updates are informational.
+Validated updates follow the repository's direct-to-`main` policy.
+
+The `@wordpress/env` dependency tree uses a scoped `qs` override to require
+`6.16.0` or later within major version 6. Remove the override once the
+upstream dependency tree resolves a patched version without it.
