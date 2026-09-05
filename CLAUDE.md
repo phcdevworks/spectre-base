@@ -138,15 +138,10 @@ Run after any visual or template change:
 npm run check:drift
 ```
 
-This executes:
-
-```bash
-rg -n "#[0-9a-fA-F]{3,8}|rgb\(|rgba\(|hsl\(|hsla\(|oklch\(|linear-gradient|\btext-white\b|rounded-|shadow-|tracking-|\bprose\b|\btext-[0-9]|\bp-[0-9]|\bpx-[0-9]|\bpy-[0-9]|\bgap-[0-9]|\bspace-y-|\bmax-w-|\bw-[0-9]|\bh-[0-9]|min-width: [0-9]|[0-9]+px|[0-9]+rem|[0-9]+em" src spectre-theme package.json
-```
-
-Expected output is empty or only token-backed references like
-`var(--sp-shadow-*)` and `theme.json` token presets. Any local visual value
-must be removed or justified before merging.
+This runs `scripts/check-drift.ts` over maintained TypeScript, CSS, PHP, and
+JSON source. Generated output and binary files are excluded. Spectre token
+references and `sp-*` recipes are allowed. Violations and scan errors exit
+nonzero, so drift fails the validation gate.
 
 ## Environment Setup
 

@@ -1,3 +1,5 @@
+@layer theme, base, wp-global-styles, components, utilities;
+
 @import "tailwindcss";
 @import "@phcdevworks/spectre-tokens/index.css";
 @import "@phcdevworks/spectre-ui/index.css";

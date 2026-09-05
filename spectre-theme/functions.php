@@ -193,20 +193,13 @@ function spectre_base_layer_global_styles($handle = "global-styles") {
     }
 
     $css = implode("\n", (array) $after);
-    if (str_starts_with(ltrim($css), "@layer wp-global-styles")) {
+    if (str_starts_with(ltrim($css), "@layer theme, base, wp-global-styles, components, utilities;")) {
         return;
     }
 
-    // The leading `@layer wp-global-styles, components, utilities;`
-    // statement is what actually fixes the order, independent of whether
-    // this stylesheet or spectre-ui's compiled CSS is parsed first: per the
-    // Cascade Layers spec, when a multi-name `@layer` statement runs, any
-    // names in it not yet known are inserted as a block immediately before
-    // the first already-known name in that same statement (or appended
-    // together at the end if none are known yet) -- so `wp-global-styles`
-    // always lands below `components`/`utilities` however the two
-    // stylesheets end up ordered on the page.
-    $wrapped = "@layer wp-global-styles, components, utilities;\n"
+    // Both this output and main.css establish the same order before any
+    // layer rules. Later declarations cannot reorder existing layers.
+    $wrapped = "@layer theme, base, wp-global-styles, components, utilities;\n"
         . "@layer wp-global-styles {\n" . $css . "\n}";
 
     $styles->add_data($handle, "after", array($wrapped));

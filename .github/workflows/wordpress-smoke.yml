@@ -140,5 +140,11 @@ jobs:
       - name: Verify global-styles heading precedence layer wrap
         run: |
           BODY=$(curl -fsS "http://127.0.0.1:8080/")
-          grep -Fq '@layer wp-global-styles, components, utilities;' <<< "$BODY"
+          grep -Fq '@layer theme, base, wp-global-styles, components, utilities;' <<< "$BODY"
           grep -Fq '@layer wp-global-styles {' <<< "$BODY"
+
+      - name: Install browser for cascade regression checks
+        run: npx playwright install --with-deps chromium
+
+      - name: Verify computed heading precedence in both stylesheet orders
+        run: npm run check:styles

@@ -16,7 +16,7 @@ token-driven visual language as the rest of the ecosystem.
 | Project team | `project-design` |
 | Repository role | Spectre WordPress theme shell |
 | Package/artifact | `@phcdevworks/spectre-base` |
-| Current version/status | 3.1.2 |
+| Current version/status | 3.1.3 |
 
 ## Standard Workflow
 
@@ -602,11 +602,17 @@ npm run check
 
 `npm run check` runs `npm run validate` followed by `npm run check:ecosystem`.
 `validate` runs in order: TypeScript check, Vite build, asset contract,
-README version sync, ESLint, PHP lint, and drift scan. CI runs `npm run check`.
+README version sync, ESLint, PHP lint, drift scan, and validator regression tests. CI runs `npm run check`.
 
-`check:drift` expected output is empty or only token-backed references such as
-`var(--sp-shadow-*)` and `theme.json` token presets. Any local visual value
-must be removed or justified before merging.
+`check:drift` scans maintained TypeScript, CSS, PHP, and JSON under `src/`
+and `spectre-theme/`, excluding generated output and binary files. Spectre
+token references and `sp-*` recipes are allowed; detected drift and scan
+errors fail the command.
+
+`npm run check:styles` verifies computed heading sizes in Chromium using the
+built CSS and the PHP global-style wrapper in both stylesheet orders. Run
+`npm run screenshot:install` first to install Chromium. The WordPress smoke
+workflow runs this browser check separately from the full validation gate.
 
 ## Spectre Icons Integration
 
@@ -641,7 +647,6 @@ This pattern works in both the classic editor and the block editor.
 | Styles not updating in development | Wrong environment or dev server not running | Confirm `WP_ENVIRONMENT_TYPE=development` in `wp-config.php` and `npm run dev` is running on the expected port |
 | `check:drift` reports unexpected matches | Raw hex, pixel, rem, or Tailwind utility added to `src/` or PHP | Replace with a `var(--sp-*)` token or a Spectre component |
 | PHP lint fails with syntax error | PHP syntax error in a template file | Fix the reported file, then rerun `npm run lint:php` (PHP 8.2 is the CI target) |
-| `rg` not found when running `check:drift` | ripgrep not installed | Install ripgrep (`brew install ripgrep` on macOS, `apt install ripgrep` on Ubuntu) |
 
 ## AI And Automation Boundaries
 

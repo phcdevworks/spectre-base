@@ -4,6 +4,27 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [v3.1.3] - 2026-09-05
+
+**Release Title:** Reliable style precedence and validation
+
+Contract change type: semantic change
+
+### Fixed
+
+- Established matching CSS layer order in the theme bundle and WordPress
+  global styles so component heading sizes win in either stylesheet order,
+  while default headings continue to inherit WordPress global styles.
+- Made design-system drift fail validation, excluding generated output and
+  binary files while allowing Spectre token references and component recipes.
+- Made asset validation reject missing files, paths outside the build
+  directory, non-file assets, and unresolved imported manifest entries.
+
+### Added
+
+- Added validator regression tests to the full check gate and browser-based
+  computed heading precedence checks to the WordPress smoke workflow.
+
 ## [v3.1.2] - 2026-09-02
 
 **Release Title:** WordPress smoke assertion compatibility
@@ -301,7 +322,8 @@ This release spans no single ROADMAP phase; it is a maintenance release.
   TypeScript, Tailwind CSS, Vite, lint, formatting, and transitive
   dependencies.
 
-[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v3.1.2...HEAD
+[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v3.1.3...HEAD
+[v3.1.3]: https://github.com/phcdevworks/spectre-base/compare/v3.1.2...v3.1.3
 [v3.1.2]: https://github.com/phcdevworks/spectre-base/compare/v3.1.1...v3.1.2
 [v3.1.1]: https://github.com/phcdevworks/spectre-base/compare/v3.1.0...v3.1.1
 [v3.1.0]: https://github.com/phcdevworks/spectre-base/compare/v3.0.1...v3.1.0

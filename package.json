@@ -1,6 +1,6 @@
 {
   "name": "@phcdevworks/spectre-base",
-  "version": "3.1.2",
+  "version": "3.1.3",
   "description": "@phcdevworks/spectre-base is the WordPress theme shell of the Spectre system. It delivers a Spectre-backed WordPress theme foundation built on Vite, TypeScript, and Tailwind CSS 4.",
   "type": "module",
   "keywords": [
@@ -49,8 +49,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:php": "find spectre-theme -name \"*.php\" -print0 | xargs -0 -n1 php -l",
-    "check:drift": "grep -rEn \"#[0-9a-fA-F]{3,8}|rgb\\(|rgba\\(|hsl\\(|hsla\\(|oklch\\(|linear-gradient|\\btext-white\\b|rounded-|shadow-|tracking-|\\bprose\\b|\\btext-[0-9]|\\bp-[0-9]|\\bpx-[0-9]|\\bpy-[0-9]|\\bgap-[0-9]|\\bspace-y-|\\bmax-w-|\\bw-[0-9]|\\bh-[0-9]|min-width: [0-9]|[0-9]+px|[0-9]+rem|[0-9]+em\" src spectre-theme package.json || true",
-    "validate": "npm run build && npm run check:assets && npm run check:version-sync && npm run lint && npm run lint:php && npm run check:drift",
+    "check:drift": "node --experimental-strip-types scripts/check-drift.ts",
+    "validate": "npm run build && npm run check:assets && npm run check:version-sync && npm run lint && npm run lint:php && npm run check:drift && npm run check:regressions",
     "check:ecosystem": "spectre-manifest-validate spectre.manifest.json && spectre-manifest-check spectre.manifest.json .",
     "check": "npm run validate && npm run check:ecosystem",
     "create:child": "node --experimental-strip-types scripts/create-child-theme.ts",
@@ -60,7 +60,9 @@
     "wp-env:setup": "wp-env run cli -- wp theme activate spectre-theme",
     "screenshot:install": "playwright install chromium",
     "screenshot:setup": "npm run wp-env:start && npm run wp-env:setup",
-    "screenshot": "node --experimental-strip-types scripts/capture-screenshot.ts"
+    "screenshot": "node --experimental-strip-types scripts/capture-screenshot.ts",
+    "check:regressions": "node --experimental-strip-types --test scripts/validation.test.ts",
+    "check:styles": "node --experimental-strip-types scripts/check-style-precedence.ts"
   },
   "devDependencies": {
     "@phcdevworks/spectre-manifest": "^1.1.0",
