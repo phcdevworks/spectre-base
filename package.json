@@ -1,6 +1,6 @@
 {
   "name": "@phcdevworks/spectre-base",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "@phcdevworks/spectre-base is the WordPress theme shell of the Spectre system. It delivers a Spectre-backed WordPress theme foundation built on Vite, TypeScript, and Tailwind CSS 4.",
   "type": "module",
   "keywords": [
@@ -63,23 +63,23 @@
     "screenshot": "node --experimental-strip-types scripts/capture-screenshot.ts",
     "check:regressions": "node --experimental-strip-types --test scripts/validation.test.ts",
     "check:styles": "node --experimental-strip-types scripts/check-style-precedence.ts",
-    "check:dependencies": "node --experimental-strip-types scripts/report-dependencies.ts",
-    "check:accessibility": "node --experimental-strip-types scripts/check-accessibility.ts"
+    "check:accessibility": "node --experimental-strip-types scripts/check-accessibility.ts",
+    "check:dependencies": "node --experimental-strip-types scripts/report-dependencies.ts"
   },
   "devDependencies": {
     "@phcdevworks/spectre-manifest": "^1.1.0",
     "@tailwindcss/vite": "^4.3.3",
-    "@types/node": "^26.4.0",
+    "@types/node": "^26.4.1",
     "@typescript-eslint/eslint-plugin": "^8.69.0",
     "@typescript-eslint/parser": "^8.69.0",
     "@typescript/native": "npm:typescript@^7.0.2",
     "@wordpress/env": "^11.14.0",
-    "autoprefixer": "^10.5.4",
-    "eslint": "^10.9.1",
+    "autoprefixer": "^10.5.5",
+    "eslint": "^10.10.0",
     "globals": "^17.12.0",
     "jiti": "^2.7.0",
-    "playwright": "^1.62.1",
-    "postcss": "^8.5.26",
+    "playwright": "^1.63.0",
+    "postcss": "^8.5.28",
     "prettier": "^3.9.6",
     "tailwindcss": "^4.3.3",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
@@ -87,9 +87,9 @@
     "vite": "^8.2.2"
   },
   "dependencies": {
-    "@phcdevworks/spectre-components": "^1.18.0",
-    "@phcdevworks/spectre-tokens": "^4.7.0",
-    "@phcdevworks/spectre-ui": "^5.0.0"
+    "@phcdevworks/spectre-components": "^1.19.0",
+    "@phcdevworks/spectre-tokens": "^4.8.0",
+    "@phcdevworks/spectre-ui": "^5.0.1"
   },
   "allowScripts": {
     "fs-ext-extra-prebuilt@2.2.7": true

@@ -4,6 +4,19 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [v3.2.1] - 2026-09-05
+
+**Release Title:** Spectre and development dependency refresh
+
+Contract change type: semantic change
+
+### Changed
+
+- Updated the Spectre component, token, and UI dependency ranges to their
+  latest compatible releases and refreshed the resolved dependency tree.
+- Updated the Node type definitions, CSS processing tools, lint tooling, and
+  browser test runtime to their latest compatible releases.
+
 ## [v3.2.0] - 2026-09-05
 
 **Release Title:** Keyboard bypass navigation
@@ -364,7 +377,8 @@ This release spans no single ROADMAP phase; it is a maintenance release.
   TypeScript, Tailwind CSS, Vite, lint, formatting, and transitive
   dependencies.
 
-[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v3.2.0...HEAD
+[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v3.2.1...HEAD
+[v3.2.1]: https://github.com/phcdevworks/spectre-base/compare/v3.2.0...v3.2.1
 [v3.2.0]: https://github.com/phcdevworks/spectre-base/compare/v3.1.4...v3.2.0
 [v3.1.4]: https://github.com/phcdevworks/spectre-base/compare/v3.1.3...v3.1.4
 [v3.1.3]: https://github.com/phcdevworks/spectre-base/compare/v3.1.2...v3.1.3

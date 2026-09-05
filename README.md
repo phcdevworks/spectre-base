@@ -16,7 +16,7 @@ token-driven visual language as the rest of the ecosystem.
 | Project team | `project-design` |
 | Repository role | Spectre WordPress theme shell |
 | Package/artifact | `@phcdevworks/spectre-base` |
-| Current version/status | 3.2.0 |
+| Current version/status | 3.2.1 |
 
 ## Standard Workflow
 
