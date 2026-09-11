@@ -67,14 +67,14 @@
     "check:dependencies": "node --experimental-strip-types scripts/report-dependencies.ts"
   },
   "devDependencies": {
-    "@phcdevworks/spectre-manifest": "^1.1.0",
+    "@phcdevworks/spectre-manifest": "^1.2.0",
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^26.4.1",
-    "@typescript-eslint/eslint-plugin": "^8.69.0",
-    "@typescript-eslint/parser": "^8.69.0",
+    "@typescript-eslint/eslint-plugin": "^8.70.0",
+    "@typescript-eslint/parser": "^8.70.0",
     "@typescript/native": "npm:typescript@^7.0.2",
-    "@wordpress/env": "^11.14.0",
-    "autoprefixer": "^10.5.5",
+    "@wordpress/env": "^11.15.0",
+    "autoprefixer": "^10.5.6",
     "eslint": "^10.10.0",
     "globals": "^17.12.0",
     "jiti": "^2.7.0",
@@ -83,8 +83,8 @@
     "prettier": "^3.9.6",
     "tailwindcss": "^4.3.3",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
-    "typescript-eslint": "^8.69.0",
-    "vite": "^8.2.2"
+    "typescript-eslint": "^8.70.0",
+    "vite": "^8.3.0"
   },
   "dependencies": {
     "@phcdevworks/spectre-components": "^1.19.0",
