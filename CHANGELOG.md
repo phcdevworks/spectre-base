@@ -4,6 +4,11 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+### Changed
+
+- Standardized the package summary against the approved PHCDevworks product
+  description.
+
 ## [v3.2.1] - 2026-09-05
 
 **Release Title:** Spectre and development dependency refresh

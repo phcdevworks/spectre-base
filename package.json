@@ -1,7 +1,7 @@
 {
   "name": "@phcdevworks/spectre-base",
   "version": "3.2.1",
-  "description": "@phcdevworks/spectre-base is the WordPress theme shell of the Spectre system. It delivers a Spectre-backed WordPress theme foundation built on Vite, TypeScript, and Tailwind CSS 4.",
+  "description": "@phcdevworks/spectre-base is the WordPress foundation of the Spectre system. It provides a production-ready theme structure built on Spectre's tokens, styling, and component contracts.",
   "type": "module",
   "keywords": [
     "theme-foundation",
