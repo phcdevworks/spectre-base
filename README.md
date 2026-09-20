@@ -584,8 +584,10 @@ define('VITE_DEV_SERVER', 'http://localhost:5174');
 | `npm run check:assets` | Validate Vite manifest and asset contract |
 | `npm run check:version-sync` | Verify README, lockfile, and WordPress metadata versions match `package.json` |
 | `npm run check:drift` | Scan for hardcoded visual values and design-system drift |
+| `npm run check:license` | Verify the MIT repo / GPL-2.0-or-later theme package license boundary |
 | `npm run check:ecosystem` | Validate `spectre.manifest.json` against the Spectre ecosystem contract |
 | `npm run check:accessibility` | Verify live skip-link focus behavior (requires WordPress and Chromium) |
+| `npm run package:theme` | Assemble `spectre-theme.zip` from `spectre-theme/` (run after `npm run build`) |
 | `npm run lint` | ESLint for TypeScript |
 | `npm run lint:php` | PHP syntax validation |
 | `npm run format` | Apply Prettier formatting |
@@ -691,7 +693,17 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full workflow.
 
 ## License
 
-MIT © PHCDevworks. See [LICENSE](LICENSE).
+MIT © PHCDevworks. See [LICENSE](LICENSE). This covers the `spectre-base`
+development repository -- source, build tooling, and scripts.
+
+The deployable WordPress theme assembled from `spectre-theme/` (including the
+`spectre-theme.zip` produced by `npm run package:theme`) is distributed
+separately under GPL-2.0-or-later, as required for WordPress theme
+distribution. See [spectre-theme/LICENSE.txt](spectre-theme/LICENSE.txt) and
+[spectre-theme/NOTICE.txt](spectre-theme/NOTICE.txt) for the theme package's
+license and third-party MIT attributions. `npm run check:license` (part of
+`npm run check`) fails the build if theme metadata or notices drift from this
+boundary.
 
 ## Dependency Maintenance
 

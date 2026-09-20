@@ -4,10 +4,25 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+### Added
+
+- Added `spectre-theme/LICENSE.txt` (full GPL-2.0-or-later text) and
+  `spectre-theme/NOTICE.txt` (MIT attribution for bundled Spectre packages)
+  so the deployable WordPress theme package carries its own license
+  independently of the MIT-licensed repository.
+- Added `npm run package:theme`, which assembles a marketplace-ready
+  `spectre-theme.zip` from the `spectre-theme/` directory.
+- Added `npm run check:license` (part of `npm run check`), which fails the
+  build if repository license metadata, theme metadata, or theme license
+  notices drift from the MIT repo / GPL-2.0-or-later theme package boundary.
+
 ### Changed
 
 - Standardized the package summary against the approved PHCDevworks product
   description.
+- Documented the MIT (repository/framework) vs. GPL-2.0-or-later (deployable
+  `spectre-theme/` package) licensing boundary in the root and theme
+  `README.md` files.
 
 ## [v3.2.1] - 2026-09-05
 

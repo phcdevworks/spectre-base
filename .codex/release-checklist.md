@@ -31,6 +31,11 @@ for `@phcdevworks/spectre-base`.
   - `package.json`
   - `spectre-theme/style.css`
   - `spectre-theme/readme.txt`
+- Verify the license boundary: repository/framework stays MIT
+  (`package.json`, root `LICENSE`); the deployable `spectre-theme/` package
+  stays GPL-2.0-or-later (`spectre-theme/style.css`, `spectre-theme/readme.txt`,
+  `spectre-theme/LICENSE.txt`, `spectre-theme/NOTICE.txt`). `npm run
+  check:license` gates this.
 - Check whether `CHANGELOG.md`, README files, or template documentation need an
   update.
 - Confirm PR or release notes explain user-facing behavior, validation results,
@@ -44,11 +49,15 @@ Prefer the full gate before handoff:
 npm run build
 npm run check:assets
 npm run check:version-sync
+npm run check:license
 npm run lint
 npm run lint:php
 npm run check:drift
 npm run check:ecosystem
 ```
+
+To assemble the marketplace-ready package, run `npm run package:theme` after
+a successful build; it writes `spectre-theme.zip` at the repository root.
 
 For dependency updates, run `npm install` first, then rebuild and rerun the
 checks above.

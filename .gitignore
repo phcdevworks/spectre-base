@@ -5,6 +5,7 @@ node_modules/
 dist/
 dist-ssr/
 spectre-theme/dist/
+spectre-theme.zip
 *.local
 
 # Generated child themes

@@ -12,50 +12,6 @@ web components (static block markup, progressively enhanced via
 
 ## Requested by Downstream
 
-### 2026-09-20 — License deployable WordPress theme distribution as GPL-2.0-or-later
-
-The development framework and repository remain MIT-licensed, but the deployable
-WordPress theme produced from `spectre-theme/` must be clearly distributed as
-GPL-2.0-or-later. Treat this as a packaging/release boundary rather than assuming
-that compilation itself changes the license of source files.
-
-Implementation instructions:
-
-- Keep the repository-level `LICENSE` and `package.json` license as MIT for the
-  Spectre Base development framework, tooling, scripts, and source repository.
-- Make the deployable WordPress theme under `spectre-theme/` explicitly declare
-  `GPL-2.0-or-later` in WordPress theme metadata, including `style.css` and
-  `readme.txt` where applicable.
-- Include an appropriate GPL-2.0-or-later license file or notice inside the
-  deployable theme package so the installed/marketplace ZIP carries its license
-  independently of the repository-level MIT license.
-- Preserve required copyright, attribution, and license notices for MIT and all
-  third-party dependencies/assets included in the distribution. Do not imply
-  that third-party components have been relicensed when their original license
-  continues to apply.
-- Ensure the production/package workflow builds or assembles a marketplace-ready
-  `spectre-theme.zip` whose theme-level license is GPL-2.0-or-later.
-- Extend validation so `npm run check` fails if deployable theme metadata,
-  package licensing, or required license notices drift away from this contract.
-  Prefer extending `check:version-sync`, `check:assets`, or an existing
-  release validation path rather than creating unrelated tooling.
-- Document the licensing boundary clearly: Spectre Base repository/framework =
-  MIT; deployable WordPress theme distribution = GPL-2.0-or-later.
-- Update `CHANGELOG.md [Unreleased]` and relevant release/deployment
-  documentation when implemented.
-- Run `npm run check` before removing this item. Remove the TODO only after all
-  acceptance criteria pass per `CLAUDE.md`.
-
-Acceptance criteria:
-
-- The GitHub repository and framework continue to identify as MIT.
-- An installed or marketplace-distributed `spectre-theme.zip` unambiguously
-  identifies the WordPress theme as GPL-2.0-or-later.
-- Theme metadata and the included license/notice files agree.
-- Existing MIT and third-party notices required by included code/assets are
-  preserved.
-- CI detects licensing drift before release.
-
 ### 2026-09-16 — Isolate global heading styles from explicit Spectre text sizing
 
 A production child theme has demonstrated that the CMS-generated global heading
