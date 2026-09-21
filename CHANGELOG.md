@@ -23,6 +23,10 @@ All notable changes to this project will be documented here. The format follows 
 - Documented the MIT (repository/framework) vs. GPL-2.0-or-later (deployable
   `spectre-theme/` package) licensing boundary in the root and theme
   `README.md` files.
+- Updated the pinned GitHub Actions major versions used by the CI, dependency
+  report, and WordPress smoke workflows: `actions/checkout` v4 to v7 and
+  `actions/setup-node` v4 to v7. `shivammathur/setup-php` stays on v2, which is
+  still its current major.
 
 ## [v3.2.1] - 2026-09-05
 
