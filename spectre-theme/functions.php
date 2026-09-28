@@ -14,36 +14,215 @@ function spectre_base_setup() {
     add_theme_support("editor-font-sizes");
     add_theme_support("responsive-embeds");
 
-    register_nav_menus(array(
-        "primary" => __("Primary Menu", "spectre-base"),
-        "footer"  => __("Footer Menu", "spectre-base"),
-    ));
+    $menus = array("primary" => __("Primary Menu", "spectre-base"));
+    foreach (spectre_base_footer_menu_locations() as $location => $footer_menu) {
+        $menus[$location] = $footer_menu["label"];
+    }
+    register_nav_menus($menus);
 }
 add_action("after_setup_theme", "spectre_base_setup");
+
+const SPECTRE_BASE_FOOTER_MENU_MAX = 4;
+const SPECTRE_BASE_FOOTER_MENU_DEFAULT = 3;
+
+function spectre_base_sanitize_footer_menu_count($value) {
+    return max(1, min(SPECTRE_BASE_FOOTER_MENU_MAX, absint($value)));
+}
+
+// The footer menu locations enabled by the Customizer's "Footer menus"
+// setting (Appearance > Customize > Footer), in column order. Only these are
+// registered, so Appearance > Menus lists exactly as many footer locations as
+// the site uses. Slugs and args filters are stable per position, so lowering
+// the count and raising it again restores the earlier menu assignments.
+function spectre_base_footer_menu_locations() {
+    $all = array(
+        "footer"            => "spectre_base_footer_nav_args",
+        "footer-secondary"  => "spectre_base_footer_secondary_nav_args",
+        "footer-tertiary"   => "spectre_base_footer_tertiary_nav_args",
+        "footer-quaternary" => "spectre_base_footer_quaternary_nav_args",
+    );
+    $count = spectre_base_sanitize_footer_menu_count(
+        get_theme_mod("spectre_base_footer_menu_count", SPECTRE_BASE_FOOTER_MENU_DEFAULT)
+    );
+
+    $locations = array();
+    $position  = 1;
+    foreach (array_slice($all, 0, $count, true) as $location => $args_filter) {
+        $locations[$location] = array(
+            /* translators: %d: footer menu column number. */
+            "label"       => sprintf(__("Footer Menu %d", "spectre-base"), $position++),
+            "args_filter" => $args_filter,
+        );
+    }
+    return $locations;
+}
+
+const SPECTRE_BASE_COLOR_MODES = array("light", "dark", "system");
+const SPECTRE_BASE_COLOR_MODE_DEFAULT = "light";
+
+function spectre_base_sanitize_color_mode($value) {
+    return in_array($value, SPECTRE_BASE_COLOR_MODES, true) ? $value : SPECTRE_BASE_COLOR_MODE_DEFAULT;
+}
+
+// The site-wide color mode from Appearance > Customize > Color Mode. Spectre's
+// dark tokens (and every spectre-ui component variable mapped from them) apply
+// under `:root[data-spectre-theme="dark"]`, so the mode only has to reach the
+// `<html>` element: server-side for light/dark, and via a tiny pre-paint
+// script for system, which follows the visitor's OS setting live.
+function spectre_base_color_mode() {
+    return spectre_base_sanitize_color_mode(
+        get_theme_mod("spectre_base_color_mode", SPECTRE_BASE_COLOR_MODE_DEFAULT)
+    );
+}
+
+function spectre_base_color_mode_html_attribute($output) {
+    $mode = spectre_base_color_mode();
+    if (is_admin() || "system" === $mode) {
+        return $output;
+    }
+    return $output . ' data-spectre-theme="' . esc_attr($mode) . '"';
+}
+add_filter("language_attributes", "spectre_base_color_mode_html_attribute");
+
+function spectre_base_color_mode_head() {
+    $mode = spectre_base_color_mode();
+    // Lets the browser match native UI (form controls, scrollbars) to the mode.
+    echo '<meta name="color-scheme" content="' . esc_attr("system" === $mode ? "light dark" : $mode) . '">' . "\n";
+
+    if ("system" === $mode) {
+        // Runs before any stylesheet prints (wp_head priority 1), so there is
+        // no flash of the wrong mode.
+        wp_print_inline_script_tag(
+            "(function(){var r=document.documentElement,q=window.matchMedia('(prefers-color-scheme: dark)');"
+            . "function a(){r.setAttribute('data-spectre-theme',q.matches?'dark':'light')}"
+            . "a();q.addEventListener('change',a)})();"
+        );
+    }
+}
+add_action("wp_head", "spectre_base_color_mode_head", 1);
+
+function spectre_base_customize_register($wp_customize) {
+    $wp_customize->add_section("spectre_base_color_mode", array(
+        "title"    => __("Color Mode", "spectre-base"),
+        "priority" => 40,
+    ));
+
+    $wp_customize->add_setting("spectre_base_color_mode", array(
+        "default"           => SPECTRE_BASE_COLOR_MODE_DEFAULT,
+        "sanitize_callback" => "spectre_base_sanitize_color_mode",
+    ));
+
+    $wp_customize->add_control("spectre_base_color_mode", array(
+        "label"       => __("Color mode", "spectre-base"),
+        "description" => __("Applies to the whole site. System follows each visitor's device setting and switches automatically when it changes.", "spectre-base"),
+        "section"     => "spectre_base_color_mode",
+        "type"        => "radio",
+        "choices"     => array(
+            "light"  => __("Light", "spectre-base"),
+            "dark"   => __("Dark", "spectre-base"),
+            "system" => __("System (match the visitor's device)", "spectre-base"),
+        ),
+    ));
+
+    $wp_customize->add_section("spectre_base_footer", array(
+        "title"    => __("Footer", "spectre-base"),
+        "priority" => 120,
+    ));
+
+    $wp_customize->add_setting("spectre_base_footer_menu_count", array(
+        "default"           => SPECTRE_BASE_FOOTER_MENU_DEFAULT,
+        "sanitize_callback" => "spectre_base_sanitize_footer_menu_count",
+    ));
+
+    $choices = array();
+    for ($i = 1; $i <= SPECTRE_BASE_FOOTER_MENU_MAX; $i++) {
+        $choices[$i] = (string) $i;
+    }
+
+    $wp_customize->add_control("spectre_base_footer_menu_count", array(
+        "label"       => __("Footer menus", "spectre-base"),
+        "description" => __("How many footer menu columns to show. Assign a menu to each one under Appearance > Menus; columns without a menu are hidden. Save and reload to update the menu locations list.", "spectre-base"),
+        "section"     => "spectre_base_footer",
+        "type"        => "select",
+        "choices"     => $choices,
+    ));
+}
+add_action("customize_register", "spectre_base_customize_register");
 
 function spectre_base_widgets_init() {
     register_sidebar(array(
         "name"          => __("Main Sidebar", "spectre-base"),
         "id"            => "sidebar-main",
         "description"   => __("Widgets in this area appear in the sidebar.", "spectre-base"),
-        "before_widget" => '<sp-card id="%1$s" class="widget %2$s" padded>',
-        "after_widget"  => "</sp-card>",
+        "before_widget" => '<section id="%1$s" class="widget %2$s">',
+        "after_widget"  => "</section>",
         "before_title"  => '<sp-text level="h3">',
         "after_title"   => "</sp-text>",
     ));
 }
 add_action("widgets_init", "spectre_base_widgets_init");
 
+// Full-viewport page shell: with `<html class="sp-h-full">` (header.php), the
+// body is at least the viewport tall and stacks header, main, and footer as a
+// flex column; the footer's `sp-mt-auto` then pins it to the bottom on short
+// or empty pages.
+function spectre_base_body_class($classes) {
+    return array_merge($classes, array("sp-min-h-full", "sp-flex", "sp-flex-col"));
+}
+add_filter("body_class", "spectre_base_body_class");
+
 function spectre_base_primary_menu_fallback($args) {
     if (empty($args["theme_location"]) || "primary" !== $args["theme_location"]) {
         return;
     }
 
+    // No menu assigned yet: list the site's pages with the same nav recipe
+    // classes the assigned menu gets.
+    $link_class = function ($atts, $page, $depth, $args, $current_page_id) {
+        $classes = "sp-nav__link";
+        if ((int) $page->ID === (int) $current_page_id) {
+            $classes              .= " sp-nav__link--active";
+            $atts["aria-current"]  = "page";
+        }
+        $atts["class"] = trim((isset($atts["class"]) ? $atts["class"] . " " : "") . $classes);
+        return $atts;
+    };
+    add_filter("page_menu_link_attributes", $link_class, 10, 5);
     wp_page_menu(array(
         "container" => false,
-        "show_home" => true,
+        "depth"     => 1,
+        // The site title already links home, and core's generated Home link
+        // bypasses page_menu_link_attributes, so it can't take the recipe class.
+        "show_home" => false,
+        "before"    => '<ul class="sp-nav__links sp-mx-0 sp-flex-wrap">',
+        "after"     => "</ul>",
     ));
+    remove_filter("page_menu_link_attributes", $link_class, 10);
 }
+
+const SPECTRE_BASE_CASCADE_LAYER_ORDER = "@layer theme, base, wp-global-styles, components, utilities;";
+
+function spectre_base_register_cascade_layers() {
+    // Establishes the shell's cascade-layer order via a src-less style
+    // handle that is always enqueued, independent of the Vite manifest and
+    // dev/prod asset mode (spectre-base-style is never enqueued in dev --
+    // see spectre_base_enqueue_assets() below). `wp-global-styles` is the
+    // shared layer name WordPress's own compiled global styles (see
+    // spectre_base_layer_global_styles()) and any child theme's custom
+    // shell-level CSS (see README.md "Child Themes") should opt into.
+    // CSS cascade layer order is scoped to the whole document, not to
+    // whichever stylesheet first mentions a name, so establishing it here
+    // guarantees the order even on a request where core has no
+    // global-styles content to wrap -- spectre_base_layer_global_styles()
+    // would then have nothing to print and, on its own, would never
+    // establish the order at all, leaving `wp-global-styles` usage
+    // elsewhere (e.g. a child theme's style.css) unordered relative to
+    // `components`/`utilities`.
+    wp_register_style("spectre-base-cascade-layers", false);
+    wp_enqueue_style("spectre-base-cascade-layers");
+    wp_add_inline_style("spectre-base-cascade-layers", SPECTRE_BASE_CASCADE_LAYER_ORDER);
+}
+add_action("wp_enqueue_scripts", "spectre_base_register_cascade_layers", 5);
 
 function spectre_base_enqueue_assets() {
     $is_dev = function_exists("wp_get_environment_type")
@@ -135,7 +314,11 @@ function spectre_base_add_editor_styles() {
         return;
     }
 
-    add_editor_style(get_template_directory_uri() . "/dist/" . $main_entry["css"][0]);
+    // Theme-relative path, not a URL: the block editor fetches URL editor
+    // styles server-side via wp_remote_get(), which fails whenever the site
+    // can't reach its own public URL (e.g. Docker port mapping), silently
+    // dropping every --sp-* token from the editor canvas.
+    add_editor_style("dist/" . $main_entry["css"][0]);
 }
 add_action("admin_init", "spectre_base_add_editor_styles");
 
@@ -151,7 +334,11 @@ function spectre_base_layer_global_styles($handle = "global-styles") {
     // `components`/`utilities`, restores the intended precedence: an
     // explicit `sp-text` size recipe wins, while raw editor-content
     // headings with no competing layered rule still fall through to this
-    // layer and keep the theme.json default scale.
+    // layer and keep the theme.json default scale. The order is also
+    // established unconditionally by spectre_base_register_cascade_layers()
+    // above, so a request with no global-styles content to wrap here still
+    // leaves `wp-global-styles` correctly ordered for any other consumer of
+    // that layer name (e.g. a child theme's own shell-level CSS).
     //
     // WordPress core has no filter on `wp_get_global_stylesheet()`'s return
     // value or on the printed inline `<style id='global-styles-inline-css'>`
@@ -193,13 +380,15 @@ function spectre_base_layer_global_styles($handle = "global-styles") {
     }
 
     $css = implode("\n", (array) $after);
-    if (str_starts_with(ltrim($css), "@layer theme, base, wp-global-styles, components, utilities;")) {
+    if (str_starts_with(ltrim($css), SPECTRE_BASE_CASCADE_LAYER_ORDER)) {
         return;
     }
 
-    // Both this output and main.css establish the same order before any
-    // layer rules. Later declarations cannot reorder existing layers.
-    $wrapped = "@layer theme, base, wp-global-styles, components, utilities;\n"
+    // Restating the same order here is redundant with
+    // spectre_base_register_cascade_layers() but harmless -- repeating an
+    // already-established layer order is a no-op per the cascade-layers
+    // spec -- and keeps this function correct standing alone.
+    $wrapped = SPECTRE_BASE_CASCADE_LAYER_ORDER . "\n"
         . "@layer wp-global-styles {\n" . $css . "\n}";
 
     $styles->add_data($handle, "after", array($wrapped));
@@ -209,4 +398,173 @@ add_action("wp_footer", "spectre_base_layer_global_styles", 2, 0);
 
 function spectre_base_has_icons() {
     return shortcode_exists("spectre-icon");
+}
+
+// Adds a Spectre link recipe class (the `spectre_link_class` wp_nav_menu()
+// arg, e.g. `sp-nav__link` or `sp-footer__link`) to every menu link, plus its
+// `--active` modifier on the current page's link. WordPress already sets
+// aria-current="page" on that link.
+function spectre_base_nav_link_attributes($atts, $item, $args) {
+    if (empty($args->spectre_link_class)) {
+        return $atts;
+    }
+    $classes = $args->spectre_link_class;
+    if (!empty($item->current)) {
+        $classes .= " " . $args->spectre_link_class . "--active";
+    }
+    $existing      = isset($atts["class"]) ? $atts["class"] . " " : "";
+    $atts["class"] = trim($existing . $classes);
+    return $atts;
+}
+add_filter("nav_menu_link_attributes", "spectre_base_nav_link_attributes", 10, 3);
+
+// Renders one `theme_location` as a footer column: a non-linked
+// `.sp-footer__heading` label followed by its top-level menu items as a
+// `.sp-footer__links` list. Returns silently (renders nothing) if no menu
+// is assigned to `$location` -- same graceful-degradation pattern as the
+// social icons and contact info columns below.
+// A footer column's heading is the name of the menu assigned to its location
+// in Appearance > Menus, so site content never ships with theme-authored
+// labels. Empty when no menu is assigned.
+function spectre_base_footer_menu_name($location) {
+    $locations = get_nav_menu_locations();
+    if (empty($locations[$location])) {
+        return "";
+    }
+    $menu = wp_get_nav_menu_object($locations[$location]);
+    return $menu ? $menu->name : "";
+}
+
+function spectre_base_footer_nav_column($location, $heading, $args_filter) {
+    if (!has_nav_menu($location)) {
+        return;
+    }
+    ?>
+    <sp-stack class="spectre-footer-column" gap="sm" align="stretch">
+        <?php if ($heading !== "") : ?>
+            <span class="sp-footer__heading" id="<?php echo esc_attr("spectre-footer-heading-{$location}"); ?>"><?php echo esc_html($heading); ?></span>
+            <nav aria-labelledby="<?php echo esc_attr("spectre-footer-heading-{$location}"); ?>">
+        <?php else : ?>
+            <nav aria-label="<?php echo esc_attr(get_registered_nav_menus()[$location] ?? $location); ?>">
+        <?php endif; ?>
+            <?php
+            wp_nav_menu(apply_filters($args_filter, array(
+                "theme_location"            => $location,
+                "container"                 => false,
+                "depth"                     => 1,
+                "items_wrap"                => '<ul class="sp-footer__links">%3$s</ul>',
+                "spectre_link_class"        => "sp-footer__link",
+            )));
+            ?>
+        </nav>
+    </sp-stack>
+    <?php
+}
+
+// Renders the `spectre_base_footer_social_icons` filter entries -- each entry:
+// ['name' => 'github', 'size' => '20' (optional), 'url' => optional, 'label' => optional].
+// Linked icons stay server-rendered `<a class="sp-footer__chip">` so they work
+// before scripts load; unlinked icons use the `<sp-footer-chip>` component.
+// `label` is the accessible name for an icon-only link and falls back to the
+// icon name. Skipped entirely without the spectre-icons plugin, since an icon
+// is the chip's only content.
+function spectre_base_footer_social_icons() {
+    $icons = apply_filters("spectre_base_footer_social_icons", array());
+    if (empty($icons) || !spectre_base_has_icons()) {
+        return;
+    }
+    ?>
+    <sp-stack direction="horizontal" align="stretch" gap="sm" inner-class="sp-flex-wrap" aria-label="<?php esc_attr_e("Social links", "spectre-base"); ?>">
+        <?php foreach ($icons as $icon) :
+            $name = isset($icon["name"]) ? $icon["name"] : "";
+            if ($name === "") {
+                continue;
+            }
+            $size  = isset($icon["size"])  ? $icon["size"]  : "20";
+            $url   = isset($icon["url"])   ? $icon["url"]   : "";
+            $label = isset($icon["label"]) ? $icon["label"] : ucfirst($name);
+            $glyph = do_shortcode('[spectre-icon name="' . esc_attr($name) . '" size="' . esc_attr($size) . '"]');
+        ?>
+            <?php if ($url) : ?>
+                <a class="sp-footer__chip" href="<?php echo esc_url($url); ?>" aria-label="<?php echo esc_attr($label); ?>" target="_blank" rel="noopener noreferrer"><?php echo $glyph; ?></a>
+            <?php else : ?>
+                <sp-footer-chip aria-label="<?php echo esc_attr($label); ?>"><?php echo $glyph; ?></sp-footer-chip>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </sp-stack>
+    <?php
+}
+
+// Renders the copyright bar's trailing links from the
+// `spectre_base_footer_legal_links` filter -- each entry: ['text' => '...', 'url' => '...'].
+// Defaults to the WordPress privacy policy page (Settings > Privacy) when one
+// is configured. The current page's link gets the active recipe state.
+function spectre_base_footer_legal_links() {
+    $links       = array();
+    $privacy_url = get_privacy_policy_url();
+    if ($privacy_url) {
+        $links[] = array("text" => __("Privacy Policy", "spectre-base"), "url" => $privacy_url);
+    }
+    $links = apply_filters("spectre_base_footer_legal_links", $links);
+    if (empty($links)) {
+        return;
+    }
+
+    global $wp;
+    $current_url = untrailingslashit(home_url($wp->request ?? ""));
+    ?>
+    <nav aria-label="<?php esc_attr_e("Legal", "spectre-base"); ?>">
+        <sp-stack direction="horizontal" align="stretch" gap="md" inner-class="sp-flex-wrap">
+            <?php foreach ($links as $link) :
+                $text = isset($link["text"]) ? $link["text"] : "";
+                $url  = isset($link["url"])  ? $link["url"]  : "";
+                if ($text === "" || $url === "") {
+                    continue;
+                }
+                $is_current = untrailingslashit($url) === $current_url;
+            ?>
+                <a class="sp-footer__link<?php echo $is_current ? " sp-footer__link--active" : ""; ?>" href="<?php echo esc_url($url); ?>"<?php echo $is_current ? ' aria-current="page"' : ""; ?>><?php echo esc_html($text); ?></a>
+            <?php endforeach; ?>
+        </sp-stack>
+    </nav>
+    <?php
+}
+
+// Renders the footer contact info from the `spectre_base_footer_contact_items`
+// filter -- each entry: ['icon' => 'map-pin' (optional), 'text' => '...', 'url' => optional].
+// Icons render only when the spectre-icons plugin is active; the text itself
+// still renders without it, unlike the social icons row (which has no
+// content besides the icon and so is skipped entirely without the plugin).
+// Renders no heading/wrapper of its own -- intended to sit inside the brand
+// column alongside the tagline and social icons, not as its own grid column.
+function spectre_base_footer_contact_info() {
+    $items = apply_filters("spectre_base_footer_contact_items", array());
+    if (empty($items)) {
+        return;
+    }
+    ?>
+    <ul class="sp-footer__links">
+        <?php foreach ($items as $item) :
+            $text = isset($item["text"]) ? $item["text"] : "";
+            if ($text === "") {
+                continue;
+            }
+            $icon_name = isset($item["icon"]) ? $item["icon"] : "";
+            $url       = isset($item["url"])  ? $item["url"]  : "";
+        ?>
+            <li>
+                <?php if ($url) : ?>
+                    <a class="sp-footer__link" href="<?php echo esc_url($url); ?>">
+                <?php else : ?>
+                    <span class="sp-footer__link">
+                <?php endif; ?>
+                    <?php if ($icon_name && spectre_base_has_icons()) :
+                        echo do_shortcode('[spectre-icon name="' . esc_attr($icon_name) . '" size="16"]');
+                    endif; ?>
+                    <?php echo esc_html($text); ?>
+                <?php echo $url ? "</a>" : "</span>"; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+    <?php
 }

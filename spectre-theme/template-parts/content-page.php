@@ -1,8 +1,8 @@
 <?php if (!defined("ABSPATH")) exit; ?>
-<div id='post-<?php the_ID(); ?>' <?php post_class(); ?>>
-    <sp-stack>
+<article id='post-<?php the_ID(); ?>' <?php post_class(); ?>>
+    <div class="sp-content-flow">
         <header>
-            <sp-text level="h1"><?php the_title(); ?></sp-text>
+            <sp-text level="h1" preset="heading"><?php the_title(); ?></sp-text>
         </header>
 
         <div class="sp-prose sp-content-flow">
@@ -14,5 +14,5 @@
             ));
             ?>
         </div>
-    </sp-stack>
-</div>
+    </div>
+</article>

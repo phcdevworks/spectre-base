@@ -15,6 +15,42 @@ All notable changes to this project will be documented here. The format follows 
 - Added `npm run check:license` (part of `npm run check`), which fails the
   build if repository license metadata, theme metadata, or theme license
   notices drift from the MIT repo / GPL-2.0-or-later theme package boundary.
+- Added `spectre_base_register_cascade_layers()` in `functions.php`, which
+  unconditionally establishes the `wp-global-styles` cascade-layer order
+  (below Spectre's `components`/`utilities` layers) on every request via a
+  src-less style handle, independent of the Vite manifest, dev/prod asset
+  mode, and whether WordPress has global-styles content to wrap. Documented
+  the resulting `@layer wp-global-styles { ... }` contract in README.md
+  "Adding custom shell styles" so a child theme's own global heading CSS
+  (e.g. plain `h1`-`h6` rules in `style.css`) can opt into the same
+  precedence guarantee as the parent theme's compiled `theme.json` heading
+  defaults, without overriding an explicit `<sp-text level="h1" size="*">`
+  recipe or requiring the child theme to target `[data-sp-text-native]`,
+  `.sp-text`, or another rendered implementation detail.
+- Added regression coverage in `scripts/check-style-precedence.ts` (run via
+  `npm run check:styles`, part of the `wordpress-smoke.yml` CI workflow)
+  confirming a child theme's own CSS wrapped in `@layer wp-global-styles`
+  still loses to an explicit Spectre text recipe even when WordPress's
+  `global-styles` handle has no content to wrap on that request.
+- Redesigned `footer.php` as a marketplace-ready four-column footer: a brand
+  column (site logo/title, tagline, social icons, and inline contact info)
+  and three nav columns (new `footer-secondary` and `footer-tertiary` menu
+  locations alongside the existing `footer` location, each rendered via
+  `spectre_base_footer_nav_column()`). Contact details come from the
+  `spectre_base_footer_contact_items` filter, rendered inline in the brand
+  column via `spectre_base_footer_contact_info()` rather than as their own
+  grid column. Columns lay out via `<sp-grid columns="4">` (collapsing
+  responsively to one column on mobile) using only existing `spectre-ui`
+  footer recipe classes (`sp-footer__heading`, `sp-footer__text`,
+  `sp-footer__muted`, `sp-footer__links`, `sp-footer__link`,
+  `sp-footer__chip`, `sp-footer__divider`) -- no new design values. The
+  copyright bar now surfaces a Privacy Policy link automatically via
+  WordPress core's `get_privacy_policy_url()` when a privacy policy page is
+  configured. A nav column with no menu assigned is simply omitted.
+- Added filter hooks `spectre_base_footer_secondary_nav_args`,
+  `spectre_base_footer_tertiary_nav_args`, `spectre_base_footer_nav_heading`,
+  and `spectre_base_footer_contact_items`, documented in README.md "PHP Hook
+  API" alongside the existing footer hooks.
 
 ### Changed
 
@@ -27,6 +63,99 @@ All notable changes to this project will be documented here. The format follows 
   report, and WordPress smoke workflows: `actions/checkout` v4 to v7 and
   `actions/setup-node` v4 to v7. `shivammathur/setup-php` stays on v2, which is
   still its current major.
+- Updated `scripts/create-child-theme.ts` to include a commented example of
+  the `@layer wp-global-styles` contract in the generated child theme
+  `style.css`.
+- Added block editor canvas spacing: the post title and content are
+  centered at the container max width with inline padding, and the title is
+  separated from the body by a `--sp-surface-divider` rule and a
+  `--sp-space-32` gap. Rules are scoped to `.editor-styles-wrapper` in
+  `src/styles/main.css` and do not affect the front end.
+
+- Rebuilt the footer on the `spectre-components` 1.21.0 / `spectre-ui` 5.3.0
+  footer contract: `<sp-footer>` is now `bordered` with a brand top accent
+  rail (new `spectre_base_footer_accent` / `spectre_base_footer_accent_color`
+  filters), the grid is sized to the columns actually rendered so missing
+  nav menus no longer leave empty columns, the current page's footer link
+  gets the `sp-footer__link--active` state, and the copyright bar splits into
+  the copyright notice (left) and a new `spectre_base_footer_legal_links`
+  filter (right, defaulting to the privacy policy link). Social icons gain a
+  `label` accessible name for icon-only links, and unlinked icons render as
+  `<sp-footer-chip>`. Social and legal-link rendering moved into
+  `spectre_base_footer_social_icons()` / `spectre_base_footer_legal_links()`
+  in `functions.php`.
+- Added a **Footer menus** Customizer setting (Appearance > Customize >
+  Footer, 1-4, default 3) that controls how many footer menu locations the
+  theme registers and renders, including a new fourth `footer-quaternary`
+  location with its own `spectre_base_footer_quaternary_nav_args` filter.
+  The footer grid now puts the brand column in the first third and the menu
+  columns in a nested grid across the remaining two thirds, since
+  `sp-grid` has no five-column layout for brand plus four menus.
+- Footer nav column headings now default to the assigned menu's name from
+  **Appearance > Menus** instead of the theme-authored "Explore",
+  "Services", and "Resources" labels, so no site content ships from the
+  theme. `spectre_base_footer_nav_heading` still overrides it, and an empty
+  heading omits the heading element (the nav is then labelled by its menu
+  location).
+
+- Added a site-wide **Color Mode** Customizer setting (Appearance >
+  Customize > Color Mode): Light (default), Dark, or System, which follows
+  each visitor's device setting and updates live. The theme sets
+  `data-spectre-theme` on `<html>` (server-side for Light/Dark, a pre-paint
+  inline script for System) plus a matching `<meta name="color-scheme">`,
+  so every Spectre component switches through its published mode-aware
+  tokens with no theme-defined colors.
+- Every page now fills at least the full viewport height, so the header
+  sits at the top and the footer at the bottom even on short or empty pages:
+  `<html>` gets `sp-h-full`, `<body>` gets `sp-min-h-full sp-flex
+  sp-flex-col` (via the `body_class` filter), and `<sp-footer>` gets
+  `sp-mt-auto`. Longer pages scroll as before.
+- Removed card framing from every page template: single posts, post-list
+  items (`content-card.php`), the front page content, comments, the
+  previous/next post links, the 404 page, and sidebar widgets now render on
+  the page surface as plain `<article>`/`<section>`/`<nav>` elements instead
+  of `<sp-card>`. Comments share the post's `.sp-content-flow` measure.
+- Restyled the site header to match the footer: `<sp-nav>` is now full-width,
+  bordered, and sticky with a brand top accent rail (new
+  `spectre_base_header_accent` / `spectre_base_header_accent_color` filters),
+  its container spans the full layout width, primary menu links render with
+  the `sp-nav__link` recipe and `sp-nav__link--active` on the current page,
+  and the site title uses the `sp-heading--h6` type preset. The primary menu
+  now renders top-level items only (`depth` 1), and the no-menu fallback
+  lists pages with the same recipe classes and no duplicate Home link.
+- Generalized the menu link-class hook to a `spectre_link_class`
+  `wp_nav_menu()` arg, shared by the header and footer menus.
+
+### Fixed
+
+- Fixed centered text in post, page, comment, and post-card content: their
+  `sp-stack`s now use `align="stretch"` instead of the default reflected
+  `align="center"`, which browsers treat as legacy `text-align: center`.
+- Fixed page and post titles rendering at body text size; they now use the
+  `sp-text` `preset="heading"` scale, and on pages and single posts share the
+  `.sp-content-flow` measure with the body so they line up with it.
+- Fixed page content sitting flush against the header: each template's
+  `<sp-container>` now carries `sp-py-32` spacing.
+- Fixed an empty previous/next navigation block on single posts with no
+  adjacent post.
+- Fixed the site title rendering as an `<h1>` on every page, duplicating each
+  template's own page-title `<h1>`; it is now a heading-styled link.
+- Fixed nested navigation landmarks: the primary menu no longer adds its own
+  `<nav>` inside the `<sp-nav>` landmark, which is now labelled "Primary".
+- Fixed the footer content shrinking to its intrinsic width at the left of
+  the page: `.sp-footer` is a flex row, so its `<sp-container>` child now
+  stretches via the footer's `sp-flex-col sp-items-stretch` utilities.
+- Fixed footer text centering (link columns, and the copyright bar once it
+  wraps): `sp-stack` reflects its default `align="center"` as an HTML
+  attribute, which browsers treat as legacy `text-align: center`. Footer
+  stacks now use `align="stretch"`.
+- Fixed the block editor loading none of the theme's CSS on hosts that
+  cannot reach their own public URL (e.g. Docker port mapping).
+  `spectre_base_add_editor_styles()` now passes `add_editor_style()` a
+  theme-relative path, which WordPress reads from disk, instead of an
+  absolute URL, which the block editor fetches server-side via
+  `wp_remote_get()` and silently drops on failure -- leaving every
+  `var(--sp-*)` value in `theme.json` unresolved in the editor canvas.
 
 ## [v3.2.1] - 2026-09-05
 

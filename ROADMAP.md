@@ -32,13 +32,15 @@ this file does not restate delivered work.
 | 10 | `sp-grid` ARIA row/cell semantics — resolution landed in `spectre-components@1.18.0`: `sp-grid` projects light-DOM children by moving the original nodes, so plain `role="row"`/`role="cell"` attributes on a consumer's own child markup already work with no component change; `spectre-components` added regression coverage confirming this rather than new API surface. Verifying whether a downstream comparison matrix can move onto `sp-grid` with this pattern remains that integration's own follow-up. | Closed (3.1.0), no theme change needed |
 | 11 | Keyboard bypass navigation — every public template exposes one native main landmark, while the shared header provides a token-backed skip link verified for visibility and focus transfer in a live WordPress browser test | Delivered (3.2.0) |
 | 12 | Deployable theme license boundary — `spectre-theme/` now carries its own `LICENSE.txt` (GPL-2.0-or-later) and `NOTICE.txt` (MIT attribution for bundled Spectre packages), independent of the MIT-licensed repository; `npm run package:theme` assembles a marketplace-ready `spectre-theme.zip`, and `npm run check:license` gates drift between repository and theme-package license metadata | Delivered |
+| 13 | Child-theme heading precedence gap — `spectre_base_register_cascade_layers()` now unconditionally establishes the `wp-global-styles` cascade-layer order every request, independent of whether WordPress has global-styles content to wrap; a child theme's own global `h1`-`h6` CSS can opt into that same layer (documented in README.md "Adding custom shell styles") and reliably lose to an explicit `sp-text` size/variant recipe, closing the gap that previously forced child themes to restate typography against `[data-sp-text-native]` | Delivered |
 
 ---
 
 ## What's Next
 
-Nothing planned — the project is in maintenance mode. New scope opens only
-when a concrete need emerges; see [TODO.md](TODO.md).
+Nothing queued right now — the project is under active development, and new
+scope is planned proactively, without waiting for a concrete need; see
+[TODO.md](TODO.md).
 
 ---
 

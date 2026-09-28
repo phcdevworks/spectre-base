@@ -2,11 +2,11 @@
 <?php get_header(); ?>
 
 <main id="spectre-main-content" tabindex="-1">
-<sp-container inner-class="sp-container--max-width-wide">
-    <sp-stack>
+<sp-container inner-class="sp-container--max-width-wide sp-py-32">
+    <sp-stack align="stretch">
         <header>
             <sp-text variant="muted"><?php esc_html_e('Search', 'spectre-base'); ?></sp-text>
-            <sp-text level="h1">
+            <sp-text level="h1" preset="heading">
                 <?php printf(esc_html__('Results for: %s', 'spectre-base'), esc_html(get_search_query())); ?>
             </sp-text>
         </header>

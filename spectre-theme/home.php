@@ -2,11 +2,11 @@
 <?php get_header(); ?>
 
 <main id="spectre-main-content" tabindex="-1">
-<sp-container inner-class="sp-container--max-width-wide">
-    <sp-stack>
+<sp-container inner-class="sp-container--max-width-wide sp-py-32">
+    <sp-stack align="stretch">
         <header>
             <sp-text variant="muted"><?php esc_html_e('Journal', 'spectre-base'); ?></sp-text>
-            <sp-text level="h1"><?php echo esc_html(single_post_title('', false)); ?></sp-text>
+            <sp-text level="h1" preset="heading"><?php echo esc_html(single_post_title('', false)); ?></sp-text>
             <sp-text variant="subtle"><?php esc_html_e('The latest posts from this site.', 'spectre-base'); ?></sp-text>
         </header>
 

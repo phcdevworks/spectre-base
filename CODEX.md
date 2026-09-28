@@ -39,7 +39,7 @@ At the start of any Codex session:
    the current theme contract authority.
 5. Use `.codex/release-checklist.md` and `.codex/handoff-template.md` for
    release and production handoffs.
-6. Preserve existing human, Claude Code, Copilot, or Jules changes unless
+6. Preserve existing human, Claude Code, Copilot, Jules, or Grok changes unless
    explicitly asked to change them.
 
 ## Primary Responsibilities

@@ -1,6 +1,6 @@
 <?php if (!defined("ABSPATH")) exit; ?>
-<sp-card id='post-<?php the_ID(); ?>' <?php post_class(); ?> padded>
-    <sp-stack>
+<article id='post-<?php the_ID(); ?>' <?php post_class(); ?>>
+    <sp-stack align="stretch">
         <?php if (has_post_thumbnail()) : ?>
             <a href='<?php echo esc_url(get_permalink()); ?>'>
                 <?php the_post_thumbnail('large'); ?>
@@ -23,10 +23,12 @@
             <?php the_excerpt(); ?>
         </div>
 
-        <a href="<?php echo esc_url(get_permalink()); ?>"
-           class="sp-btn sp-btn--ghost sp-btn--sm"
-           aria-label="<?php echo esc_attr(sprintf(__('Read more about %s', 'spectre-base'), get_the_title())); ?>">
-            <?php esc_html_e('Read more', 'spectre-base'); ?>
-        </a>
+        <div>
+            <a href="<?php echo esc_url(get_permalink()); ?>"
+               class="sp-btn sp-btn--ghost sp-btn--sm"
+               aria-label="<?php echo esc_attr(sprintf(__('Read more about %s', 'spectre-base'), get_the_title())); ?>">
+                <?php esc_html_e('Read more', 'spectre-base'); ?>
+            </a>
+        </div>
     </sp-stack>
-</sp-card>
+</article>

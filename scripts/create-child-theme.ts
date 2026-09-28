@@ -50,6 +50,17 @@ Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 8.2
 */
+
+/*
+ * If you add custom global heading CSS below (h1-h6 typography that isn't
+ * expressed through an <sp-text> contract), wrap it in the wp-global-styles
+ * cascade layer so it can't override an explicit Spectre text size/variant --
+ * see README.md § "Adding custom global heading or shell-level CSS".
+ *
+ * @layer wp-global-styles {
+ *   h1 { font-size: 2.5rem; }
+ * }
+ */
 `
 )
 

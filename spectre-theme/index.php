@@ -2,8 +2,8 @@
 <?php get_header(); ?>
 
 <main id="spectre-main-content" tabindex="-1">
-<sp-container inner-class="sp-container--max-width-wide">
-    <sp-stack>
+<sp-container inner-class="sp-container--max-width-wide sp-py-32">
+    <sp-stack align="stretch">
         <?php if (have_posts()) : ?>
             <sp-grid columns="2">
                 <?php while (have_posts()) : the_post(); ?>

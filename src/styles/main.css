@@ -44,3 +44,28 @@
 .sp-content-flow > * + * {
   margin-block-start: var(--sp-space-16);
 }
+
+/* Block editor canvas spacing. The editor renders the post title and the
+   block list as bare siblings flush against the canvas edge, so this gives
+   them the container measure and separates the title from the body with a
+   divider. Scoped to `.editor-styles-wrapper`, which only exists inside the
+   editor, so the front end is unaffected. */
+.editor-styles-wrapper {
+  padding-inline: var(--sp-layout-container-padding-inline-md);
+}
+
+.editor-styles-wrapper .editor-visual-editor__post-title-wrapper,
+.editor-styles-wrapper .is-root-container {
+  max-width: var(--sp-layout-container-max-width);
+  margin-inline: auto;
+}
+
+.editor-styles-wrapper .editor-visual-editor__post-title-wrapper {
+  padding-block: var(--sp-space-48) var(--sp-space-24);
+  margin-block-end: var(--sp-space-32);
+  border-block-end: var(--sp-border-width-base) solid var(--sp-surface-divider);
+}
+
+.editor-styles-wrapper .is-root-container {
+  padding-block-end: var(--sp-space-48);
+}

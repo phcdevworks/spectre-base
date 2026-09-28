@@ -59,6 +59,15 @@ npm run check:ecosystem
 To assemble the marketplace-ready package, run `npm run package:theme` after
 a successful build; it writes `spectre-theme.zip` at the repository root.
 
+If a template, `theme.json`, or `functions.php` change touches heading
+markup or global styles, also run `npm run check:styles` (requires
+`npx playwright install --with-deps chromium` once locally) to verify an
+explicit Spectre text size/variant contract still wins over WordPress's
+compiled `theme.json` heading defaults and over the `wp-global-styles`
+cascade-layer contract child themes use for their own global heading CSS.
+This also runs against a live WordPress instance in the
+`wordpress-smoke.yml` CI workflow on every push/PR.
+
 For dependency updates, run `npm install` first, then rebuild and rerun the
 checks above.
 

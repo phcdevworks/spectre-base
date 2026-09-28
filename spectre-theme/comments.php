@@ -3,8 +3,8 @@
     <?php return; ?>
 <?php endif; ?>
 
-<sp-card id="comments" padded>
-    <sp-stack>
+<section id="comments" class="sp-content-flow">
+    <sp-stack align="stretch">
         <?php if (have_comments()) : ?>
             <header>
                 <sp-text level="h2">
@@ -43,4 +43,4 @@
             <?php comment_form(); ?>
         </div>
     </sp-stack>
-</sp-card>
+</section>

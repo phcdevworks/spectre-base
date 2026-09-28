@@ -36,6 +36,7 @@ token-driven visual language as the rest of the ecosystem.
 | Codex | [CODEX.md](CODEX.md) |
 | Copilot | [COPILOT.md](COPILOT.md) |
 | Jules | [JULES.md](JULES.md) |
+| Grok  | [GROK.md](GROK.md)   |
 | Roadmap | [ROADMAP.md](ROADMAP.md) |
 | Todo | [TODO.md](TODO.md) |
 | Changelog | [CHANGELOG.md](CHANGELOG.md) |
@@ -334,10 +335,10 @@ Each hook below is declared in the listed parent file; place your `add_action`
 
 | Hook | Fires in | When |
 |---|---|---|
-| `spectre_base_before_header` | `header.php` | Immediately before the `<header>` element |
-| `spectre_base_before_site_branding` | `header.php` | Inside `.spectre-site-branding`, before the logo/site title |
-| `spectre_base_after_site_branding` | `header.php` | Inside `.spectre-site-branding`, after the logo/site title |
-| `spectre_base_after_header` | `header.php` | Immediately after the `</header>` element |
+| `spectre_base_before_header` | `header.php` | Immediately before the `<sp-nav>` site header |
+| `spectre_base_before_site_branding` | `header.php` | Inside `.site-branding`, before the logo/site title |
+| `spectre_base_after_site_branding` | `header.php` | Inside `.site-branding`, after the logo/site title |
+| `spectre_base_after_header` | `header.php` | Immediately after the `</sp-nav>` site header |
 | `spectre_base_before_footer` | `footer.php` | Immediately before the `<footer>` element |
 | `spectre_base_after_footer` | `footer.php` | Immediately after the `</footer>` element |
 | `spectre_base_before_sidebar($sidebar_id)` | `sidebar.php` | Before the `<aside>` wrapper, only when the sidebar is active |
@@ -359,21 +360,73 @@ around these files: `get_header`, `get_footer`, and `get_sidebar` (fired by
 
 | Hook | Declared in | Purpose |
 |---|---|---|
-| `spectre_base_primary_nav_args` | `header.php` | Filters the `wp_nav_menu()` args array for the primary navigation |
-| `spectre_base_footer_nav_args` | `footer.php` | Filters the `wp_nav_menu()` args array for the footer navigation |
-| `spectre_base_footer_social_icons` | `footer.php` | Filters the array of social icon entries rendered in the footer |
+| `spectre_base_primary_nav_args` | `header.php` | Filters the `wp_nav_menu()` args array for the primary navigation (top-level items only, `depth` 1; each link gets the `spectre_link_class` recipe class, `sp-nav__link`, plus its `--active` state on the current page) |
+| `spectre_base_header_accent` | `header.php` | Filters the header accent rail edge: `top` (default), `right`, `bottom`, or `left` |
+| `spectre_base_header_accent_color` | `header.php` | Filters the header accent rail color: `brand` (default), `neutral`, `info`, `success`, `warning`, `danger`, or `cta` |
+| `spectre_base_footer_nav_args` | `footer.php` | Filters the `wp_nav_menu()` args array for the first footer nav column (`footer` location) |
+| `spectre_base_footer_secondary_nav_args` | `footer.php` | Filters the `wp_nav_menu()` args array for the second footer nav column (`footer-secondary` location) |
+| `spectre_base_footer_tertiary_nav_args` | `footer.php` | Filters the `wp_nav_menu()` args array for the third footer nav column (`footer-tertiary` location) |
+| `spectre_base_footer_quaternary_nav_args` | `footer.php` | Filters the `wp_nav_menu()` args array for the fourth footer nav column (`footer-quaternary` location, registered when **Footer menus** is 4) |
+| `spectre_base_footer_nav_heading` | `footer.php` | Filters a footer nav column's heading text (default: the assigned menu's name from **Appearance > Menus**; an empty string omits the heading); receives `(string $heading, string $location)` |
+| `spectre_base_footer_social_icons` | `footer.php` | Filters the array of social icon entries rendered in the footer brand column |
+| `spectre_base_footer_contact_items` | `footer.php` | Filters the array of contact entries rendered inline in the footer brand column (default: empty, nothing rendered) |
+| `spectre_base_footer_legal_links` | `footer.php` | Filters the `['text', 'url']` links on the right of the copyright bar (default: the privacy policy page, when configured) |
+| `spectre_base_footer_accent` | `footer.php` | Filters the footer accent rail edge: `top` (default), `right`, `bottom`, or `left` |
+| `spectre_base_footer_accent_color` | `footer.php` | Filters the footer accent rail color: `brand` (default), `neutral`, `info`, `success`, `warning`, `danger`, or `cta` |
 | `spectre_base_sidebar_id` | `sidebar.php` | Filters which registered sidebar ID `sidebar.php` renders (default `sidebar-main`) |
 
 ```php
 // Swap the registered sidebar that sidebar.php renders:
 add_filter('spectre_base_sidebar_id', fn () => 'sidebar-shop');
 
-// Add a custom menu class to the primary navigation:
-add_filter('spectre_base_primary_nav_args', function (array $args) {
-    $args['menu_class'] .= ' my-client-nav';
-    return $args;
-});
+// Move the header's accent rail to the bottom edge:
+add_filter('spectre_base_header_accent', fn () => 'bottom');
 ```
+
+### Color mode
+
+**Appearance > Customize > Color Mode** sets the whole site to **Light**
+(default), **Dark**, or **System**, which follows each visitor's device
+setting and switches live when it changes. Spectre's dark tokens and every
+`spectre-ui` component variable mapped from them apply under
+`:root[data-spectre-theme="dark"]`, so the theme only sets that attribute on
+`<html>`: server-side for Light and Dark, and with a small inline script in
+`<head>` (before any stylesheet, so there is no flash) for System. A matching
+`<meta name="color-scheme">` keeps native form controls and scrollbars in
+step. No colors are defined in the theme.
+
+The footer uses Spectre's footer tokens, which are dark in both modes (navy
+in Light, black in Dark). The block editor canvas stays in Light mode.
+
+### Footer layout
+
+The footer is a bordered, full-width `<sp-footer>` with a brand-colored top
+accent rail (see `spectre_base_footer_accent` / `_accent_color`). It renders a
+brand column (site logo or title, tagline, social icons, contact info) and 1-4
+footer menu columns.
+
+**Number of footer menus:** set **Appearance > Customize > Footer > Footer
+menus** (1-4, default 3). The theme registers exactly that many menu
+locations -- **Footer Menu 1** through **Footer Menu 4** (`footer`,
+`footer-secondary`, `footer-tertiary`, `footer-quaternary`) -- so
+**Appearance > Menus** lists only the ones in use. Location slugs are stable
+per position, so lowering the count and raising it again restores earlier
+assignments.
+
+Each column is headed by its assigned menu's name, and a location with no
+menu assigned renders nothing. On desktop the brand column takes the first
+third and the menu columns share the remaining two thirds equally; tablet
+widths use two columns and mobile stacks everything. The current page's footer
+menu link gets the `sp-footer__link--active` recipe state alongside
+WordPress's own `aria-current="page"`.
+
+Below a divider, the copyright bar puts the copyright notice on the left and
+the `spectre_base_footer_legal_links` links on the right, wrapping on narrow
+screens.
+
+Footer links stay server-rendered `<a class="sp-footer__link">` elements rather
+than `<sp-footer-link>` components, so they work before (or without) the
+component scripts loading.
 
 ### Footer social icons
 
@@ -383,15 +436,46 @@ Add site-specific social icon links without modifying the theme directly:
 // In your child theme's functions.php or a site plugin:
 add_filter('spectre_base_footer_social_icons', function () {
     return [
-        ['name' => 'github',   'size' => '20', 'url' => 'https://github.com/yourorg'],
-        ['name' => 'linkedin', 'size' => '20', 'url' => 'https://linkedin.com/company/yourco'],
+        ['name' => 'github',   'size' => '20', 'url' => 'https://github.com/yourorg', 'label' => 'GitHub'],
+        ['name' => 'linkedin', 'size' => '20', 'url' => 'https://linkedin.com/company/yourco', 'label' => 'LinkedIn'],
     ];
 });
 ```
 
+`label` is the icon-only link's accessible name (it falls back to the icon
+name). Entries with a `url` render as `<a class="sp-footer__chip">` links;
+entries without one render as a non-interactive `<sp-footer-chip>`.
+
 This requires the [spectre-icons](https://wordpress.org/plugins/spectre-icons/)
 plugin to be active. If the plugin is not active the social row is not rendered
 regardless of the filter output.
+
+### Footer contact info
+
+Add contact details inline in the footer brand column, below the tagline and
+social icons, without modifying the theme directly:
+
+```php
+// In your child theme's functions.php or a site plugin:
+add_filter('spectre_base_footer_contact_items', function () {
+    return [
+        ['icon' => 'map-pin', 'text' => '154 Grand St, New York, New York 10013'],
+        ['icon' => 'phone',   'text' => '(+1) 646 760 5363', 'url' => 'tel:+16467605363'],
+        ['icon' => 'mail',    'text' => 'info@yourco.com',    'url' => 'mailto:info@yourco.com'],
+    ];
+});
+```
+
+Unlike the social icons row, this still renders without the
+[spectre-icons](https://wordpress.org/plugins/spectre-icons/) plugin active --
+each entry's `text` is the useful content; `icon` only adds a glyph when the
+plugin is available. `url` is optional; without it the entry renders as plain
+text.
+
+The three footer nav columns and the WordPress privacy policy link
+(**Settings > Privacy**, surfaced automatically via `get_privacy_policy_url()`
+in the copyright bar) follow the same pattern: WordPress admin screens, not
+code, drive the footer's day-to-day content.
 
 ### Swapping templates entirely
 
@@ -463,6 +547,34 @@ need. When you do, still consume tokens only -- never a raw hex/px/rem value:
 }
 ```
 
+For a scoped selector like `.my-hero` above, `@layer components` is enough --
+a class selector already outranks a Spectre recipe's own class on
+specificity within that layer, or simply never collides with one. A *global*,
+unscoped element selector (plain `h1`-`h6` baseline typography, for example)
+is different: per the CSS cascade-layers spec, an unlayered rule always beats
+a layered rule regardless of specificity or source order, so leaving such a
+rule unlayered in a child theme's `style.css` would permanently override an
+explicit `<sp-text level="h1" size="*">` recipe -- the same collision
+`functions.php`'s `spectre_base_layer_global_styles()` prevents for the
+parent theme's own compiled `theme.json` heading defaults. Wrap this kind of
+global default in the `wp-global-styles` layer instead, which
+`spectre_base_register_cascade_layers()` always keeps ordered below
+`components`/`utilities`, on every request:
+
+```css
+/* child-theme/style.css */
+@layer wp-global-styles {
+  h1 {
+    font-size: 2.5rem;
+  }
+}
+```
+
+An explicit Spectre text contract still wins over this, while headings with
+no competing Spectre contract fall through to the child theme's default --
+without ever needing to target `[data-sp-text-native]`, `.sp-text`, or
+another rendered implementation detail.
+
 ## Content Flow Contract
 
 `page.php`, `front-page.php`, and `single.php` wrap every `the_content()` call
@@ -522,6 +634,10 @@ Override color, typography, and spacing presets in the child theme's
 `theme.json`. Keep every value as a `var(--sp-*)` reference -- see
 [CSS custom property namespace](#css-custom-property-namespace) above. Do not
 introduce hex codes, raw px/rem values, or new custom properties.
+
+See [Adding custom shell styles](#adding-custom-shell-styles) for how to add
+plain CSS -- including global `h1`-`h6` typography defaults -- without it
+silently overriding an explicit Spectre text contract.
 
 ### Overriding templates and behavior
 

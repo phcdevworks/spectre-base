@@ -2,11 +2,11 @@
 <?php get_header(); ?>
 
 <main id="spectre-main-content" tabindex="-1">
-<sp-container inner-class="sp-container--max-width-wide">
-    <sp-stack>
+<sp-container inner-class="sp-container--max-width-wide sp-py-32">
+    <sp-stack align="stretch">
         <header>
             <sp-text variant="muted"><?php esc_html_e('Archive', 'spectre-base'); ?></sp-text>
-            <sp-text level="h1"><?php the_archive_title(); ?></sp-text>
+            <sp-text level="h1" preset="heading"><?php the_archive_title(); ?></sp-text>
             <?php if (term_description()) : ?>
                 <div><?php echo wp_kses_post(term_description()); ?></div>
             <?php endif; ?>

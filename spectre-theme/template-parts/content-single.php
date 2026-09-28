@@ -1,6 +1,6 @@
 <?php if (!defined("ABSPATH")) exit; ?>
-<sp-card id='post-<?php the_ID(); ?>' <?php post_class(); ?> padded>
-    <sp-stack>
+<article id='post-<?php the_ID(); ?>' <?php post_class(); ?>>
+    <div class="sp-content-flow">
         <header>
             <sp-text variant="meta" size="sm">
                 <time datetime='<?php echo esc_attr(get_the_date('c')); ?>'><?php echo esc_html(get_the_date()); ?></time>
@@ -8,7 +8,7 @@
                 <span><?php echo esc_html(get_the_author()); ?></span>
             </sp-text>
 
-            <sp-text level="h1"><?php the_title(); ?></sp-text>
+            <sp-text level="h1" preset="heading"><?php the_title(); ?></sp-text>
         </header>
 
         <?php if (has_post_thumbnail()) : ?>
@@ -26,5 +26,5 @@
             ));
             ?>
         </div>
-    </sp-stack>
-</sp-card>
+    </div>
+</article>
