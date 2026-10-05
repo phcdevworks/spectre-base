@@ -4,6 +4,12 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [v4.0.0] - 2026-10-06
+
+**Release Title:** Theme shell extensibility and distribution
+
+Contract change type: breaking
+
 ### Added
 
 - Added `spectre-theme/LICENSE.txt` (full GPL-2.0-or-later text) and
@@ -574,7 +580,8 @@ This release spans no single ROADMAP phase; it is a maintenance release.
   TypeScript, Tailwind CSS, Vite, lint, formatting, and transitive
   dependencies.
 
-[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v3.2.1...HEAD
+[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v4.0.0...HEAD
+[v4.0.0]: https://github.com/phcdevworks/spectre-base/compare/v3.2.1...v4.0.0
 [v3.2.1]: https://github.com/phcdevworks/spectre-base/compare/v3.2.0...v3.2.1
 [v3.2.0]: https://github.com/phcdevworks/spectre-base/compare/v3.1.4...v3.2.0
 [v3.1.4]: https://github.com/phcdevworks/spectre-base/compare/v3.1.3...v3.1.4
