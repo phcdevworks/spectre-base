@@ -2,6 +2,7 @@
 <?php get_header(); ?>
 
 <main id="spectre-main-content" tabindex="-1">
+<?php do_action('spectre_base_main_start'); ?>
 <sp-container inner-class="sp-container--max-width-wide sp-py-32">
     <sp-stack align="stretch">
         <header>

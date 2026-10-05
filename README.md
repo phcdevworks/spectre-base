@@ -338,7 +338,9 @@ Each hook below is declared in the listed parent file; place your `add_action`
 | `spectre_base_before_header` | `header.php` | Immediately before the `<sp-nav>` site header |
 | `spectre_base_before_site_branding` | `header.php` | Inside `.site-branding`, before the logo/site title |
 | `spectre_base_after_site_branding` | `header.php` | Inside `.site-branding`, after the logo/site title |
-| `spectre_base_after_header` | `header.php` | Immediately after the `</sp-nav>` site header |
+| `spectre_base_header_actions` | `header.php` | Inside the nav bar after the primary nav, wrapped in `.header-actions` (a header CTA goes here). With the `inline` layout the wrapper renders only when something is hooked |
+| `spectre_base_after_header` | `header.php` | Immediately after the `</sp-nav>` site header, outside `<main>` |
+| `spectre_base_main_start` | every public template | First thing inside `<main id="spectre-main-content">`, before the template's container. Use this, not `spectre_base_after_header`, for a page hero, so it stays inside the main landmark |
 | `spectre_base_before_footer` | `footer.php` | Immediately before the `<footer>` element |
 | `spectre_base_after_footer` | `footer.php` | Immediately after the `</footer>` element |
 | `spectre_base_before_sidebar($sidebar_id)` | `sidebar.php` | Before the `<aside>` wrapper, only when the sidebar is active |
@@ -361,6 +363,10 @@ around these files: `get_header`, `get_footer`, and `get_sidebar` (fired by
 | Hook | Declared in | Purpose |
 |---|---|---|
 | `spectre_base_primary_nav_args` | `header.php` | Filters the `wp_nav_menu()` args array for the primary navigation (top-level items only, `depth` 1; each link gets the `spectre_link_class` recipe class, `sp-nav__link`, plus its `--active` state on the current page) |
+| `spectre_base_primary_nav` | `header.php` | Return a markup string to replace the primary nav's contents (default `null` renders the `wp_nav_menu()` above), e.g. top-level items rendered as `<sp-dropdown mega>`. The `.main-navigation` wrapper stays. Return escaped markup |
+| `spectre_base_site_branding` | `header.php` | Return a markup string to replace the logo/site title (default `null`), e.g. a bundled logo. The `.site-branding` wrapper and its two actions stay. Return escaped markup |
+| `spectre_base_header_layout` | `header.php` | The nav bar layout: `inline` (default, a wrapping horizontal stack) or `edge-fluid-edge` (a three-region branding / nav / actions grid on `spectre-ui`'s `sp-grid-template--edge-fluid-edge`) |
+| `spectre_base_header_container_class` | `header.php` | Utility classes for the header `<sp-container>`'s inner element (default none). `sp-relative` makes the container, rather than the full-width `<sp-nav>`, the anchor for `<sp-dropdown mega>` panels |
 | `spectre_base_header_accent` | `header.php` | Filters the header accent rail edge: `top` (default), `right`, `bottom`, or `left` |
 | `spectre_base_header_accent_color` | `header.php` | Filters the header accent rail color: `brand` (default), `neutral`, `info`, `success`, `warning`, `danger`, or `cta` |
 | `spectre_base_footer_nav_args` | `footer.php` | Filters the `wp_nav_menu()` args array for the first footer nav column (`footer` location) |
@@ -373,6 +379,9 @@ around these files: `get_header`, `get_footer`, and `get_sidebar` (fired by
 | `spectre_base_footer_legal_links` | `footer.php` | Filters the `['text', 'url']` links on the right of the copyright bar (default: the privacy policy page, when configured) |
 | `spectre_base_footer_accent` | `footer.php` | Filters the footer accent rail edge: `top` (default), `right`, `bottom`, or `left` |
 | `spectre_base_footer_accent_color` | `footer.php` | Filters the footer accent rail color: `brand` (default), `neutral`, `info`, `success`, `warning`, `danger`, or `cta` |
+| `spectre_base_footer_surface` | `footer.php` | Puts the footer on a published surface role: `page`, `card`, `subtle`, `inverse`, or `hero` (default none: the footer's own background). Passed to `<sp-footer surface>` |
+| `spectre_base_footer_appearance` | `footer.php` | The footer palette: `dark`, `light`, or `system` (follows the visitor's OS). Default none, which is the component's `dark`. Passed to `<sp-footer appearance>` |
+| `spectre_base_icon` | `functions.php` | Icon provider for footer social and contact icons. Receives `(string $markup, string $name, string $size)`, where `$markup` is the spectre-icons shortcode output or `""` without the plugin. Return escaped markup, or `""` for no icon |
 | `spectre_base_sidebar_id` | `sidebar.php` | Filters which registered sidebar ID `sidebar.php` renders (default `sidebar-main`) |
 
 ```php
@@ -382,6 +391,29 @@ add_filter('spectre_base_sidebar_id', fn () => 'sidebar-shop');
 // Move the header's accent rail to the bottom edge:
 add_filter('spectre_base_header_accent', fn () => 'bottom');
 ```
+
+### Three-region header
+
+A header with a CTA uses the `edge-fluid-edge` layout. Branding and actions
+size to their content, and the nav takes the space between them:
+
+```php
+add_filter('spectre_base_header_layout', fn () => 'edge-fluid-edge');
+add_filter('spectre_base_header_container_class', fn () => 'sp-relative');
+
+add_action('spectre_base_header_actions', function () {
+    printf(
+        '<a class="sp-btn sp-btn--cta sp-btn--md" href="%s">%s</a>',
+        esc_url(home_url('/contact/')),
+        esc_html__('Get in touch', 'your-child-theme')
+    );
+});
+```
+
+Keep the shell's `header.php` rather than forking it. A fork stops getting
+shell fixes, including the skip link. The same applies to `<main>`: render
+page heroes on `spectre_base_main_start` so they stay inside the landmark the
+skip link targets.
 
 ### Color mode
 
@@ -395,8 +427,10 @@ setting and switches live when it changes. Spectre's dark tokens and every
 `<meta name="color-scheme">` keeps native form controls and scrollbars in
 step. No colors are defined in the theme.
 
-The footer uses Spectre's footer tokens, which are dark in both modes (navy
-in Light, black in Dark). The block editor canvas stays in Light mode.
+By default the footer uses Spectre's dark footer palette in both modes (navy
+in Light, black in Dark). `spectre_base_footer_appearance` switches it to the
+light palette or to `system`, and `spectre_base_footer_surface` puts it on a
+published surface role. The block editor canvas stays in Light mode.
 
 ### Footer layout
 
@@ -446,9 +480,22 @@ add_filter('spectre_base_footer_social_icons', function () {
 name). Entries with a `url` render as `<a class="sp-footer__chip">` links;
 entries without one render as a non-interactive `<sp-footer-chip>`.
 
-This requires the [spectre-icons](https://wordpress.org/plugins/spectre-icons/)
-plugin to be active. If the plugin is not active the social row is not rendered
-regardless of the filter output.
+Each icon comes from an icon provider. By default that is the
+[spectre-icons](https://wordpress.org/plugins/spectre-icons/) plugin's
+shortcode. Without the plugin, or for an icon it lacks, supply markup through
+the `spectre_base_icon` filter, for example an SVG bundled with the child
+theme:
+
+```php
+add_filter('spectre_base_icon', function ($markup, $name) {
+    $file = get_stylesheet_directory() . "/icons/{$name}.svg";
+    return $markup === '' && is_readable($file) ? file_get_contents($file) : $markup;
+}, 10, 2);
+```
+
+The SVG must take its color from `currentColor` and carry no hardcoded fill
+or size. An entry that no provider has an icon for is skipped, and the row is
+not rendered when no entry has one.
 
 ### Footer contact info
 
@@ -466,10 +513,9 @@ add_filter('spectre_base_footer_contact_items', function () {
 });
 ```
 
-Unlike the social icons row, this still renders without the
-[spectre-icons](https://wordpress.org/plugins/spectre-icons/) plugin active --
-each entry's `text` is the useful content; `icon` only adds a glyph when the
-plugin is available. `url` is optional; without it the entry renders as plain
+Unlike a social icon, an entry still renders when no icon provider has its
+icon -- each entry's `text` is the useful content; `icon` only adds a glyph
+when the spectre-icons plugin or the `spectre_base_icon` filter provides one. `url` is optional; without it the entry renders as plain
 text.
 
 The three footer nav columns and the WordPress privacy policy link
@@ -574,6 +620,47 @@ An explicit Spectre text contract still wins over this, while headings with
 no competing Spectre contract fall through to the child theme's default --
 without ever needing to target `[data-sp-text-native]`, `.sp-text`, or
 another rendered implementation detail.
+
+## 8px Layout Grid
+
+Layout spacing in the theme and its child themes sits on an 8px grid: every
+padding, margin, and gap step is 0 or a multiple of 8. A 4px step is allowed
+only for alignment inside a component. The Spectre packages follow the same
+rule (owner-confirmed 2026-10-03), so `spectre-ui` recipes already sit on the
+grid.
+
+`npm run check:drift` enforces this in maintained source. It fails on an
+off-grid step in an `sp-*` padding, margin, gap, or space utility, including
+responsive prefixes (`sp-gap-12`, `sp-py-20`, `sp-md-px-6`), and in any
+`var(--sp-space-*)` reference (`--sp-space-12`). Use the nearest grid step
+instead: 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 96, 128, 160, or 192.
+
+For layout, use the component steps rather than a raw utility where one fits:
+
+- **Larger layout steps.** `xl`, `2xl`, `3xl`, and `4xl` are available on
+  `<sp-section>` `spacing`/`gap`, `<sp-stack>` `gap`, `<sp-grid>`
+  `gap`/`row-gap`/`column-gap`, and `<sp-container>` `padding`. They widen at
+  the `lg` breakpoint (1024px) through the token package's responsive remap:
+  section padding steps go from 64/80/96/128px to 96/128/160/192px, and gaps
+  and container padding from 40/48/64/80px to 48/64/96/128px.
+- **Hero sections.** `<sp-section hero="sm|md|lg">` applies the asymmetric
+  hero padding, with more space above than below, and replaces `spacing`.
+- **Attached bands.** `<sp-section attached>` drops the top padding of a band
+  that belongs to the section above, so the gap between them is not the sum
+  of both paddings.
+
+```php
+add_action('spectre_base_main_start', function () {
+    if (!is_front_page()) {
+        return;
+    }
+    ?>
+    <sp-section hero="lg">
+        <sp-container padding="2xl">...</sp-container>
+    </sp-section>
+    <?php
+});
+```
 
 ## Content Flow Contract
 
@@ -731,8 +818,9 @@ release metadata version sync, ESLint, PHP lint, drift scan, and validator regre
 
 `check:drift` scans maintained TypeScript, CSS, PHP, and JSON under `src/`
 and `spectre-theme/`, excluding generated output and binary files. Spectre
-token references and `sp-*` recipes are allowed; detected drift and scan
-errors fail the command.
+token references and `sp-*` recipes are allowed, except spacing steps off the
+[8px layout grid](#8px-layout-grid); detected drift and scan errors fail the
+command.
 
 `npm run check:styles` verifies computed heading sizes in Chromium using the
 built CSS and the PHP global-style wrapper in both stylesheet orders. Run
@@ -771,6 +859,7 @@ This pattern works in both the classic editor and the block editor.
 | Theme loads a blank page in production | Compiled manifest is missing or stale | Run `npm run build` then `npm run check:assets` and confirm `spectre-theme/dist/.vite/manifest.json` exists and lists `src/js/main.ts` as an entry |
 | Styles not updating in development | Wrong environment or dev server not running | Confirm `WP_ENVIRONMENT_TYPE=development` in `wp-config.php` and `npm run dev` is running on the expected port |
 | `check:drift` reports unexpected matches | Raw hex, pixel, rem, or Tailwind utility added to `src/` or PHP | Replace with a `var(--sp-*)` token or a Spectre component |
+| `check:drift` reports `off-grid spacing` | An `sp-*` spacing utility or `--sp-space-*` step that is not 0, 4, or a multiple of 8 | Move to the nearest grid step or a component layout step (see [8px Layout Grid](#8px-layout-grid)) |
 | PHP lint fails with syntax error | PHP syntax error in a template file | Fix the reported file, then rerun `npm run lint:php` (PHP 8.2 is the CI target) |
 
 ## AI And Automation Boundaries

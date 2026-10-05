@@ -2,6 +2,7 @@
 <?php get_header(); ?>
 
 <main id="spectre-main-content" tabindex="-1">
+<?php do_action('spectre_base_main_start'); ?>
 <sp-container inner-class="sp-py-32">
     <?php if (have_posts()) : ?>
         <?php while (have_posts()) : the_post(); ?>

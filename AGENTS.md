@@ -158,6 +158,35 @@ Roadmap Self-Expansion." Applied to this repo:
   Potts in the same change it was made, and reflect cross-repo-relevant
   changes in the project-team's own ROADMAP.md/TODO.md.
 
+## Catching Up With spectre-tokens
+
+`spectre-tokens/DOWNSTREAM_PARITY.md` is the catch-up checklist for
+everything `spectre-tokens` publishes. It groups every `--sp-*` CSS variable
+in `@phcdevworks/spectre-tokens/index.css` into the family a recipe,
+stylesheet, or component consumes, and marks which ones vary by color mode.
+It is regenerated on every tokens build, so it always matches the published
+CSS. It is a derived artifact: `spectre-tokens/tokens/` and
+`contract.manifest.json` stay the source of truth for what a token means.
+
+To see what this theme still has to consume, run from `spectre-tokens` (read-only;
+it never modifies the scanned repo):
+
+```bash
+npm run audit:parity -- spectre-base
+```
+
+It prints each family as a checklist (`[x]` fully referenced, `[ ]` with the
+missing variables listed, "no consumer" if nothing uses it yet), scanning
+`spectre-base/src`.
+
+The audit scans `src/` only, so also check `theme.json` and the
+`spectre-theme/` PHP by hand. The theme consumes tokens through
+`spectre-ui`/`spectre-components` and through `var(--sp-*)` in `theme.json`.
+Use the checklist and the tokens changelog to find theme settings the new
+families enable (for example the per-section or system color modes, which
+the theme can use once `spectre-ui` follows them). Never copy a token's value
+into the theme.
+
 ## Shared Source Rules
 
 These rules apply to every agent without exception.

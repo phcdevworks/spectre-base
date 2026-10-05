@@ -62,9 +62,12 @@ test('drift gate ignores generated output and recipes but rejects source violati
   fixture((root, write) => {
     write(
       'src/styles/main.css',
-      '.shell { padding: var(--sp-space-4); box-shadow: var(--sp-shadow-sm); }'
+      '.shell { padding: var(--sp-space-4) var(--sp-space-16); gap: var(--sp-space-128); box-shadow: var(--sp-shadow-sm); }'
     )
-    write('spectre-theme/index.php', '<div class="sp-prose sp-btn">Content</div>')
+    write(
+      'spectre-theme/index.php',
+      '<div class="sp-prose sp-btn sp-py-0 sp-gap-4 sp-mt-auto sp-px-24 sp-lg-col-span-2 sp-grid-cols-12">Content</div>'
+    )
     write('spectre-theme/dist/css/main.css', '.generated { color: #fff; padding: 10px; }')
     write('spectre-theme/screenshot.png', '#fff 10px')
     assert.equal(check('check-drift.ts', root).status, 0)
@@ -74,6 +77,10 @@ test('drift gate ignores generated output and recipes but rejects source violati
       '.shell { --sp-space-4: 0; }',
       '.shell { color: var(--sp-text-default, #fff); }',
       '<div class="p-4 rounded-lg">Content</div>',
+      '<div class="sp-gap-12">Content</div>',
+      '<div class="sp-py-20">Content</div>',
+      '<div class="sp-md-px-6">Content</div>',
+      '.shell { padding: var(--sp-space-12); }',
     ]) {
       write('src/styles/main.css', source)
       const result = check('check-drift.ts', root)
@@ -142,7 +149,9 @@ test('public templates expose one main landmark and the header links to it', () 
   ]) {
     const source = readFileSync(`spectre-theme/${template}`, 'utf8')
     assert.equal(
-      source.match(/<main id="spectre-main-content" tabindex="-1">/g)?.length,
+      source.match(
+        /<main id="spectre-main-content" tabindex="-1">\n<\?php do_action\('spectre_base_main_start'\); \?>/g
+      )?.length,
       1,
       template
     )

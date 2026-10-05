@@ -140,8 +140,10 @@ npm run check:drift
 
 This runs `scripts/check-drift.ts` over maintained TypeScript, CSS, PHP, and
 JSON source. Generated output and binary files are excluded. Spectre token
-references and `sp-*` recipes are allowed. Violations and scan errors exit
-nonzero, so drift fails the validation gate.
+references and `sp-*` recipes are allowed, but spacing utilities and
+`--sp-space-*` steps must sit on the 8px layout grid (0, 4, or a multiple of
+8). Violations and scan errors exit nonzero, so drift fails the validation
+gate.
 
 ## Environment Setup
 

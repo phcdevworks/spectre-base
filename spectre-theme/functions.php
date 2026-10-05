@@ -200,6 +200,69 @@ function spectre_base_primary_menu_fallback($args) {
     remove_filter("page_menu_link_attributes", $link_class, 10);
 }
 
+const SPECTRE_BASE_HEADER_LAYOUTS = array("inline", "edge-fluid-edge");
+
+// `inline` (default) is a wrapping horizontal stack. `edge-fluid-edge` is a
+// three-region grid -- branding, nav, and the header actions -- for headers
+// with a CTA.
+function spectre_base_header_layout() {
+    $layout = apply_filters("spectre_base_header_layout", "inline");
+    return in_array($layout, SPECTRE_BASE_HEADER_LAYOUTS, true) ? $layout : "inline";
+}
+
+// Utility classes for the header's `sp-container` inner element. `sp-relative`
+// makes the container, not the full-width `sp-nav`, the positioned ancestor
+// that `<sp-dropdown mega>` panels anchor to.
+function spectre_base_header_container_class() {
+    return trim((string) apply_filters("spectre_base_header_container_class", ""));
+}
+
+// Returning a markup string from either filter replaces the region's default
+// contents; the wrapper (and the branding action hooks) stay. Callbacks must
+// return escaped markup.
+function spectre_base_site_branding() {
+    ?>
+    <div class="site-branding">
+        <?php do_action("spectre_base_before_site_branding"); ?>
+        <?php
+        $branding = apply_filters("spectre_base_site_branding", null);
+        if (null !== $branding) :
+            echo $branding;
+        elseif (has_custom_logo()) :
+            the_custom_logo();
+        else :
+            ?>
+            <a class="sp-nav__link sp-heading--h6" href="<?php echo esc_url(home_url("/")); ?>" rel="home">
+                <?php echo esc_html(get_bloginfo("name")); ?>
+            </a>
+        <?php endif; ?>
+        <?php do_action("spectre_base_after_site_branding"); ?>
+    </div>
+    <?php
+}
+
+function spectre_base_primary_nav() {
+    ?>
+    <div class="main-navigation">
+        <?php
+        $nav = apply_filters("spectre_base_primary_nav", null);
+        if (null !== $nav) {
+            echo $nav;
+        } else {
+            wp_nav_menu(apply_filters("spectre_base_primary_nav_args", array(
+                "theme_location"     => "primary",
+                "container"          => false,
+                "depth"              => 1,
+                "items_wrap"         => '<ul class="sp-nav__links sp-mx-0 sp-flex-wrap">%3$s</ul>',
+                "spectre_link_class" => "sp-nav__link",
+                "fallback_cb"        => "spectre_base_primary_menu_fallback",
+            )));
+        }
+        ?>
+    </div>
+    <?php
+}
+
 const SPECTRE_BASE_CASCADE_LAYER_ORDER = "@layer theme, base, wp-global-styles, components, utilities;";
 
 function spectre_base_register_cascade_layers() {
@@ -397,7 +460,40 @@ add_action("wp_enqueue_scripts", "spectre_base_layer_global_styles", 20, 0);
 add_action("wp_footer", "spectre_base_layer_global_styles", 2, 0);
 
 function spectre_base_has_icons() {
-    return shortcode_exists("spectre-icon");
+    return shortcode_exists("spectre-icon") || has_filter("spectre_base_icon");
+}
+
+// Icon markup for `$name`, or "" when no provider has the icon. The
+// spectre-icons plugin's shortcode is the default provider; the
+// `spectre_base_icon` filter lets a child theme supply its own markup (for
+// example a bundled inline SVG) with or without the plugin. Filter callbacks
+// must return escaped markup.
+function spectre_base_icon($name, $size) {
+    $markup = shortcode_exists("spectre-icon")
+        ? do_shortcode('[spectre-icon name="' . esc_attr($name) . '" size="' . esc_attr($size) . '"]')
+        : "";
+    return (string) apply_filters("spectre_base_icon", $markup, $name, $size);
+}
+
+const SPECTRE_BASE_FOOTER_SURFACES = array("page", "card", "subtle", "inverse", "hero");
+const SPECTRE_BASE_FOOTER_APPEARANCES = array("dark", "light", "system");
+
+// The `sp-footer` surface and appearance attributes, each printed only when
+// its filter returns an allowed value, so the component default (the dark
+// footer palette) applies otherwise.
+function spectre_base_footer_surface_attributes() {
+    $attributes = "";
+    $options    = array(
+        "surface"    => array("spectre_base_footer_surface", SPECTRE_BASE_FOOTER_SURFACES),
+        "appearance" => array("spectre_base_footer_appearance", SPECTRE_BASE_FOOTER_APPEARANCES),
+    );
+    foreach ($options as $attribute => list($filter, $allowed)) {
+        $value = apply_filters($filter, "");
+        if (in_array($value, $allowed, true)) {
+            $attributes .= " " . $attribute . '="' . esc_attr($value) . '"';
+        }
+    }
+    return $attributes;
 }
 
 // Adds a Spectre link recipe class (the `spectre_link_class` wp_nav_menu()
@@ -466,24 +562,34 @@ function spectre_base_footer_nav_column($location, $heading, $args_filter) {
 // Linked icons stay server-rendered `<a class="sp-footer__chip">` so they work
 // before scripts load; unlinked icons use the `<sp-footer-chip>` component.
 // `label` is the accessible name for an icon-only link and falls back to the
-// icon name. Skipped entirely without the spectre-icons plugin, since an icon
-// is the chip's only content.
+// icon name. An entry whose icon no provider renders (see spectre_base_icon())
+// is skipped, since the icon is the chip's only content.
 function spectre_base_footer_social_icons() {
-    $icons = apply_filters("spectre_base_footer_social_icons", array());
-    if (empty($icons) || !spectre_base_has_icons()) {
+    $chips = array();
+    foreach (apply_filters("spectre_base_footer_social_icons", array()) as $icon) {
+        $name = isset($icon["name"]) ? $icon["name"] : "";
+        if ($name === "") {
+            continue;
+        }
+        $glyph = spectre_base_icon($name, isset($icon["size"]) ? $icon["size"] : "20");
+        if ($glyph === "") {
+            continue;
+        }
+        $chips[] = array(
+            "glyph" => $glyph,
+            "url"   => isset($icon["url"])   ? $icon["url"]   : "",
+            "label" => isset($icon["label"]) ? $icon["label"] : ucfirst($name),
+        );
+    }
+    if (empty($chips)) {
         return;
     }
     ?>
     <sp-stack direction="horizontal" align="stretch" gap="sm" inner-class="sp-flex-wrap" aria-label="<?php esc_attr_e("Social links", "spectre-base"); ?>">
-        <?php foreach ($icons as $icon) :
-            $name = isset($icon["name"]) ? $icon["name"] : "";
-            if ($name === "") {
-                continue;
-            }
-            $size  = isset($icon["size"])  ? $icon["size"]  : "20";
-            $url   = isset($icon["url"])   ? $icon["url"]   : "";
-            $label = isset($icon["label"]) ? $icon["label"] : ucfirst($name);
-            $glyph = do_shortcode('[spectre-icon name="' . esc_attr($name) . '" size="' . esc_attr($size) . '"]');
+        <?php foreach ($chips as $chip) :
+            $url   = $chip["url"];
+            $label = $chip["label"];
+            $glyph = $chip["glyph"];
         ?>
             <?php if ($url) : ?>
                 <a class="sp-footer__chip" href="<?php echo esc_url($url); ?>" aria-label="<?php echo esc_attr($label); ?>" target="_blank" rel="noopener noreferrer"><?php echo $glyph; ?></a>
@@ -532,9 +638,9 @@ function spectre_base_footer_legal_links() {
 
 // Renders the footer contact info from the `spectre_base_footer_contact_items`
 // filter -- each entry: ['icon' => 'map-pin' (optional), 'text' => '...', 'url' => optional].
-// Icons render only when the spectre-icons plugin is active; the text itself
-// still renders without it, unlike the social icons row (which has no
-// content besides the icon and so is skipped entirely without the plugin).
+// Icons render only when a provider has them (see spectre_base_icon()); the
+// text itself always renders, unlike a social icon (which has no content
+// besides the icon and so is skipped without one).
 // Renders no heading/wrapper of its own -- intended to sit inside the brand
 // column alongside the tagline and social icons, not as its own grid column.
 function spectre_base_footer_contact_info() {
@@ -558,8 +664,8 @@ function spectre_base_footer_contact_info() {
                 <?php else : ?>
                     <span class="sp-footer__link">
                 <?php endif; ?>
-                    <?php if ($icon_name && spectre_base_has_icons()) :
-                        echo do_shortcode('[spectre-icon name="' . esc_attr($icon_name) . '" size="16"]');
+                    <?php if ($icon_name) :
+                        echo spectre_base_icon($icon_name, "16");
                     endif; ?>
                     <?php echo esc_html($text); ?>
                 <?php echo $url ? "</a>" : "</span>"; ?>

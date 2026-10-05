@@ -13,6 +13,11 @@ const rules: [string, RegExp][] = [
   ],
 ]
 
+// Layout spacing sits on the 8px grid; 4px is kept for in-component alignment.
+const spacingStep =
+  /(?<![\w-])(?:--sp-space-|sp-(?:(?:sm|md|lg|xl|2xl)-)?-?(?:p[xytrblse]?|m[xytrblse]?|gap(?:-[xy])?|space-[xy])-)(\d+)(?![\w-])/g
+const isOffGrid = (step: number) => step !== 4 && step % 8 !== 0
+
 async function scan(directory: string): Promise<number> {
   let violations = 0
   for (const entry of await readdir(directory, { withFileTypes: true })) {
@@ -21,12 +26,21 @@ async function scan(directory: string): Promise<number> {
     if (entry.isDirectory()) {
       violations += await scan(path)
     } else if (entry.isFile() && extensions.has(extname(path))) {
-      const source = (await readFile(path, 'utf8'))
-        .replace(/\/\*[\s\S]*?\*\/|<!--[\s\S]*?-->|^\s*\/\/[^\n]*/gm, (match) =>
-          match.replace(/[^\n]/g, ' ')
-        )
-        .replace(/var\(\s*--sp-[\w-]+\s*\)/g, '')
+      const source = (await readFile(path, 'utf8')).replace(
+        /\/\*[\s\S]*?\*\/|<!--[\s\S]*?-->|^\s*\/\/[^\n]*/gm,
+        (match) => match.replace(/[^\n]/g, ' ')
+      )
       for (const [index, line] of source.split('\n').entries()) {
+        for (const [, step] of line.matchAll(spacingStep)) {
+          if (isOffGrid(Number(step))) {
+            console.error(`${path}:${index + 1}: off-grid spacing: ${line.trim()}`)
+            violations++
+            break
+          }
+        }
+      }
+      const scrubbed = source.replace(/var\(\s*--sp-[\w-]+\s*\)/g, '')
+      for (const [index, line] of scrubbed.split('\n').entries()) {
         for (const [reason, pattern] of rules) {
           if (reason === 'utility drift' && extname(path) === '.json') continue
           if (pattern.test(line)) {

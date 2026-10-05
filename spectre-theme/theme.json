@@ -54,13 +54,14 @@
                 { "slug": "sp-0",  "size": "var(--sp-space-0)",  "name": "0" },
                 { "slug": "sp-4",  "size": "var(--sp-space-4)",  "name": "4" },
                 { "slug": "sp-8",  "size": "var(--sp-space-8)",  "name": "8" },
-                { "slug": "sp-12", "size": "var(--sp-space-12)", "name": "12" },
                 { "slug": "sp-16", "size": "var(--sp-space-16)", "name": "16" },
-                { "slug": "sp-20", "size": "var(--sp-space-20)", "name": "20" },
                 { "slug": "sp-24", "size": "var(--sp-space-24)", "name": "24" },
                 { "slug": "sp-32", "size": "var(--sp-space-32)", "name": "32" },
                 { "slug": "sp-40", "size": "var(--sp-space-40)", "name": "40" },
-                { "slug": "sp-48", "size": "var(--sp-space-48)", "name": "48" }
+                { "slug": "sp-48", "size": "var(--sp-space-48)", "name": "48" },
+                { "slug": "sp-64", "size": "var(--sp-space-64)", "name": "64" },
+                { "slug": "sp-80", "size": "var(--sp-space-80)", "name": "80" },
+                { "slug": "sp-96", "size": "var(--sp-space-96)", "name": "96" }
             ]
         },
         "shadow": {

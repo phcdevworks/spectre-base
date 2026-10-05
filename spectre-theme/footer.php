@@ -7,6 +7,7 @@ $footer_menus = array_filter(spectre_base_footer_menu_locations(), 'has_nav_menu
     class="sp-mt-auto"
     full-width
     bordered
+    <?php echo spectre_base_footer_surface_attributes(); ?>
     accent="<?php echo esc_attr(apply_filters('spectre_base_footer_accent', 'top')); ?>"
     accent-color="<?php echo esc_attr(apply_filters('spectre_base_footer_accent_color', 'brand')); ?>"
     inner-class="sp-py-64 sp-flex-col sp-items-stretch"

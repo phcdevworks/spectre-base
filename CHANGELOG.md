@@ -51,8 +51,52 @@ All notable changes to this project will be documented here. The format follows 
   `spectre_base_footer_tertiary_nav_args`, `spectre_base_footer_nav_heading`,
   and `spectre_base_footer_contact_items`, documented in README.md "PHP Hook
   API" alongside the existing footer hooks.
+- Added header and footer extension seams so a child theme can drop its
+  `header.php`/`footer.php` forks and keep the shell's skip link and main
+  landmark. Sites that use none of them render the same markup as before.
+  - `spectre_base_site_branding` and `spectre_base_primary_nav` filters:
+    return a markup string to replace the branding or primary-nav contents
+    (for example a bundled logo, or top-level items rendered as
+    `<sp-dropdown mega>`). The region wrappers and the branding actions stay.
+  - `spectre_base_header_actions` action: a slot after the primary nav for a
+    header CTA.
+  - `spectre_base_header_layout` filter: `inline` (default) or
+    `edge-fluid-edge`, a three-region branding/nav/actions grid on
+    `spectre-ui`'s `sp-grid-template--edge-fluid-edge` utility.
+  - `spectre_base_header_container_class` filter: utility classes for the
+    header container's inner element. `sp-relative` makes the container the
+    anchor for mega panels.
+  - `spectre_base_main_start` action: fires first inside
+    `<main id="spectre-main-content">` in every public template, so a page
+    hero renders inside the landmark without the child opening `<main>`.
+  - `spectre_base_footer_surface` (`page` | `card` | `subtle` | `inverse` |
+    `hero`) and `spectre_base_footer_appearance` (`dark` | `light` |
+    `system`) filters, passed to the `spectre-components` 1.22.0 `sp-footer`
+    `surface` and `appearance` options. The child no longer has to select
+    `.sp-footer` or `[data-sp-footer-native]`.
+  - `spectre_base_icon` filter and `spectre_base_icon()` helper: an icon
+    provider for footer social and contact icons. The spectre-icons
+    shortcode stays the default provider, and a child can return its own
+    markup (such as a bundled inline SVG) without the plugin.
+- `npm run check:drift` now enforces the 8px layout grid (owner-confirmed
+  2026-10-03). It fails on `sp-*` padding, margin, gap, and space utilities
+  (including responsive prefixes) and `--sp-space-*` references whose step is
+  not 0, 4, or a multiple of 8. README.md "8px Layout Grid" documents the
+  rule, the `xl`-`4xl` layout steps, and the `sp-section` `hero`/`attached`
+  options.
 
 ### Changed
+
+- Raised the Spectre dependency ranges to `@phcdevworks/spectre-tokens`
+  `^4.12.0`, `@phcdevworks/spectre-ui` `^5.4.0`, and
+  `@phcdevworks/spectre-components` `^1.22.0`.
+- Social icons no longer require the spectre-icons plugin: the row renders
+  each entry that some icon provider (the plugin shortcode or the
+  `spectre_base_icon` filter) has markup for, and skips the rest.
+- Replaced the off-grid `sp-12` and `sp-20` block editor spacing presets in
+  `theme.json` with `sp-64`, `sp-80`, and `sp-96`. Content that used the
+  removed presets loses that spacing value and needs a new preset picked in
+  the editor.
 
 - Standardized the package summary against the approved PHCDevworks product
   description.
