@@ -4,6 +4,13 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+### Changed
+
+- ESLint ignores built JavaScript bundles copied into nested downstream child
+  themes. Those minified outputs are linted from source in their owning
+  repositories and otherwise produce false errors when validating this repo.
+- Updated Vite from 8.3.2 to 8.3.3.
+
 ## [v4.0.0] - 2026-10-06
 
 **Release Title:** Theme shell extensibility and distribution
