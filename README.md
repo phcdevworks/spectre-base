@@ -16,7 +16,7 @@ token-driven visual language as the rest of the ecosystem.
 | Project team | `project-design` |
 | Repository role | Spectre WordPress theme shell |
 | Package/artifact | `@phcdevworks/spectre-base` |
-| Current version/status | 4.0.0 |
+| Current version/status | 4.1.0 |
 
 ## Standard Workflow
 
@@ -144,7 +144,7 @@ prevention rules that apply to all contributors and AI agents.
 
 ## Installation
 
-**Prerequisites:** Node.js `^22.12.0 || >=24.0.0`, npm `11.18.0`, PHP 8.2, and
+**Prerequisites:** Node.js `>=24.18.0`, npm `12.2.0`, PHP 8.2, and
 [ripgrep](https://github.com/BurntSushi/ripgrep#installation) (required for
 `check:drift`).
 
@@ -682,14 +682,56 @@ to the content/wide measure and spaces siblings by `blockGap`. Classic
   viewport width. Both are WordPress core conventions (`add_theme_support('align-wide')`,
   already declared in `functions.php`) -- no theme-specific markup needed on
   the block side.
-- Top-level block siblings are spaced by `--sp-space-16`, the same step
-  `theme.json`'s `styles.spacing.blockGap` declares, so classic and block-editor
-  spacing stay visually consistent.
+- Without `.sp-prose`, top-level block siblings are spaced by `--sp-space-16`,
+  the same step `theme.json`'s `styles.spacing.blockGap` declares.
 
 Pair `sp-content-flow` with `spectre-ui`'s `.sp-prose` recipe
-(`getProseClasses`) on the same element for list marker and blockquote
-treatment -- `sp-content-flow` only owns measure, alignment breakout, and
-block-gap spacing.
+(`getProseClasses`) on the same element, as the templates do. `.sp-prose`
+then owns the vertical rhythm (the `--sp-layout-prose-flow-*` steps: wider
+gaps around headings, figures, and rules than between paragraphs), list
+markers (`--sp-prose-marker`), table captions, code blocks, and syntax colours
+for Prism or highlight.js output (`--sp-code-syntax-*`). `sp-content-flow`
+only owns measure and alignment breakout.
+
+## Core Block Styles
+
+Core blocks render with Spectre styling on the front end and in the editor.
+`src/styles/main.css` maps them onto the `spectre-ui` recipes and their
+tokens, and it loads as the editor style too.
+
+**Quotes and pull quotes.** `core/quote` and `core/pullquote` follow the
+`sp-quote` recipe. Pick a style in the block toolbar:
+
+| Style | Look |
+|---|---|
+| Default | Thin neutral rule on the leading edge |
+| Accent rule | Thick accent-coloured rule on the leading edge |
+| Statement | Large statement text under a decorative quote mark |
+
+For the attribution, bold the name in the citation and write the role and
+organization after it. The name renders in the attribution name colour; the
+rest is muted.
+
+The accent colour of the rule and the mark comes from
+`settings.custom.quote.accent` in `theme.json` (exposed as
+`--wp--custom--quote--accent`). A child theme points it at another token in
+its own `theme.json`, with no `--sp-*` redeclaration:
+
+```json
+{
+    "settings": {
+        "custom": {
+            "quote": { "accent": "var(--sp-quote-accent-brand)" }
+        }
+    }
+}
+```
+
+**Tables.** `core/table` follows the `sp-table` recipe: token header row,
+dividers, caption, and footer row. The block's **Stripes** style maps to the
+recipe's striped rows. In child-theme templates, use `<sp-table>` (or the
+`getTableClasses()` recipe) rather than a hand-styled `<table>`, so template
+tables and editor tables match.
 
 ## Child Themes
 
@@ -736,6 +778,29 @@ silently overriding an explicit Spectre text contract.
   the sidebar, registering social icons). Hooks keep the child theme on the
   parent theme's update path without forking template files.
 
+### Use component options, not internal selectors
+
+Never style a component's rendered internals (`[data-sp-text-native]`,
+`.sp-btn`, `.sp-text`, and similar) from a child theme. Those are
+implementation details and change without notice. Each of these needs has a
+component option:
+
+| Need | Use |
+|---|---|
+| Text weight | `<sp-text weight="400"`–`"900">` |
+| Text line height | `<sp-text leading="none\|tight\|snug\|normal\|relaxed\|loose">` |
+| Accent-coloured text | `<sp-text variant="accent">` (`onSurfaceAccent` / `onInverseAccent` on those surfaces) |
+| Solid accent button | `<sp-button variant="accent">` |
+| Outline accent button | `<sp-button variant="accentOutline">` |
+| Accent stepper | `<sp-stepper tone="accent">` |
+| Quote or testimonial | `<sp-quote accent="edge\|mark" accent-color="..." size="..." surface="...">`, or a core quote block with a [block style](#core-block-styles) |
+| Metric with unit and label | `<sp-stat size="..." surface="..." align="...">` |
+| Section heading beside its intro or action | `<sp-section-head layout="split">` |
+| Table | `<sp-table>`, or a core table block |
+
+If none of these covers what you need, request the option upstream in
+`spectre-ui` or `spectre-components` instead of working around it.
+
 ## Deployment
 
 **Development** -- symlink `spectre-theme/` into WordPress and set
@@ -767,7 +832,7 @@ npm install
 npm run check
 ```
 
-This project expects Node.js `^22.12.0 || >=24.0.0`, npm `11.18.0`, and
+This project expects Node.js `>=24.18.0`, npm `12.2.0`, and
 PHP 8.2.
 
 CSS and JavaScript changes in `src/` are reflected instantly in the browser via

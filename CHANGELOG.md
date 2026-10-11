@@ -4,12 +4,52 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [v4.1.0] - 2026-10-11
+
+**Release Title:** Core block recipes and validation updates
+
+Contract change type: additive
+
+### Added
+
+- Core quote and pull-quote blocks follow the `spectre-ui` `sp-quote` recipe
+  on the front end and in the editor, with two registered block styles:
+  **Accent rule** (thick accent leading edge) and **Statement** (large text
+  under a decorative quote mark). Bold text in the citation renders as the
+  name; the rest renders muted as role and organization. The accent colour
+  comes from `theme.json` `settings.custom.quote.accent`
+  (`--wp--custom--quote--accent`), so a child theme re-points it without
+  redeclaring a `--sp-*` property.
+- Core table blocks follow the `sp-table` recipe, including the header row,
+  caption, footer row, and the Stripes style. Computed styles match an
+  `sp-table` with the same data.
+- README.md "Core Block Styles" and a Child Themes table pointing at the
+  component options (`sp-text` `weight`/`leading`/`variant="accent"`,
+  `accent`/`accentOutline` buttons, `sp-stepper` `tone`, `sp-quote`,
+  `sp-stat`, split `sp-section-head`, `sp-table`) that replace styling
+  `[data-sp-text-native]` or `.sp-btn` internals.
+
+### Fixed
+
+- Post content inside `sp-prose` now follows the `layout.prose.flow` rhythm
+  (wider gaps around headings, quotes, figures, and rules). The unlayered
+  `sp-content-flow` 16px gap overrode it before, and core's figure and
+  pull-quote margins plus spectre-ui 5.5.0's `.sp-prose blockquote` margin
+  reset would otherwise collapse quote and figure spacing.
+- Removed the argument-less `editor-color-palette` and `editor-font-sizes`
+  theme supports. `theme.json` already supplies both, and WordPress 7.1
+  printed a `foreach()` warning for them.
+
 ### Changed
 
 - ESLint ignores built JavaScript bundles copied into nested downstream child
   themes. Those minified outputs are linted from source in their owning
   repositories and otherwise produce false errors when validating this repo.
-- Updated Vite from 8.3.2 to 8.3.3.
+- Updated Vite from 8.3.3 to 8.3.4.
+- Raised the Node.js engine floor to `>=24.18.0` to match the WordPress
+  Playground runtime pulled in by `@wordpress/env`, which otherwise emits
+  `EBADENGINE` warnings on install. CI and the WordPress smoke test now run on
+  Node 24 only.
 
 ## [v4.0.0] - 2026-10-06
 
@@ -587,7 +627,8 @@ This release spans no single ROADMAP phase; it is a maintenance release.
   TypeScript, Tailwind CSS, Vite, lint, formatting, and transitive
   dependencies.
 
-[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v4.0.0...HEAD
+[unreleased]: https://github.com/phcdevworks/spectre-base/compare/v4.1.0...HEAD
+[v4.1.0]: https://github.com/phcdevworks/spectre-base/compare/v4.0.0...v4.1.0
 [v4.0.0]: https://github.com/phcdevworks/spectre-base/compare/v3.2.1...v4.0.0
 [v3.2.1]: https://github.com/phcdevworks/spectre-base/compare/v3.2.0...v3.2.1
 [v3.2.0]: https://github.com/phcdevworks/spectre-base/compare/v3.1.4...v3.2.0

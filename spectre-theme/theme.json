@@ -75,6 +75,11 @@
         "layout": {
             "contentSize": "var(--sp-layout-container-max-width)",
             "wideSize": "var(--sp-layout-container-max-width)"
+        },
+        "custom": {
+            "quote": {
+                "accent": "var(--sp-quote-accent-accent)"
+            }
         }
     },
     "styles": {

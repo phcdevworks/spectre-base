@@ -10,8 +10,6 @@ function spectre_base_setup() {
     add_theme_support("custom-logo");
     add_theme_support("editor-styles");
     add_theme_support("align-wide");
-    add_theme_support("editor-color-palette");
-    add_theme_support("editor-font-sizes");
     add_theme_support("responsive-embeds");
 
     $menus = array("primary" => __("Primary Menu", "spectre-base"));
@@ -21,6 +19,19 @@ function spectre_base_setup() {
     register_nav_menus($menus);
 }
 add_action("after_setup_theme", "spectre_base_setup");
+
+function spectre_base_register_block_styles() {
+    $quote_styles = array(
+        "sp-accent" => __("Accent rule", "spectre-base"),
+        "sp-statement" => __("Statement", "spectre-base"),
+    );
+    foreach (array("core/quote", "core/pullquote") as $block) {
+        foreach ($quote_styles as $name => $label) {
+            register_block_style($block, array("name" => $name, "label" => $label));
+        }
+    }
+}
+add_action("init", "spectre_base_register_block_styles");
 
 const SPECTRE_BASE_FOOTER_MENU_MAX = 4;
 const SPECTRE_BASE_FOOTER_MENU_DEFAULT = 3;

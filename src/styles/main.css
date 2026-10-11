@@ -41,8 +41,194 @@
   margin-inline: calc(50% - 50vw);
 }
 
-.sp-content-flow > * + * {
+/* With `.sp-prose` on the same element, spectre-ui's `layout.prose.flow`
+   rhythm spaces the blocks instead. */
+.sp-content-flow:not(.sp-prose) > * + * {
   margin-block-start: var(--sp-space-16);
+}
+
+/* Core's unlayered `:where(figure)` and `.wp-block-pullquote` margins beat
+   the layered prose flow, and spectre-ui 5.5.0's `.sp-prose blockquote
+   { margin: 0 }` follows its own blockquote flow rule at equal specificity,
+   so quotes and figures restate the flow steps here. */
+.sp-prose.sp-content-flow > :is(blockquote, figure) {
+  margin-block: 0;
+}
+
+.sp-prose.sp-content-flow > * + figure {
+  margin-block-start: var(--sp-layout-prose-flow-figure);
+}
+
+.sp-prose.sp-content-flow > * + :is(blockquote, figure.wp-block-pullquote) {
+  margin-block-start: var(--sp-layout-prose-flow-blockquote);
+}
+
+.sp-prose.sp-content-flow > :is(h1, h2, h3, h4, h5, h6) + :is(blockquote, figure) {
+  margin-block-start: var(--sp-layout-prose-flow-heading-after);
+}
+
+/* Core quote and pull-quote blocks on spectre-ui's `.sp-quote` recipe.
+   Core block markup cannot carry the recipe classes, so these rules restate
+   it on the same component.quote tokens. main.css is also the editor style,
+   so the canvas matches the front end. Element-qualified selectors outrank
+   core's unlayered block-library rules. The accent reads
+   `--wp--custom--quote--accent` (theme.json `settings.custom.quote.accent`),
+   so a child theme re-points it from its own theme.json. */
+blockquote.wp-block-quote,
+figure.wp-block-pullquote {
+  padding: 0;
+  padding-inline-start: var(--sp-space-24);
+  border: 0;
+  border-inline-start: var(--sp-border-width-thick) solid var(--sp-quote-border);
+  color: var(--sp-quote-text);
+  text-align: start;
+}
+
+blockquote.wp-block-quote,
+figure.wp-block-pullquote > blockquote {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-space-16);
+}
+
+figure.wp-block-pullquote > blockquote {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+blockquote.wp-block-quote > *,
+figure.wp-block-pullquote > blockquote > * {
+  margin-block: 0;
+}
+
+blockquote.wp-block-quote > p {
+  color: inherit;
+  font-size: var(--sp-font-lg-size);
+  line-height: var(--sp-font-lg-line-height);
+}
+
+figure.wp-block-pullquote > blockquote > p {
+  color: inherit;
+  font-size: var(--sp-font-2xl-size);
+  line-height: var(--sp-leading-snug);
+}
+
+/* Attribution: the bold run is the name, the rest is role and organization. */
+blockquote.wp-block-quote cite,
+figure.wp-block-pullquote cite {
+  color: var(--sp-quote-attribution-role);
+  font-size: var(--sp-font-sm-size);
+  font-style: normal;
+  line-height: var(--sp-font-sm-line-height);
+}
+
+blockquote.wp-block-quote cite :where(strong, b),
+figure.wp-block-pullquote cite :where(strong, b) {
+  color: var(--sp-quote-attribution-name);
+  font-weight: var(--sp-font-weight-semibold);
+}
+
+blockquote.wp-block-quote.is-style-sp-accent,
+figure.wp-block-pullquote.is-style-sp-accent {
+  border-inline-start-width: var(--sp-quote-accent-thickness);
+  border-inline-start-color: var(--wp--custom--quote--accent, var(--sp-quote-accent-accent));
+}
+
+/* The mark replaces the rule; it is decorative, so screen readers skip it. */
+blockquote.wp-block-quote.is-style-sp-statement,
+figure.wp-block-pullquote.is-style-sp-statement {
+  position: relative;
+  padding-block-start: var(--sp-space-40);
+  border-inline-start: 0;
+}
+
+blockquote.wp-block-quote.is-style-sp-statement::before,
+figure.wp-block-pullquote.is-style-sp-statement::before {
+  content: "\201C";
+  content: "\201C" / "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: var(--sp-space-24);
+  color: var(--wp--custom--quote--accent, var(--sp-quote-mark));
+  font-family: var(--sp-font-family-serif);
+  font-size: var(--sp-font-6xl-size);
+  line-height: var(--sp-leading-none);
+}
+
+blockquote.wp-block-quote.is-style-sp-statement,
+figure.wp-block-pullquote.is-style-sp-statement > blockquote {
+  gap: var(--sp-space-24);
+}
+
+blockquote.wp-block-quote.is-style-sp-statement > p,
+figure.wp-block-pullquote.is-style-sp-statement > blockquote > p {
+  font-size: var(--sp-font-4xl-size);
+  font-weight: var(--sp-font-weight-semibold);
+  line-height: var(--sp-leading-tight);
+}
+
+/* Core table blocks on spectre-ui's `.sp-table` recipe, restated on the
+   component.table tokens for the same reason as the quote rules above. The
+   block's Stripes style maps to the recipe's striped rows. */
+figure.wp-block-table {
+  overflow-x: auto;
+}
+
+figure.wp-block-table table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--sp-table-text);
+  font-family: var(--sp-font-family-sans);
+  font-size: var(--sp-font-sm-size);
+  line-height: var(--sp-font-sm-line-height);
+  text-align: start;
+}
+
+figure.wp-block-table table :is(thead, tfoot) {
+  border: 0;
+}
+
+figure.wp-block-table table :is(th, td) {
+  padding: var(--sp-space-8) var(--sp-space-16);
+  border: 0;
+  border-bottom: var(--sp-component-border-width) solid var(--sp-table-divider);
+  text-align: inherit;
+  vertical-align: top;
+}
+
+figure.wp-block-table table thead th {
+  background-color: var(--sp-table-header-bg);
+  color: var(--sp-table-header-text);
+  font-weight: var(--sp-font-weight-medium);
+  vertical-align: bottom;
+}
+
+figure.wp-block-table table tfoot :is(th, td) {
+  border-bottom: 0;
+  background-color: var(--sp-table-footer-bg);
+  color: var(--sp-table-footer-text);
+  font-weight: var(--sp-font-weight-semibold);
+}
+
+figure.wp-block-table :is(figcaption, caption) {
+  margin: 0;
+  padding-block: var(--sp-space-8);
+  color: var(--sp-table-caption-text);
+  font-size: var(--sp-font-sm-size);
+  text-align: start;
+}
+
+figure.wp-block-table.is-style-stripes {
+  border-bottom: 0;
+}
+
+figure.wp-block-table.is-style-stripes table :is(th, td) {
+  border-bottom-color: var(--sp-table-divider);
+}
+
+figure.wp-block-table.is-style-stripes tbody tr:nth-child(odd) {
+  background-color: var(--sp-table-stripe-bg);
 }
 
 /* Block editor canvas spacing. The editor renders the post title and the
