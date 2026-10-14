@@ -8,7 +8,9 @@
       "Bash(git status)",
       "Bash(git diff*)",
       "Bash(git log*)",
-      "Bash(node *)"
+      "Bash(node *)",
+      "Bash('/mnt/c/Program Files/Google/Chrome/Application/chrome.exe' --headless=new --disable-gpu --hide-scrollbars --window-size=1440,4400 --virtual-time-budget=10000 '--user-data-dir=C:\\\\Users\\\\bradley.potts\\\\AppData\\\\Local\\\\Temp\\\\cc-headless' '--screenshot=C:\\\\Users\\\\bradley.potts\\\\AppData\\\\Local\\\\Temp\\\\ret-legal.png' http://localhost:8080/solutions/medical-records-retrieval/legal/?v=__TRACKED_VAR__)",
+      "Bash(cp /mnt/c/Users/bradley.potts/AppData/Local/Temp/ret-legal.png /tmp/claude-1000/-home-bradpotts-development-wordpress-spectre-base/e98ff9b5-6ce8-4f88-82dd-646fdae2f8ac/scratchpad/ret-legal2.png)"
     ]
   }
 }
