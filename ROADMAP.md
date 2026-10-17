@@ -41,9 +41,16 @@ this file does not restate delivered work.
 
 ## What's Next
 
-Nothing queued right now — the project is under active development, and new
-scope is planned proactively, without waiting for a concrete need; see
-[TODO.md](TODO.md).
+Two fixes are open in [TODO.md](TODO.md): code blocks render narrower than
+the surrounding content, and the System colour mode can drop its pre-paint
+script now that `spectre-tokens` 4.12.0 and `spectre-ui` 5.4.0 support
+`data-spectre-theme="system"`. Two upstream fixes will also land here by
+dependency update: the `spectre-tokens` table stripe colour and the
+`spectre-ui` blockquote spacing (after which the local workaround in
+`src/styles/main.css` is removed).
+
+The project is under active development, and new scope is planned
+proactively, without waiting for a concrete need.
 
 ---
 

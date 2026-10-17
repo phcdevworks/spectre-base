@@ -19,6 +19,25 @@ a client-side router or SPA shell.
       font, so it gets a smaller width.
       Done when: code blocks, paragraphs, and tables are the same width on a
       real WordPress page, and `npm run check` passes.
+- [ ] **System colour mode still needs a script.** The Light / Dark /
+      System setting uses a small pre-paint script in
+      `spectre-theme/functions.php` to pick light or dark before the page
+      draws. `spectre-tokens` 4.12.0 and `spectre-ui` 5.4.0 now follow
+      `data-spectre-theme="system"` through `prefers-color-scheme` on their
+      own, so the theme can set that value on `<html>` and drop the script.
+      Done when: System follows the OS setting with no inline script, Light
+      and Dark are unchanged, and `npm run check` passes.
+- [ ] **Update to `spectre-ui` 5.6.0 and `spectre-tokens` 4.14.0 (both
+      published).** The font scale now matches Tailwind: `--sp-font-lg-*`
+      through `--sp-font-6xl-*` each drop one step (for example, `lg` goes
+      from 20px to 18px). `spectre-ui` 5.6.0 already moved its own component
+      uses up a step so they keep their size. `src/styles/main.css` uses these
+      variables directly. The update also brings the table stripe fix and the
+      `.sp-prose` blockquote spacing fix.
+      Done when: dependencies are UI `^5.6.0` / Tokens `^4.14.0`, each direct
+      `--sp-font-*` use is confirmed at its new size or moved one step up, the
+      temporary blockquote fix in `src/styles/main.css` is removed, and
+      `npm run check` passes.
 
 ## Explicitly Out of Scope
 
