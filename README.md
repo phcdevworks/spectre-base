@@ -419,11 +419,11 @@ skip link targets.
 
 **Appearance > Customize > Color Mode** sets the whole site to **Light**
 (default), **Dark**, or **System**, which follows each visitor's device
-setting and switches live when it changes. Spectre's dark tokens and every
+setting and switches live when it changes. Spectre's mode tokens and every
 `spectre-ui` component variable mapped from them apply under
-`:root[data-spectre-theme="dark"]`, so the theme only sets that attribute on
-`<html>`: server-side for Light and Dark, and with a small inline script in
-`<head>` (before any stylesheet, so there is no flash) for System. A matching
+`:root[data-spectre-theme]`, and `system` follows `prefers-color-scheme` in
+CSS, so the theme only sets that attribute on `<html>` server-side — no
+script, so there is no flash in any mode. A matching
 `<meta name="color-scheme">` keeps native form controls and scrollbars in
 step. No colors are defined in the theme.
 

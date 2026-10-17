@@ -106,11 +106,11 @@
                     }
                 }
             },
-            "h1": { "typography": { "fontSize": "var(--sp-font-4xl-size)", "lineHeight": "var(--sp-font-4xl-line-height)", "fontWeight": "var(--sp-font-4xl-weight)" } },
-            "h2": { "typography": { "fontSize": "var(--sp-font-3xl-size)", "lineHeight": "var(--sp-font-3xl-line-height)", "fontWeight": "var(--sp-font-3xl-weight)" } },
-            "h3": { "typography": { "fontSize": "var(--sp-font-2xl-size)", "lineHeight": "var(--sp-font-2xl-line-height)", "fontWeight": "var(--sp-font-2xl-weight)" } },
-            "h4": { "typography": { "fontSize": "var(--sp-font-xl-size)",  "lineHeight": "var(--sp-font-xl-line-height)",  "fontWeight": "var(--sp-font-xl-weight)" } },
-            "h5": { "typography": { "fontSize": "var(--sp-font-lg-size)",  "lineHeight": "var(--sp-font-lg-line-height)",  "fontWeight": "var(--sp-font-lg-weight)" } },
+            "h1": { "typography": { "fontSize": "var(--sp-font-5xl-size)", "lineHeight": "var(--sp-font-5xl-line-height)", "fontWeight": "var(--sp-font-5xl-weight)" } },
+            "h2": { "typography": { "fontSize": "var(--sp-font-4xl-size)", "lineHeight": "var(--sp-font-4xl-line-height)", "fontWeight": "var(--sp-font-4xl-weight)" } },
+            "h3": { "typography": { "fontSize": "var(--sp-font-3xl-size)", "lineHeight": "var(--sp-font-3xl-line-height)", "fontWeight": "var(--sp-font-3xl-weight)" } },
+            "h4": { "typography": { "fontSize": "var(--sp-font-2xl-size)",  "lineHeight": "var(--sp-font-2xl-line-height)",  "fontWeight": "var(--sp-font-2xl-weight)" } },
+            "h5": { "typography": { "fontSize": "var(--sp-font-xl-size)",  "lineHeight": "var(--sp-font-xl-line-height)",  "fontWeight": "var(--sp-font-xl-weight)" } },
             "h6": { "typography": { "fontSize": "var(--sp-font-md-size)",  "lineHeight": "var(--sp-font-md-line-height)",  "fontWeight": "var(--sp-font-md-weight)" } }
         }
     }

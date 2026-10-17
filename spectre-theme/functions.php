@@ -76,10 +76,10 @@ function spectre_base_sanitize_color_mode($value) {
 }
 
 // The site-wide color mode from Appearance > Customize > Color Mode. Spectre's
-// dark tokens (and every spectre-ui component variable mapped from them) apply
-// under `:root[data-spectre-theme="dark"]`, so the mode only has to reach the
-// `<html>` element: server-side for light/dark, and via a tiny pre-paint
-// script for system, which follows the visitor's OS setting live.
+// mode tokens (and every spectre-ui component variable mapped from them) apply
+// under `:root[data-spectre-theme]`, and `system` follows the visitor's OS
+// setting through `prefers-color-scheme` in CSS, so the mode only has to reach
+// the `<html>` element server-side.
 function spectre_base_color_mode() {
     return spectre_base_sanitize_color_mode(
         get_theme_mod("spectre_base_color_mode", SPECTRE_BASE_COLOR_MODE_DEFAULT)
@@ -87,11 +87,10 @@ function spectre_base_color_mode() {
 }
 
 function spectre_base_color_mode_html_attribute($output) {
-    $mode = spectre_base_color_mode();
-    if (is_admin() || "system" === $mode) {
+    if (is_admin()) {
         return $output;
     }
-    return $output . ' data-spectre-theme="' . esc_attr($mode) . '"';
+    return $output . ' data-spectre-theme="' . esc_attr(spectre_base_color_mode()) . '"';
 }
 add_filter("language_attributes", "spectre_base_color_mode_html_attribute");
 
@@ -99,16 +98,6 @@ function spectre_base_color_mode_head() {
     $mode = spectre_base_color_mode();
     // Lets the browser match native UI (form controls, scrollbars) to the mode.
     echo '<meta name="color-scheme" content="' . esc_attr("system" === $mode ? "light dark" : $mode) . '">' . "\n";
-
-    if ("system" === $mode) {
-        // Runs before any stylesheet prints (wp_head priority 1), so there is
-        // no flash of the wrong mode.
-        wp_print_inline_script_tag(
-            "(function(){var r=document.documentElement,q=window.matchMedia('(prefers-color-scheme: dark)');"
-            . "function a(){r.setAttribute('data-spectre-theme',q.matches?'dark':'light')}"
-            . "a();q.addEventListener('change',a)})();"
-        );
-    }
 }
 add_action("wp_head", "spectre_base_color_mode_head", 1);
 

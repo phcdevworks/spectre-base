@@ -26,9 +26,23 @@
    out per WordPress's own align-wide convention, and space siblings by the
    same `--sp-space-16` step theme.json declares as `styles.spacing.blockGap`.
    Pair with spectre-ui's `.sp-prose` (list/blockquote treatment) on the same
-   element. */
+   element.
+   The prose measure is in `ch`, which each child would resolve against its
+   own font, so code blocks (smaller mono type) came out narrower than
+   paragraphs and headings wider. Registered as a `<length>`, it computes
+   once on the wrapper and every child inherits that same width. */
+@property --spectre-content-measure {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0;
+}
+
+.sp-content-flow {
+  --spectre-content-measure: var(--sp-layout-container-max-width-prose);
+}
+
 .sp-content-flow > * {
-  max-width: var(--sp-layout-container-max-width-prose);
+  max-width: var(--spectre-content-measure);
   margin-inline: auto;
 }
 
@@ -48,10 +62,11 @@
 }
 
 /* Core's unlayered `:where(figure)` and `.wp-block-pullquote` margins beat
-   the layered prose flow, and spectre-ui 5.5.0's `.sp-prose blockquote
-   { margin: 0 }` follows its own blockquote flow rule at equal specificity,
-   so quotes and figures restate the flow steps here. */
-.sp-prose.sp-content-flow > :is(blockquote, figure) {
+   the layered prose flow, so figures restate the flow steps here. A pull
+   quote takes the blockquote step. spectre-ui's `* + blockquote` step also
+   outranks its own heading-after step, so a quote after a heading is
+   restated with the figures. */
+.sp-prose.sp-content-flow > figure {
   margin-block: 0;
 }
 
@@ -59,7 +74,7 @@
   margin-block-start: var(--sp-layout-prose-flow-figure);
 }
 
-.sp-prose.sp-content-flow > * + :is(blockquote, figure.wp-block-pullquote) {
+.sp-prose.sp-content-flow > * + figure:where(.wp-block-pullquote) {
   margin-block-start: var(--sp-layout-prose-flow-blockquote);
 }
 
@@ -104,13 +119,13 @@ figure.wp-block-pullquote > blockquote > * {
 
 blockquote.wp-block-quote > p {
   color: inherit;
-  font-size: var(--sp-font-lg-size);
-  line-height: var(--sp-font-lg-line-height);
+  font-size: var(--sp-font-xl-size);
+  line-height: var(--sp-font-xl-line-height);
 }
 
 figure.wp-block-pullquote > blockquote > p {
   color: inherit;
-  font-size: var(--sp-font-2xl-size);
+  font-size: var(--sp-font-3xl-size);
   line-height: var(--sp-leading-snug);
 }
 
@@ -152,7 +167,7 @@ figure.wp-block-pullquote.is-style-sp-statement::before {
   inset-inline-start: var(--sp-space-24);
   color: var(--wp--custom--quote--accent, var(--sp-quote-mark));
   font-family: var(--sp-font-family-serif);
-  font-size: var(--sp-font-6xl-size);
+  font-size: var(--sp-font-7xl-size);
   line-height: var(--sp-leading-none);
 }
 
@@ -163,7 +178,7 @@ figure.wp-block-pullquote.is-style-sp-statement > blockquote {
 
 blockquote.wp-block-quote.is-style-sp-statement > p,
 figure.wp-block-pullquote.is-style-sp-statement > blockquote > p {
-  font-size: var(--sp-font-4xl-size);
+  font-size: var(--sp-font-5xl-size);
   font-weight: var(--sp-font-weight-semibold);
   line-height: var(--sp-leading-tight);
 }

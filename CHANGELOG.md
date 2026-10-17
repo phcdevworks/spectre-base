@@ -4,6 +4,33 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+### Changed
+
+- Updated to `spectre-tokens` 4.14.0, `spectre-ui` 5.7.0, and
+  `spectre-components` 1.24.0. The token font scale now matches Tailwind, so
+  `--sp-font-lg-*` through `--sp-font-6xl-*` each render one step smaller.
+  Every direct use in the theme moved one step up so it keeps its size: the
+  quote text (`xl`, 20px), pull-quote text (`3xl`, 30px), Statement text
+  (`5xl`, 48px) and mark (`7xl`, 72px), and the `theme.json` `h1`–`h5`
+  heading defaults (`5xl` down to `xl`; `h6` stays `md`). The editor
+  font-size presets keep their step names, so `LG` through `6XL` now offer
+  the new, smaller sizes, as spectre-ui's `.sp-text--*` presets do.
+- The **System** colour mode no longer uses an inline script. The theme sets
+  `data-spectre-theme="system"` on `<html>`, and `spectre-tokens` and
+  `spectre-ui` follow `prefers-color-scheme` from there. Light and Dark are
+  unchanged.
+
+### Fixed
+
+- Code blocks are now the same width as paragraphs and tables. The prose
+  measure is in `ch`, which each block resolved against its own font, so
+  code (smaller mono type) came out narrower and headings wider. The measure
+  now computes once on the `sp-content-flow` wrapper.
+- Removed the workaround for spectre-ui 5.5.0's `.sp-prose blockquote`
+  margin reset, which 5.7.0 fixes. A quote directly after a heading still
+  restates the heading-after step in the theme, because spectre-ui's
+  `* + blockquote` step outranks it.
+
 ## [v4.1.0] - 2026-10-11
 
 **Release Title:** Core block recipes and validation updates

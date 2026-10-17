@@ -36,18 +36,16 @@ this file does not restate delivered work.
 | 14 | Header and footer extension seams — branding and primary-nav overrides, a header actions slot, an `edge-fluid-edge` three-region header layout with a container anchor for mega panels, a `spectre_base_main_start` hook inside every template's main landmark, footer `surface`/`appearance` filters on `spectre-components` 1.22.0, and a `spectre_base_icon` provider so social icons render without the spectre-icons plugin; a child theme can drop its `header.php`/`footer.php` forks and keep the skip link and landmark | Delivered (4.0.0) |
 | 15 | 8px layout grid — `check:drift` fails on off-grid `sp-*` spacing utilities and `--sp-space-*` steps; off-grid editor spacing presets replaced; the rule, the `xl`–`4xl` layout steps, and `sp-section` `hero`/`attached` documented in README.md; dependency ranges at `spectre-tokens` `^4.12.0`, `spectre-ui` `^5.4.0`, `spectre-components` `^1.22.0` | Delivered (4.0.0) |
 | 16 | Component coverage for child themes — core `core/quote` and `core/pullquote` on the `sp-quote` recipe with Accent rule and Statement block styles and a `theme.json` `settings.custom.quote.accent` hook; core `core/table` on the `sp-table` recipe (verified identical to `sp-table`); post content on the `layout.prose.flow` rhythm with list markers, captions, footers, and syntax colours from the Phase 17 roles; README child-theme guidance points at the shipped component options instead of internal selectors | Delivered (4.1.0) |
+| 17 | Upstream alignment — dependency ranges at `spectre-tokens` `^4.14.0`, `spectre-ui` `^5.7.0`, `spectre-components` `^1.24.0`; direct `--sp-font-*` uses moved one step up to keep their size under the Tailwind-matched scale; System colour mode set as `data-spectre-theme="system"` with no inline script; code blocks share the prose measure with paragraphs and tables; spectre-ui 5.5.0 blockquote workaround removed | Delivered (Unreleased) |
 
 ---
 
 ## What's Next
 
-Two fixes are open in [TODO.md](TODO.md): code blocks render narrower than
-the surrounding content, and the System colour mode can drop its pre-paint
-script now that `spectre-tokens` 4.12.0 and `spectre-ui` 5.4.0 support
-`data-spectre-theme="system"`. Two upstream fixes will also land here by
-dependency update: the `spectre-tokens` table stripe colour and the
-`spectre-ui` blockquote spacing (after which the local workaround in
-`src/styles/main.css` is removed).
+One upstream gap remains: in
+`spectre-ui`, `.sp-prose > * + blockquote` outranks the heading-after flow
+step, so `src/styles/main.css` restates that step for a quote directly after
+a heading until `spectre-ui` fixes it.
 
 The project is under active development, and new scope is planned
 proactively, without waiting for a concrete need.
