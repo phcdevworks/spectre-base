@@ -6,13 +6,25 @@ All notable changes to this project will be documented here. The format follows 
 
 ### Changed
 
-- Updated to `spectre-tokens` 4.14.0, `spectre-ui` 5.7.0, and
-  `spectre-components` 1.24.0. The token font scale now matches Tailwind, so
+- The `allowScripts` entry for `fs-ext-extra-prebuilt` now names 2.2.16, the
+  version `@wordpress/env` installs. With the old 2.2.7 entry, npm blocked its
+  install script.
+- Updated to `spectre-tokens` 4.15.0, `spectre-ui` 5.8.0, and
+  `spectre-components` 1.25.0.
+- The `theme.json` `h1`–`h6` defaults now read spectre-tokens' heading roles
+  (`--sp-heading-h*` size, line height, weight, and letter spacing) instead
+  of fixed font-scale steps, so headings are mobile first: below 768px `h1`
+  is 36px, `h2` 30px, `h3` 24px, and `h4`–`h6` 20px. From 768px up they use
+  the role sizes, which are larger than the theme's old defaults: `h1` 60px
+  (was 48px), `h2` 48px (36px), `h3` 36px (30px), `h4` 30px (24px), `h5`
+  24px (20px), and `h6` 20px (16px).
+- Core Table block cells and captions now use the 16px `md` text preset, as
+  spectre-ui 5.8.0's `sp-table` does. They were 14px.
+- The token font scale now matches Tailwind (spectre-tokens 4.14.0), so
   `--sp-font-lg-*` through `--sp-font-6xl-*` each render one step smaller.
   Every direct use in the theme moved one step up so it keeps its size: the
-  quote text (`xl`, 20px), pull-quote text (`3xl`, 30px), Statement text
-  (`5xl`, 48px) and mark (`7xl`, 72px), and the `theme.json` `h1`–`h5`
-  heading defaults (`5xl` down to `xl`; `h6` stays `md`). The editor
+  quote text (`xl`, 20px), pull-quote text (`3xl`, 30px), and Statement text
+  (`5xl`, 48px) and mark (`7xl`, 72px). The editor
   font-size presets keep their step names, so `LG` through `6XL` now offer
   the new, smaller sizes, as spectre-ui's `.sp-text--*` presets do.
 - The **System** colour mode no longer uses an inline script. The theme sets

@@ -195,8 +195,8 @@ figure.wp-block-table table {
   border-collapse: collapse;
   color: var(--sp-table-text);
   font-family: var(--sp-font-family-sans);
-  font-size: var(--sp-font-sm-size);
-  line-height: var(--sp-font-sm-line-height);
+  font-size: var(--sp-font-md-size);
+  line-height: var(--sp-font-md-line-height);
   text-align: start;
 }
 
@@ -230,7 +230,8 @@ figure.wp-block-table :is(figcaption, caption) {
   margin: 0;
   padding-block: var(--sp-space-8);
   color: var(--sp-table-caption-text);
-  font-size: var(--sp-font-sm-size);
+  font-size: var(--sp-font-md-size);
+  line-height: var(--sp-font-md-line-height);
   text-align: start;
 }
 

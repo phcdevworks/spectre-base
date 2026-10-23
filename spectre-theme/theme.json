@@ -106,12 +106,12 @@
                     }
                 }
             },
-            "h1": { "typography": { "fontSize": "var(--sp-font-5xl-size)", "lineHeight": "var(--sp-font-5xl-line-height)", "fontWeight": "var(--sp-font-5xl-weight)" } },
-            "h2": { "typography": { "fontSize": "var(--sp-font-4xl-size)", "lineHeight": "var(--sp-font-4xl-line-height)", "fontWeight": "var(--sp-font-4xl-weight)" } },
-            "h3": { "typography": { "fontSize": "var(--sp-font-3xl-size)", "lineHeight": "var(--sp-font-3xl-line-height)", "fontWeight": "var(--sp-font-3xl-weight)" } },
-            "h4": { "typography": { "fontSize": "var(--sp-font-2xl-size)",  "lineHeight": "var(--sp-font-2xl-line-height)",  "fontWeight": "var(--sp-font-2xl-weight)" } },
-            "h5": { "typography": { "fontSize": "var(--sp-font-xl-size)",  "lineHeight": "var(--sp-font-xl-line-height)",  "fontWeight": "var(--sp-font-xl-weight)" } },
-            "h6": { "typography": { "fontSize": "var(--sp-font-md-size)",  "lineHeight": "var(--sp-font-md-line-height)",  "fontWeight": "var(--sp-font-md-weight)" } }
+            "h1": { "typography": { "fontSize": "var(--sp-heading-h1-size)", "lineHeight": "var(--sp-heading-h1-line-height)", "fontWeight": "var(--sp-heading-h1-weight)", "letterSpacing": "var(--sp-heading-h1-letter-spacing)" } },
+            "h2": { "typography": { "fontSize": "var(--sp-heading-h2-size)", "lineHeight": "var(--sp-heading-h2-line-height)", "fontWeight": "var(--sp-heading-h2-weight)", "letterSpacing": "var(--sp-heading-h2-letter-spacing)" } },
+            "h3": { "typography": { "fontSize": "var(--sp-heading-h3-size)", "lineHeight": "var(--sp-heading-h3-line-height)", "fontWeight": "var(--sp-heading-h3-weight)", "letterSpacing": "var(--sp-heading-h3-letter-spacing)" } },
+            "h4": { "typography": { "fontSize": "var(--sp-heading-h4-size)", "lineHeight": "var(--sp-heading-h4-line-height)", "fontWeight": "var(--sp-heading-h4-weight)", "letterSpacing": "var(--sp-heading-h4-letter-spacing)" } },
+            "h5": { "typography": { "fontSize": "var(--sp-heading-h5-size)", "lineHeight": "var(--sp-heading-h5-line-height)", "fontWeight": "var(--sp-heading-h5-weight)", "letterSpacing": "var(--sp-heading-h5-letter-spacing)" } },
+            "h6": { "typography": { "fontSize": "var(--sp-heading-h6-size)", "lineHeight": "var(--sp-heading-h6-line-height)", "fontWeight": "var(--sp-heading-h6-weight)", "letterSpacing": "var(--sp-heading-h6-letter-spacing)" } }
         }
     }
 }
