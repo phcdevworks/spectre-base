@@ -4,12 +4,21 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+### Security
+
+- `npm audit` now reports 0 vulnerabilities. Before, it reported 15 (1 high,
+  14 moderate). New dev-dependency overrides: `@wordpress/env` gets
+  `rimraf` ^6.1.4, which brings patched `glob` and `minimatch`.
+  `@wp-playground/storage` gets `isomorphic-git` ^1.44.14, which fixes the
+  path traversal and symlink write advisories. `@typescript-eslint/typescript-estree`
+  gets `minimatch` ^11.0.8.
+
 ### Changed
 
-- The `allowScripts` entry for `fs-ext-extra-prebuilt` now names 2.2.16, the
-  version `@wordpress/env` installs. With the old 2.2.7 entry, npm blocked its
-  install script.
-- Updated to `spectre-tokens` 4.15.0, `spectre-ui` 5.8.0, and
+- The `allowScripts` entry for `fs-ext-extra-prebuilt` now names 2.2.17, the
+  version `@wordpress/env` installs. With the old 2.2.7 entry, and later the
+  2.2.16 entry, npm blocked its install script.
+- Updated to `spectre-tokens` 4.15.0, `spectre-ui` 5.9.0, and
   `spectre-components` 1.25.0.
 - The `theme.json` `h1`–`h6` defaults now read spectre-tokens' heading roles
   (`--sp-heading-h*` size, line height, weight, and letter spacing) instead
