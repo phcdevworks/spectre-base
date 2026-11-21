@@ -182,7 +182,7 @@ When bumping the version, update all three locations:
 GitHub Actions runs on every push and PR to `main`:
 - `npm run check`
 
-Node matrix: 24.18.0 and 24.x. PHP: 8.2.
+Node matrix: 24.x only (`@php-wasm/*` requires Node >=24.18.0, so no 22.x leg). PHP: 8.2.
 
 WordPress smoke test runs separately and installs a real WordPress instance to
 verify core routes.
